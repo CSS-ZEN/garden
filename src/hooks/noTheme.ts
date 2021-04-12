@@ -1,11 +1,11 @@
 
-import { useLayoutEffect } from 'react'
+import { useEffect } from 'react'
 
 /**
  * @description it removes the second style sheet in '_app.js'
  */
 export default function noTheme () {
-    useLayoutEffect(() => {
+    useEffect(() => {
         const $styles = document.head.querySelectorAll('style')
         const $themeStyle = $styles[1]
         if ($themeStyle) document.head.removeChild($themeStyle)

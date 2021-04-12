@@ -53,16 +53,16 @@ export default function Home () {
                     <p>Where possible, we would like to see mostly <abbr title="Cascading Style Sheets, levels 1 and 2">CSS 1 &amp; 2</abbr> usage. <abbr title="Cascading Style Sheets, levels 3 and 4">CSS 3 &amp; 4</abbr> should be limited to widely-supported elements only, or strong fallbacks should be provided. The CSS Zen Garden is about functional, practical <abbr title="Cascading Style Sheets">CSS</abbr> and not the latest bleeding-edge tricks viewable by 2% of the browsing public. The only real requirement we have is that your <abbr title="Cascading Style Sheets">CSS</abbr> validates.</p>
                     <p>Luckily, designing this way shows how well various browsers have implemented <abbr title="Cascading Style Sheets">CSS</abbr> by now. When sticking to the guidelines you should see fairly consistent results across most modern browsers. Due to the sheer number of user agents on the web these days &#8212; especially when you factor in mobile &#8212; pixel-perfect layouts may not be possible across every platform. That&#8217;s okay, but do test in as many as you can. Your design should work in at least IE9+ and the latest Chrome, Firefox, iOS and Android browsers (run by over 90% of the population).</p>
                     <p>We ask that you submit original artwork. Please respect copyright laws. Please keep objectionable material to a minimum, and try to incorporate unique and interesting visual themes to your work. We&#8217;re well past the point of needing another garden-related design.</p>
-                    <p>This is a learning exercise as well as a demonstration. You retain full copyright on your graphics (with limited exceptions, see <a href="http://www.mezzoblue.com/zengarden/submit/guidelines/">submission guidelines</a>), but we ask you release your <abbr title="Cascading Style Sheets">CSS</abbr> under a Creative Commons license identical to the <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" title="View the Zen Garden's license information.">one on this site</a> so that others may learn from your work.</p>
-                    <p role="contentinfo">By <a href="http://www.mezzoblue.com/">Dave Shea</a>. Bandwidth graciously donated by <a href="http://www.mediatemple.net/">mediatemple</a>. Now available: <a href="http://www.amazon.com/exec/obidos/ASIN/0321303474/mezzoblue-20/">Zen Garden, the book</a>.</p>
+                    <p>This is a learning exercise as well as a demonstration. You retain full copyright on your graphics (with limited exceptions, see <a href="http://www.mezzoblue.com/zengarden/submit/guidelines/">submission guidelines</a>), but we ask you release your <abbr title="Cascading Style Sheets">CSS</abbr> under a Creative Commons license identical to the <a href="https://raw.githubusercontent.com/csszen/garden/master/LICENSE" title="View the Zen Garden's license information.">one on this site</a> so that others may learn from your work.</p>
+                    <p role="contentinfo">By <a href="http://www.mezzoblue.com/">Dave Shea</a>. Graciously hosted by <a href="https://vercel.com/">Vercel</a>. Now available: <a href="http://www.amazon.com/exec/obidos/ASIN/0321303474/mezzoblue-20/">Zen Garden, the book</a>.</p>
                 </div>
 
                 <footer>
-                    <a href="http://validator.w3.org/check/referer" title="Check the validity of this site&#8217;s HTML" className="zen-validate-html">HTML</a>
-                    <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Check the validity of this site&#8217;s CSS" className="zen-validate-css">CSS</a>
-                    <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" title="View the Creative Commons license of this site: Attribution-NonCommercial-ShareAlike." className="zen-license">CC</a>
-                    <a href="http://mezzoblue.com/zengarden/faq/#aaa" title="Read about the accessibility of this site" className="zen-accessibility">A11y</a>
-                    <a href="https://github.com/mezzoblue/csszengarden.com" title="Fork this site on Github" className="zen-github">GH</a>
+                    <a href="http://validator.w3.org/check/referer" target="_self" title="Check the validity of this site&#8217;s HTML" className="zen-validate-html">HTML</a>
+                    <a href="http://jigsaw.w3.org/css-validator/check/referer" target="_self" title="Check the validity of this site&#8217;s CSS" className="zen-validate-css">CSS</a>
+                    <a href="https://raw.githubusercontent.com/csszen/garden/master/LICENSE" target="_blank" rel="noopener" title="View the Creative Commons license of this site: Attribution-NonCommercial-ShareAlike." className="zen-license">CC</a>
+                    <a href="https://github.com/csszen/garden/issues" target="_blank" rel="noopener" title="Read about the accessibility of this site" className="zen-accessibility">A11y</a>
+                    <a href="https://github.com/csszen/garden" target="_blank" rel="noopener" title="Fork this site on Github" className="zen-github">GH</a>
                 </footer>
 
             </div>
@@ -73,30 +73,14 @@ export default function Home () {
                         <h3 className="select">Select a Design:</h3>
                         <nav>
                             <ul>
-                                <li>
-                                    <a href="/221/" className="design-name">Mid Century Modern</a> by <a href="http://andrewlohman.com/" className="designer-name">Andrew Lohman</a>
-                                </li>
-                                <li>
-                                    <a href="/220/" className="design-name">Garments</a> by	<a href="http://danielmall.com/" className="designer-name">Dan Mall</a>
-                                </li>
-                                <li>
-                                    <a href="/219/" className="design-name">Steel</a> by <a href="http://steffen-knoeller.de" className="designer-name">Steffen Knoeller</a>
-                                </li>
-                                <li>
-                                    <a href="/218/" className="design-name">Apothecary</a> by <a href="http://trentwalton.com" className="designer-name">Trent Walton</a>
-                                </li>
-                                <li>
-                                    <a href="/217/" className="design-name">Screen Filler</a> by <a href="http://elliotjaystocks.com/" className="designer-name">Elliot Jay Stocks</a>
-                                </li>
-                                <li>
-                                    <a href="/216/" className="design-name">Fountain Kiss</a> by <a href="http://jeremycarlson.com" className="designer-name">Jeremy Carlson</a>
-                                </li>
-                                <li>
-                                    <a href="/215/" className="design-name">A Robot Named Jimmy</a> by <a href="http://meltmedia.com/" className="designer-name">meltmedia</a>
-                                </li>
-                                <li>
-                                    <a href="/214/" className="design-name">Verde Moderna</a> by <a href="http://www.mezzoblue.com/" className="designer-name">Dave Shea</a>
-                                </li>
+                                <li><a href="/221/" className="design-name">Mid Century Modern</a> by <a href="http://andrewlohman.com/" className="designer-name">Andrew Lohman</a></li>
+                                <li><a href="/220/" className="design-name">Garments</a> by	<a href="http://danielmall.com/" className="designer-name">Dan Mall</a></li>
+                                <li><a href="/219/" className="design-name">Steel</a> by <a href="http://steffen-knoeller.de" className="designer-name">Steffen Knoeller</a></li>
+                                <li><a href="/218/" className="design-name">Apothecary</a> by <a href="http://trentwalton.com" className="designer-name">Trent Walton</a></li>
+                                <li><a href="/217/" className="design-name">Screen Filler</a> by <a href="http://elliotjaystocks.com/" className="designer-name">Elliot Jay Stocks</a></li>
+                                <li><a href="/216/" className="design-name">Fountain Kiss</a> by <a href="http://jeremycarlson.com" className="designer-name">Jeremy Carlson</a></li>
+                                <li><a href="/215/" className="design-name">A Robot Named Jimmy</a> by <a href="http://meltmedia.com/" className="designer-name">meltmedia</a></li>
+                                <li><a href="/214/" className="design-name">Verde Moderna</a> by <a href="http://www.mezzoblue.com/" className="designer-name">Dave Shea</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -104,12 +88,8 @@ export default function Home () {
                         <h3 className="archives">Archives:</h3>
                         <nav>
                             <ul>
-                                <li className="next">
-                                    <a href="/lucky">I'm feeling Lucky <span className="indicator">&rsaquo;</span></a>
-                                </li>
-                                <li className="viewall">
-                                    <a href="/all" title="View every submission to the Zen Garden.">View All Designs</a>
-                                </li>
+                                <li className="next"><a href="/lucky">I'm feeling Lucky <span className="indicator">&rsaquo;</span></a></li>
+                                <li className="viewall"><a href="/all" title="View every submission to the Zen Garden.">View All Designs</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -117,21 +97,11 @@ export default function Home () {
                     <div className="zen-resources" id="zen-resources">
                         <h3 className="resources">Resources:</h3>
                         <ul>
-                            <li className="view-css">
-                                <a href="style.css" title="View the source CSS file of the currently-viewed design.">View This Design&#8217;s <abbr title="Cascading Style Sheets">CSS</abbr></a>
-                            </li>
-                            <li className="css-resources">
-                                <a href="http://www.mezzoblue.com/zengarden/resources/" title="Links to great sites with information on using CSS."><abbr title="Cascading Style Sheets">CSS</abbr> Resources </a>
-                            </li>
-                            <li className="zen-faq">
-                                <a href="http://www.mezzoblue.com/zengarden/faq/" title="A list of Frequently Asked Questions about the Zen Garden."><abbr title="Frequently Asked Questions">FAQ</abbr></a>
-                            </li>
-                            <li className="zen-submit">
-                                <a href="http://www.mezzoblue.com/zengarden/submit/" title="Send in your own CSS file.">Submit a Design</a>
-                            </li>
-                            <li className="zen-translations">
-                                <a href="http://www.mezzoblue.com/zengarden/translations/" title="View translated versions of this page.">Translations</a>
-                            </li>
+                            <li className="view-css"><a href="style.css" title="View the source CSS file of the currently-viewed design.">View This Design&#8217;s <abbr title="Cascading Style Sheets">CSS</abbr></a></li>
+                            <li className="css-resources"><a href="http://www.mezzoblue.com/zengarden/resources/" title="Links to great sites with information on using CSS."><abbr title="Cascading Style Sheets">CSS</abbr> Resources </a></li>
+                            <li className="zen-faq"><a href="http://www.mezzoblue.com/zengarden/faq/" title="A list of Frequently Asked Questions about the Zen Garden."><abbr title="Frequently Asked Questions">FAQ</abbr></a></li>
+                            <li className="zen-submit"><a href="http://www.mezzoblue.com/zengarden/submit/" title="Send in your own CSS file.">Submit a Design</a></li>
+                            <li className="zen-translations"><a href="http://www.mezzoblue.com/zengarden/translations/" title="View translated versions of this page.">Translations</a></li>
                         </ul>
                     </div>
                 </div>
