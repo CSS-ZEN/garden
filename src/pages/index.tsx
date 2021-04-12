@@ -1,16 +1,14 @@
-import Head from 'next/head'
+import Head from 'components/head'
+
 
 export default function Home () {
     return (
         <div className="page-wrapper">
-            <Head>
-                <title>CSS Zen Garden: The Beauty of CSS Design</title>
-                <link rel="icon" href="/favicon.ico" />
-
-                <meta name="author" content="Dave Shea" />
-                <meta name="description" content="A demonstration of what can be accomplished visually through CSS-based design." />
-                <meta name="robots" content="all" />
-            </Head>
+            <Head
+              title="CSS Zen Garden: The Beauty of CSS Design"
+              author="Dave Shea"
+              description="A demonstration of what can be accomplished visually through CSS-based design."
+            />
 
             <section className="intro" id="zen-intro">
                 <header>
@@ -107,10 +105,10 @@ export default function Home () {
                         <nav>
                             <ul>
                                 <li className="next">
-                                    <a href="/214/page1">Next Designs <span className="indicator">&rsaquo;</span></a>
+                                    <a href="/lucky">I'm feeling Lucky <span className="indicator">&rsaquo;</span></a>
                                 </li>
                                 <li className="viewall">
-                                    <a href="http://www.mezzoblue.com/zengarden/alldesigns/" title="View every submission to the Zen Garden.">View All Designs</a>
+                                    <a href="/all" title="View every submission to the Zen Garden.">View All Designs</a>
                                 </li>
                             </ul>
                         </nav>
