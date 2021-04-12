@@ -1,12 +1,12 @@
 
 interface IProps {
-    class?: string
+    className?: string
     children: any
     clearfix?: boolean
 }
 
 export default function Fabric ({
-    class: className = '',
+    className: className = '',
     children,
     clearfix = false,
 }: IProps) {
