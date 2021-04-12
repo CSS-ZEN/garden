@@ -1,14 +1,18 @@
+
 import Head from 'components/head'
 
 
 export default function Home () {
+
     return (
         <div className="page-wrapper">
             <Head
               title="CSS Zen Garden: The Beauty of CSS Design"
               author="Dave Shea"
               description="A demonstration of what can be accomplished visually through CSS-based design."
-            />
+            >
+                <link rel="stylesheet" type="text/css" href="/api/theme"></link>
+            </Head>
 
             <section className="intro" id="zen-intro">
                 <header>
