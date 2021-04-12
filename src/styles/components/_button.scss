@@ -1,0 +1,92 @@
+.fabric {
+  .fabric-button {
+    position: relative;
+    height: 2rem;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 0 1rem;
+    background-color: #fff;
+    border: 1px solid $fabricGrey;
+    color: $fabricBlack;
+    border-radius: 0;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: top;
+    min-width: 5rem;
+    outline: transparent;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+    text-overflow: ellipsis;
+    appearance: button;
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    &:hover {
+      background-color: $fabricWhite;
+      color: $fabricDeepBlack;
+      &::after {
+        background: rgba(#fff, 0.1);
+      }
+    }
+    &:active {
+      background-color: $fabricLightWhite;
+      color: $fabricDeepBlack;
+      &::after {
+        background: rgba(#000, 0.05);
+      }
+    }
+
+    &--primary {
+      background-color: $fabricBlue;
+      border-color: $fabricBlue;
+      color: #fff;
+      &:hover {
+        background-color: $fabricLightBlue;
+        border-color: $fabricLightBlue;
+        color: #fff;
+      }
+      &:active {
+        background-color: $fabricDeepBlue;
+        border-color: $fabricDeepBlue;
+        color: #fff;
+      }
+    }
+
+    &:disabled {
+      background-color: $fabricDeepWhite;
+      border-color: $fabricDeepWhite;
+      color: $fabricLightGrey;
+    }
+
+    &--borderless {
+      border-color: transparent;
+    }
+
+    &--icon {
+      padding: 0;
+      font-size: 1.5rem;
+      min-width: 0;
+      width: 2rem;
+      height: 2rem;
+    }
+
+    &__label {
+      margin: 0 0.25rem;
+      line-height: 1;
+      display: block;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+  }
+}
