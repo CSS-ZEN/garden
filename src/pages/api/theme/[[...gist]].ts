@@ -2,9 +2,8 @@
 
 import type {NextApiRequest, NextApiResponse} from 'next'
 
+import {DEFAULT_THEME_FILE, DEFAULT_THEME_ID} from 'src/config'
 
-const DEFAULT_THEME_ID = 'f4b657c4e3b99c63281b079f66d4dc34'
-const DEFAULT_THEME_FILE = 'theme.css'
 
 async function fetchGist (gistid) {
     const url = `https://api.github.com/gists/${gistid}`
