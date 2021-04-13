@@ -24,8 +24,17 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         if (ok) {
             if (body.files && body.files[filename]) {
                 const file = body.files[filename]
+
+                res.setHeader('Content-Type', 'text/plain; charset=utf-8')
                 if (filename.endsWith('.css')) {
                     res.setHeader('Content-Type', 'text/css')
+                } else if (filename.endsWith('.json')) {
+                    try {
+                        file.content = JSON.parse(file.content)
+                        res.setHeader('Content-Type', 'application/json; charset=utf-8')
+                    } catch (err) {
+                        // just fallback to text and do nothing
+                    }
                 }
                 res.status(200).send(file.content)
             } else res.status(404).send('Content Not Found')
