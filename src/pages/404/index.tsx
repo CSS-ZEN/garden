@@ -1,6 +1,5 @@
 
 import {Head, Fabric, Quote, Button} from 'components'
-import {noTheme} from 'hooks'
 
 import styles from './404.module.scss'
 
@@ -10,7 +9,6 @@ const navigateBack = () => {
 }
 
 export default function CountentNotFound () {
-    noTheme()
 
     return (
         <Fabric className={styles['f0f-container']}>
