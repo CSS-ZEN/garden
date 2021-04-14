@@ -11,7 +11,7 @@ const navigateBack = () => {
 export default function CountentNotFound () {
 
     return (
-        <Fabric className={styles['f0f-container']}>
+        <Fabric className={styles['f0f-container']} full>
             <Head title="Content Not Found | CSS Zen Garden"/>
             <div className="relative"><hgroup data-word="404">404<div className="noise" /></hgroup></div>
             <Fabric><Quote inline quote="远方除了遥远一无所有" author="海子" work="远方" /></Fabric>
