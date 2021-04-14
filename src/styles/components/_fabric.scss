@@ -4,6 +4,13 @@
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  &--full {
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
   .fabric-container {
     margin: 0;
     padding: 0;
