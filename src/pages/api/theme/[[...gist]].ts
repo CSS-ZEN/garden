@@ -3,15 +3,8 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 
 import {DEFAULT_THEME_FILE, DEFAULT_THEME_ID} from 'src/config'
+import {fetchGist} from 'src/helpers'
 
-
-async function fetchGist (gistid) {
-    const url = `https://api.github.com/gists/${gistid}`
-    const r = await fetch(url)
-    const {status, ok} = r
-    const body = await r.json()
-    return {ok, status, body}
-}
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
     const {gist = []} = req.query
