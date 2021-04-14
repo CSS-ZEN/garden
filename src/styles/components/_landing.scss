@@ -1,0 +1,120 @@
+$BAR_WIDTH: 3px;
+$BAR_HEIGHT: 25px;
+$BAR_COUNT: 7;
+
+$BAR_ANIMATION_DURATION: 2.8s;
+$BAR_ANIMATION_DURATION_SINGLE: -($BAR_ANIMATION_DURATION / $BAR_COUNT);
+
+.fabric.domino-container {
+  z-index: $zDomino;
+  background-color: #f7f7f7;
+  color: #333;
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+  &--ready {
+    z-index: -1;
+    opacity: 0;
+  }
+
+  .domino-description {
+    padding: 0 40px;
+    &--scrawcrow {
+      visibility: hidden;
+    }
+  }
+
+  .fabric-container {
+    margin-top: -60px;
+  }
+
+  .dominos {
+    position: relative;
+    padding: 0;
+    width: 100px;
+    height: $BAR_HEIGHT;
+    list-style: none;
+    margin: 0 auto;
+
+    .domino {
+      display: block;
+      position: absolute;
+      right: 0;
+      width: $BAR_WIDTH;
+      height: $BAR_HEIGHT;
+      border-radius: 1px;
+      transform-origin: 50% 100%;
+      background-color: #333;
+      animation: domino linear $BAR_ANIMATION_DURATION infinite;
+      will-change: transform;
+
+      &:nth-child(1) {
+        transform: translateX(0) rotate(0deg);
+        opacity: .2;
+      }
+      &:nth-child(2) {
+        transform: translateX(-15px) rotate(0deg);
+        animation-delay: $BAR_ANIMATION_DURATION_SINGLE;
+      }
+      &:nth-child(3) {
+        transform: translateX(-30px) rotate(0deg);
+        animation-delay: ($BAR_ANIMATION_DURATION_SINGLE * 2);
+      }
+      &:nth-child(4) {
+        transform: translateX(-45px) rotate(10deg);
+        animation-delay: ($BAR_ANIMATION_DURATION_SINGLE * 3);
+      }
+      &:nth-child(5) {
+        transform: translateX(-60px) rotate(40deg);
+        animation-delay: ($BAR_ANIMATION_DURATION_SINGLE * 4);
+      }
+      &:nth-child(6) {
+        transform: translateX(-75px) rotate(62deg);
+        animation-delay: ($BAR_ANIMATION_DURATION_SINGLE * 5);
+      }
+      &:nth-child(7) {
+        transform: translateX(-90px) rotate(72deg);
+        animation-delay: ($BAR_ANIMATION_DURATION_SINGLE * 6);
+      }
+    }
+  }
+}
+
+
+@keyframes domino {
+  0% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  14.28% {
+    transform: translateX(-15px) rotate(0deg);
+    opacity: 1;
+  }
+  28.56% {
+    transform: translateX(-30px) rotate(0deg);
+    opacity: 1;
+  }
+  37.12% {
+    transform: translateX(-39px) rotate(0deg);
+    opacity: 1;
+  }
+  42.84% {
+    transform: translateX(-45px) rotate(10deg);
+    opacity: 1;
+  }
+  57.12% {
+    transform: translateX(-60px) rotate(40deg);
+    opacity: 1;
+  }
+  71.4% {
+    transform: translateX(-75px) rotate(62deg);
+    opacity: 1;
+  }
+  85.68% {
+    transform: translateX(-90px) rotate(72deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-105px) rotate(74deg);
+    opacity: 0;
+  }
+}
