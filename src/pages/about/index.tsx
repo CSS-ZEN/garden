@@ -1,10 +1,10 @@
 
 import {GetStaticProps, InferGetStaticPropsType} from 'next'
 
-import Head from 'components/head'
-import markdownToHtml from 'src/helpers/markdownToHtml'
+import Head from 'src/components/head'
 import Fabric from 'src/components/fabric'
 import Markdown, {IMarkdown} from 'src/components/markdown'
+import markdownToHtml from 'src/helpers/markdownToHtml'
 import style from './about.module.scss'
 
 

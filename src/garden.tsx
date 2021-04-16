@@ -1,5 +1,5 @@
 
-import Head from 'components/head'
+import Head from 'src/components/head'
 
 
 interface IThemeManifest {
@@ -101,7 +101,7 @@ export default function Garden ({theme, themeChoices = []}: IGardenProps) {
                         <h3 className="select">Select a Design:</h3>
                         <nav>
                             <ul>
-                                {themeChoices.map(themeChoice => <ThemeChoice theme={themeChoice} />)}
+                                {themeChoices.map(themeChoice => <ThemeChoice theme={themeChoice} key={themeChoice.id} />)}
                             </ul>
                         </nav>
                     </div>
