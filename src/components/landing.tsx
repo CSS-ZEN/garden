@@ -1,11 +1,11 @@
 
 import {useState} from 'react'
 
+import {LANDING_THRESHOLD} from 'src/config'
+import {useTimer} from 'src/hooks'
+
 import Fabric from './fabric'
 import Quote from './quote'
-import {LANDING_THRESHOLD} from 'src/config'
-import {useTimer} from 'hooks'
-
 
 
 export default function Landing () {

@@ -2,13 +2,13 @@
 import {Head, Fabric} from 'src/components'
 
 
-export default function All () {
+export default function Submit () {
     return (
         <Fabric>
-            <Head title="All Designs | CSS Zen Garden" />
+            <Head title="Submit | CSS Zen Garden" />
 
             <Fabric clearfix>
-                All Designs
+                Submit
             </Fabric>
         </Fabric>
     )

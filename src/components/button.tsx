@@ -1,6 +1,6 @@
 
 import Fabric from './fabric'
-import {useBem} from 'hooks'
+import {useBem} from 'src/hooks'
 
 
 interface IButtonProps {

@@ -6,12 +6,12 @@ import {DEFAULT_THEME_FILE, DEFAULT_THEME_ID} from 'src/config'
 import {fetchGist} from 'src/helpers'
 
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
     const {gist = []} = req.query
     const gistid = gist[0] || DEFAULT_THEME_ID
     const filename = gist[1] || DEFAULT_THEME_FILE
 
-    fetchGist(gistid).then(r => {
+    return fetchGist(gistid).then(r => {
         const {ok, status, body} = r
         if (ok) {
             if (body.files && body.files[filename]) {

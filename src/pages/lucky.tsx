@@ -1,5 +1,6 @@
 
-import {Head, Fabric} from 'components'
+import {Head, Fabric} from 'src/components'
+
 
 export default function Lucky () {
     return (
