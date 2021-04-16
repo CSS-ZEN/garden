@@ -3,7 +3,7 @@ import {GetStaticProps, GetStaticPaths, InferGetStaticPropsType} from 'next'
 import {useRouter} from 'next/router'
 import type {ParsedUrlQuery} from 'querystring'
 
-import {DEFAULT_BUILD_THEMES} from 'src/config'
+import {DEFAULT_BUILD_THEMES, THEME_REVALIDATION_INTERVAL} from 'src/config'
 import {getThemePropsById, isValidTheme} from 'src/helpers'
 import Landing from 'src/components/landing'
 import Garden, {IGardenProps} from 'src/garden'
@@ -44,6 +44,6 @@ export const getStaticProps: GetStaticProps<IGardenProps, IStaticProps> = async 
             theme,
             themeChoices: [theme].filter(isValidTheme),
         },
-        revalidate: 60, // incremental static regeneration in 1 minute
+        revalidate: THEME_REVALIDATION_INTERVAL,
     }
 }
