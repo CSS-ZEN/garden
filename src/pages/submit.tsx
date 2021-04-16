@@ -1,6 +1,7 @@
 
 import {Head, Fabric} from 'src/components'
 
+
 export default function Submit () {
     return (
         <Fabric>

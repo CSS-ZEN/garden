@@ -4,11 +4,6 @@ import {Head, Fabric, Quote, Button} from 'src/components'
 import styles from './404.module.scss'
 
 
-const navigateBack = () => {
-    if (history.length) return history.back()
-    return location.assign('/')
-}
-
 export default function CountentNotFound () {
 
     return (
@@ -23,4 +18,9 @@ export default function CountentNotFound () {
             </Fabric>
         </Fabric>
     )
+}
+
+const navigateBack = () => {
+    if (history.length) return history.back()
+    return location.assign('/')
 }
