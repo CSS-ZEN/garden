@@ -17,18 +17,10 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
             if (body.files && body.files[filename]) {
                 const file = body.files[filename]
 
-                res.setHeader('Content-Type', 'text/plain; charset=utf-8')
-                if (filename.endsWith('.css')) {
-                    res.setHeader('Content-Type', 'text/css')
-                } else if (filename.endsWith('.json')) {
-                    try {
-                        file.content = JSON.parse(file.content)
-                        res.setHeader('Content-Type', 'application/json; charset=utf-8')
-                    } catch (err) {
-                        // just fallback to text and do nothing
-                    }
-                }
-                res.status(200).send(file.content)
+                res.setHeader('Content-Type', file.type)
+                if (file.type.startsWith('image/') && file.language !== 'SVG') {
+                    fetch(file.raw_url).then(r => res.status(r.status).send(r.body))
+                } else res.status(200).send(file.content)
             } else res.status(404).send('Content Not Found')
         } else res.status(status).send(body.message)
     }).catch(err => res.status(500).send(err))

@@ -1,0 +1,21 @@
+.markdown-wrapper {
+  .markdown {
+    max-width: 700px;
+  }
+}
+
+.markdown {
+  font-size: 14px;
+  padding: 16px 32px;
+  @media (max-width: 520px) {
+    padding: 8px 16px;
+  }
+  @media (max-width: 375px) {
+    article {
+      > p:first-of-type > a > img {
+        height: 100px;
+        padding-top: 60px;
+      }
+    }
+  }
+}
