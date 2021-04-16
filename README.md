@@ -2,27 +2,13 @@
 
 # CSS Zen Garden
 
-It originates from [mezzoblue/csszengarden.com](https://github.com/mezzoblue/csszengarden.com) which looks [not maintained any more](https://github.com/mezzoblue/csszengarden.com/issues/114).
+It originates from [mezzoblue/csszengarden.com](https://github.com/mezzoblue/csszengarden.com) which seems [not maintained any more](https://github.com/mezzoblue/csszengarden.com/issues/114).
 
 Deployed with [Vercel](https://vercel.com/) at [https://czg.vercel.app](https://czg.vercel.app).
 
 ## How does it work?
 
 It uses gists as themes and [builds static pages incremently](https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration) with [Next.js](https://nextjs.org/) hosted on [Vercel](https://vercel.com/). Url like `https://czg.vercel.app/theme/[gistid]` will be built with the corresponding gist's content when viewed. Thank to this stack, you can share your own theme freely. Any gist can be viewed as a theme in this way, as long as it confronts to specifications of a theme gist.
-
-The theme gist is supposed to have these things at least:
-
-```bash
-gist
-├── theme.css
-└── manifest.json
-```
-
-All contents of the gist can be accessed with `https://czg.vercel.app/api/theme/[gistid]/[filename]` like [https://czg.vercel.app/api/theme/f4b657c4e3b99c63281b079f66d4dc34/theme.css](https://czg.vercel.app/api/theme/f4b657c4e3b99c63281b079f66d4dc34/theme.css).
-
-You can take [the default theme we use](https://gist.github.com/csszen/f4b657c4e3b99c63281b079f66d4dc34) as an example.
-
-All private gists of [csszen](https://gist.github.com/csszen) will be included as an offical themes. You may [submit an issue](https://github.com/csszen/garden/issues/new) labeled `theme request` for theme fork request if you want to make your theme one of our page's theme choices like [csszen/garden#4](https://github.com/csszen/garden/issues/4).
 
 ## Started here, heading...?
 
@@ -45,7 +31,7 @@ If you would like to contribute to the project or you are just interesed in what
 - Modify the garden page text to make it make sense.
 - Locale/translation support, and maybe locale themes support.
 
-This list might not be up-to-date, you can access more acurrate informations at [issues labeled `TODO`](https://github.com/csszen/garden/issues?q=is%3Aopen+is%3Aissue+label%3ATODO).
+This list might not be up-to-date, you can access more acurrate informations at [issues labeled `todo`](https://github.com/csszen/garden/issues?q=is%3Aopen+is%3Aissue+label%3Atodo).
 
 ## FAQ
 
@@ -58,6 +44,13 @@ If it's convinent for you to encode the images, I suggest hard-coded [Data URI](
 Or you can also choose to push images directly into a gist with git, take [how-to-add-image-to-gist.md](https://gist.github.com/csszen/158006258c922e2f2b8d6ee78014a33b) as a hint. You can fetch the image like [`/api/theme/10a7af172c2469f0b6481eedfb4ce63c/robot.png`](https://czg.vercel.app/api/theme/10a7af172c2469f0b6481eedfb4ce63c/robot.png)
 
 Both methods also work when it comes to fonts.
+
+
+### How can I use fonts in my theme?
+
+You may add import css declartion in your theme like [the default theme](https://gist.github.com/csszen/f4b657c4e3b99c63281b079f66d4dc34#file-theme-css-L5). It looks like `@import url("https://use.typekit.net/xxxxxxx.css");`.
+
+Or you may mannully attach fonts to the gist like images and declare font faces.
 
 ### Is postcss tools built in? Can I write Sass/Less?
 
@@ -73,15 +66,29 @@ Second, we always need a place/project to gather things around. We need a projec
 
 No, it's easy to implement, but you shouldn't. Let's explore and see what we can do with the Zen of CSS.
 
-### Who are you, I mean @csszen, what's relation between this project and the original?
+### What's relation between this project and the original?
 
-This is **unofficial** and personal maintained currently. You may guess who I am but I will declined to comment.
-
-You can find me on Github only. Submit an [issue](https://github.com/csszen/garden/issues) for things related to development or things other than that.
+This is **unofficial** and personal maintained currently. Submit an [issue](https://github.com/csszen/garden/issues) for things related to development or things other than that.
 
 The whole project is provided with [Vercel](https://vercel.com/)/[Github](https://github.com) free plans so sponsorships are unnecessary, or at least for now.
 
-Contibutions welcomed. Thoughts welcomed.
+Contributions welcomed. Thoughts welcomed.
+
+## Submission Guidelines
+
+The theme gist is supposed to have these things at least:
+
+```bash
+gist
+├── theme.css
+└── manifest.json
+```
+
+All contents of the gist can be accessed with `https://czg.vercel.app/api/theme/[gistid]/[filename]` like [https://czg.vercel.app/api/theme/f4b657c4e3b99c63281b079f66d4dc34/theme.css](https://czg.vercel.app/api/theme/f4b657c4e3b99c63281b079f66d4dc34/theme.css).
+
+You can take [the default theme we use](https://gist.github.com/csszen/f4b657c4e3b99c63281b079f66d4dc34) as an example.
+
+All private gists of [csszen](https://gist.github.com/csszen) will be included as an offical themes. You may [submit an issue](https://github.com/csszen/garden/issues/new) labeled `theme request` for theme fork request if you want to make your theme one of our page's theme choices like [csszen/garden#4](https://github.com/csszen/garden/issues/4).
 
 ## LICENSE
 
