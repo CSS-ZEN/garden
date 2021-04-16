@@ -2,22 +2,32 @@
 import Head from 'components/head'
 
 
-export interface ITheme {
+interface IThemeManifest {
+    author: string
+    contact: string
+    name: string
+}
+
+export interface ITrialTheme {
     id: string
     theme: string
-    manifest?: { // TODO: @sy apply the manifest in garden
-        author?: string
-        contact?: string
-        name?: string
-    }
+    manifest?: IThemeManifest
 }
 
-interface IProps {
-    theme: ITheme
+/**
+ * @description theme forked by csszen are supposed to have all right manifest informations
+ * @todo maybe we can add a bot to apply automatic checks of gist contents in issues
+ * */
+export interface ITheme extends ITrialTheme {
+    manifest: IThemeManifest
 }
 
-export default function Garden ({theme}: IProps) {
+export interface IGardenProps {
+    theme: ITrialTheme,
+    themeChoices?: ITheme[],
+}
 
+export default function Garden ({theme, themeChoices = []}: IGardenProps) {
     return (
         <div className="page-wrapper">
             <Head
@@ -91,14 +101,7 @@ export default function Garden ({theme}: IProps) {
                         <h3 className="select">Select a Design:</h3>
                         <nav>
                             <ul>
-                                <li><a href="/221/" className="design-name">Mid Century Modern</a> by <a href="http://andrewlohman.com/" className="designer-name">Andrew Lohman</a></li>
-                                <li><a href="/220/" className="design-name">Garments</a> by	<a href="http://danielmall.com/" className="designer-name">Dan Mall</a></li>
-                                <li><a href="/219/" className="design-name">Steel</a> by <a href="http://steffen-knoeller.de" className="designer-name">Steffen Knoeller</a></li>
-                                <li><a href="/218/" className="design-name">Apothecary</a> by <a href="http://trentwalton.com" className="designer-name">Trent Walton</a></li>
-                                <li><a href="/217/" className="design-name">Screen Filler</a> by <a href="http://elliotjaystocks.com/" className="designer-name">Elliot Jay Stocks</a></li>
-                                <li><a href="/216/" className="design-name">Fountain Kiss</a> by <a href="http://jeremycarlson.com" className="designer-name">Jeremy Carlson</a></li>
-                                <li><a href="/215/" className="design-name">A Robot Named Jimmy</a> by <a href="http://meltmedia.com/" className="designer-name">meltmedia</a></li>
-                                <li><a href="/214/" className="design-name">Verde Moderna</a> by <a href="http://www.mezzoblue.com/" className="designer-name">Dave Shea</a></li>
+                                {themeChoices.map(themeChoice => <ThemeChoice theme={themeChoice} />)}
                             </ul>
                         </nav>
                     </div>
@@ -115,7 +118,7 @@ export default function Garden ({theme}: IProps) {
                     <div className="zen-resources" id="zen-resources">
                         <h3 className="resources">Resources:</h3>
                         <ul>
-                            <li className="view-css"><a href="style.css" title="View the source CSS file of the currently-viewed design.">View This Design&#8217;s <abbr title="Cascading Style Sheets">CSS</abbr></a></li>
+                            <li className="view-css"><a href={theme.theme} title="View the source CSS file of the currently-viewed design.">View This Design&#8217;s <abbr title="Cascading Style Sheets">CSS</abbr></a></li>
                             <li className="css-resources"><a href="http://www.mezzoblue.com/zengarden/resources/" title="Links to great sites with information on using CSS."><abbr title="Cascading Style Sheets">CSS</abbr> Resources </a></li>
                             <li className="zen-faq"><a href="http://www.mezzoblue.com/zengarden/faq/" title="A list of Frequently Asked Questions about the Zen Garden."><abbr title="Frequently Asked Questions">FAQ</abbr></a></li>
                             <li className="zen-submit"><a href="http://www.mezzoblue.com/zengarden/submit/" title="Send in your own CSS file.">Submit a Design</a></li>
@@ -127,3 +130,8 @@ export default function Garden ({theme}: IProps) {
         </div>
     )
 }
+
+
+const ThemeChoice = ({theme: {id, manifest}}: {theme: ITheme}) => (
+    <li><a href={`/theme/${id}`} className="design-name">{manifest.name}</a> by <a href={manifest.contact} className="designer-name">{manifest.author}</a></li>
+)

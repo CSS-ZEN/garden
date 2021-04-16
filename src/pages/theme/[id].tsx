@@ -4,13 +4,21 @@ import {useRouter} from 'next/router'
 import type {ParsedUrlQuery} from 'querystring'
 
 import {DEFAULT_BUILD_THEMES} from 'src/config'
-import {getThemePropsById} from 'src/helpers'
+import {getThemePropsById, isValidTheme} from 'src/helpers'
 import Landing from 'src/components/landing'
-import Garden, {ITheme} from 'src/garden'
+import Garden, {IGardenProps} from 'src/garden'
 
 
 interface IStaticProps extends ParsedUrlQuery {
     id: string
+}
+
+export default function ThemePage ({theme}: InferGetStaticPropsType<typeof getStaticProps>) {
+    const router = useRouter()
+
+    if (router.isFallback) return <Landing />
+
+    return <Garden theme={theme} />
 }
 
 export const getStaticPaths: GetStaticPaths<IStaticProps> = async ctx => {
@@ -25,14 +33,17 @@ export const getStaticPaths: GetStaticPaths<IStaticProps> = async ctx => {
     }
 }
 
-export const getStaticProps: GetStaticProps<{theme: ITheme}, IStaticProps> = async ({params: {id}}) => getThemePropsById(id)
+export const getStaticProps: GetStaticProps<IGardenProps, IStaticProps> = async ({params: {id}}) => {
+    const theme = await getThemePropsById(id)
 
-const ThemePage = ({theme}: InferGetStaticPropsType<typeof getStaticProps>) => {
-    const router = useRouter()
-
-    if (router.isFallback) return <Landing />
-
-    return <Garden theme={theme} />
+    if (!theme) return {
+        notFound: true
+    }
+    return {
+        props: {
+            theme,
+            themeChoices: [theme].filter(isValidTheme),
+        },
+        revalidate: 60, // incremental static regeneration in 1 minute
+    }
 }
-
-export default ThemePage
