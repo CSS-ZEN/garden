@@ -12,7 +12,7 @@ export default async function getThemesByCursor (cursor?: string): Promise<{
 }> {
     const {gists, pageInfo} = await fetchGists(cursor)
 
-    const themes: ITheme[] = gists.map(({id, files}) => ({
+    const themes: ITheme[] = gists.map(({name: id, files}) => ({
         id,
         theme: `/api/theme/${id}`,
         manifest: safeReadJson(files.find(file => file.name === 'manifest.json').text)

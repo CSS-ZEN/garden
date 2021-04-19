@@ -77,7 +77,7 @@ export default function Garden ({theme, themeChoices}: IGardenProps) {
                         <h3>Participation</h3>
                         <p>Strong visual design has always been our focus. You are modifying this page, so strong <CssAbbr /> skills are necessary too, but the example files are commented well enough that even <CssAbbr /> novices can use them as starting points. Please see the <Link href="https://developer.mozilla.org/en-US/docs/Web/CSS" title="A listing of CSS-related resources"><><CssAbbr /> Resource Guide</></Link> for advanced tutorials and tips on working with <CssAbbr />.</p>
                         <p>You may modify the style sheet in any way you wish, but not the <HtmlAbbr />. This may seem daunting at first if you&#8217;ve never worked this way before, but follow the listed links to learn more, and use the sample files as a guide.</p>
-                        <p>Download the sample <HtmlSource label="HTML" /> and <CssSource id={theme.id} label="CSS" /> to work on a copy locally. Once you have completed your masterpiece (and please, don&#8217;t submit half-finished work) upload your <CssAbbr /> file to a web server under your control. <Link href="/submit"><a title="Use the contact form to send us your CSS file">Send us a link</a></Link> to an archive of that file and all associated assets, and if we choose to use it we will download it and place it on our server.</p>
+                        <p>Download the sample <HtmlSource label="HTML" /> and <CssSource id={theme.id} label="CSS" /> to work on a copy locally. Once you have completed your masterpiece (and please, don&#8217;t submit half-finished work) upload your <CssAbbr /> file to a web server under your control. <Link href="/submit" title="Use the contact form to send us your CSS file">Send us a link</Link> to an archive of that file and all associated assets, and if we choose to use it we will download it and place it on our server.</p>
                     </div>
 
                     <div className="benefits" id="zen-benefits" role="article">
@@ -118,8 +118,8 @@ export default function Garden ({theme, themeChoices}: IGardenProps) {
                             <h3 className="archives">Archives:</h3>
                             <nav>
                                 <ul>
-                                    <li className="next"><Link href="/lucky"><a>I'm feeling Lucky <span className="indicator">&rsaquo;</span></a></Link></li>
-                                    <li className="viewall"><Link href="/all"><a title="View every submission to the Zen Garden.">View All Designs</a></Link></li>
+                                    <li className="next"><Link href="/lucky">I'm feeling Lucky <span className="indicator">&rsaquo;</span></Link></li>
+                                    <li className="viewall"><Link href="/all" title="View every submission to the Zen Garden.">View All Designs</Link></li>
                                 </ul>
                             </nav>
                         </div>
@@ -127,10 +127,10 @@ export default function Garden ({theme, themeChoices}: IGardenProps) {
                         <div className="zen-resources" id="zen-resources">
                             <h3 className="resources">Resources:</h3>
                             <ul>
-                                <li className="view-css"><Link href={`/api/theme/${theme.id}`}><a title="View the source CSS file of the currently-viewed design.">View This Design&#8217;s <CssAbbr /></a></Link></li>
+                                <li className="view-css"><Link href={`/api/theme/${theme.id}`} title="View the source CSS file of the currently-viewed design.">View This Design&#8217;s <CssAbbr /></Link></li>
                                 <li className="css-resources"><Link href="https://developer.mozilla.org/en-US/docs/Web/CSS" title="Links to great sites with information on using CSS."><CssAbbr /> Resources</Link></li>
-                                <li className="zen-about"><Link href="/about"><a title="A list of Frequently Asked Questions about the Zen Garden."><abbr title="Frequently Asked Questions">About</abbr></a></Link></li>
-                                <li className="zen-submit"><Link href="/submit"><a title="Send in your own CSS file.">Submit a Design</a></Link></li>
+                                <li className="zen-about"><Link href="/about" title="A list of Frequently Asked Questions about the Zen Garden."><abbr title="Frequently Asked Questions">About</abbr></Link></li>
+                                <li className="zen-submit"><Link href="/submit" title="Send in your own CSS file.">Submit a Design</Link></li>
                                 {/* <!-- TODO: locale --> <li className="zen-translations"><a href="#" title="View translated versions of this page.">Translations</a></li> */}
                             </ul>
                         </div>
@@ -149,7 +149,7 @@ export default function Garden ({theme, themeChoices}: IGardenProps) {
 
 
 const ThemeChoice = ({theme: {id, manifest}}: {theme: ITheme}) => (
-    <li><Link href={`/theme/${id}`}><a className="design-name">{manifest.name}</a></Link> by <Link href={manifest.contact} className="designer-name">{manifest.author}</Link></li>
+    <li><Link href={`/theme/${id}`} className="design-name">{manifest.name}</Link> by <Link href={manifest.contact} className="designer-name">{manifest.author}</Link></li>
 )
 
 const HtmlSource = ({label}: {label: string}) => {
@@ -163,7 +163,7 @@ const HtmlSource = ({label}: {label: string}) => {
 }
 
 const CssSource = ({id, label}: {id: string, label: string}) => (
-    <Link href={`/api/theme/${id}`}><a title="This page's source CSS code, the file you may modify." download="example.css">{label}</a></Link>
+    <Link href={`/api/theme/${id}`} title="This page's source CSS code, the file you may modify." download="example.css">{label}</Link>
 )
 
 const CssAbbr = () => <abbr title="Cascading Style Sheets">CSS</abbr>

@@ -17,7 +17,7 @@ export default async function fetchGists (fromCursor?: string) {
                 gists: {
                     edges: Array<{
                         node: {
-                            id: string,
+                            name: string,
                             createdAt: string,
                             updatedAt: string,
                             description: string,
@@ -37,7 +37,7 @@ export default async function fetchGists (fromCursor?: string) {
                 gists (first: $take, after: $after, privacy: SECRET, orderBy: {field: CREATED_AT, direction: DESC} ) {
                     edges {
                         node {
-                            id
+                            name
                             createdAt
                             updatedAt
                             description
