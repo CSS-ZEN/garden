@@ -1,7 +1,9 @@
 
-import {useRef} from 'react'
+import {useRef, useState} from 'react'
+
 import Head from 'src/components/head'
 import Link from 'src/components/link'
+import type {IGraphqlPageInfo} from 'src/helpers/fetchGists'
 
 
 interface IThemeManifest {
@@ -13,7 +15,7 @@ interface IThemeManifest {
 export interface ITrialTheme {
     id: string
     theme: string
-    manifest?: IThemeManifest
+    manifest?: Partial<IThemeManifest>
 }
 
 /**
@@ -26,10 +28,13 @@ export interface ITheme extends ITrialTheme {
 
 export interface IGardenProps {
     theme: ITrialTheme,
-    themeChoices?: ITheme[],
+    themeChoices: {
+        themes: ITheme[],
+        pageInfo: IGraphqlPageInfo
+    },
 }
 
-export default function Garden ({theme, themeChoices = []}: IGardenProps) {
+export default function Garden ({theme, themeChoices}: IGardenProps) {
     return (
         <>
             <div className="page-wrapper">
@@ -38,7 +43,8 @@ export default function Garden ({theme, themeChoices = []}: IGardenProps) {
                     author="Dave Shea"
                     description="A demonstration of what can be accomplished visually through CSS-based design."
                 >
-                    <link rel="stylesheet" type="text/css" href={theme.theme}></link>
+                    {/* <link rel="stylesheet" type="text/css" href={theme.theme}></link> */}
+                    <style>{theme.theme}</style>
                 </Head>
 
                 <section className="intro" id="zen-intro">
@@ -49,7 +55,7 @@ export default function Garden ({theme, themeChoices = []}: IGardenProps) {
 
                     <div className="summary" id="zen-summary" role="article">
                         <p>A demonstration of what can be accomplished through <CssAbbr />-based design. Select any style sheet from the list to load it into this page.</p>
-                        <p>Download the example <HtmlSource label="html file" /> and <Link href={theme.theme}><a title="This page's sample CSS, the file you may modify." download="example.css">css file</a></Link></p>
+                        <p>Download the example <HtmlSource label="html file" /> and <CssSource id={theme.id} label="css file" /></p>
                     </div>
 
                     <div className="preamble" id="zen-preamble" role="article">
@@ -69,9 +75,9 @@ export default function Garden ({theme, themeChoices = []}: IGardenProps) {
 
                     <div className="participation" id="zen-participation" role="article">
                         <h3>Participation</h3>
-                        <p>Strong visual design has always been our focus. You are modifying this page, so strong <CssAbbr /> skills are necessary too, but the example files are commented well enough that even <CssAbbr /> novices can use them as starting points. Please see the <Link href="https://developer.mozilla.org/en-US/docs/Web/CSS"><a title="A listing of CSS-related resources"><CssAbbr /> Resource Guide</a></Link> for advanced tutorials and tips on working with <CssAbbr />.</p>
+                        <p>Strong visual design has always been our focus. You are modifying this page, so strong <CssAbbr /> skills are necessary too, but the example files are commented well enough that even <CssAbbr /> novices can use them as starting points. Please see the <Link href="https://developer.mozilla.org/en-US/docs/Web/CSS" title="A listing of CSS-related resources"><><CssAbbr /> Resource Guide</></Link> for advanced tutorials and tips on working with <CssAbbr />.</p>
                         <p>You may modify the style sheet in any way you wish, but not the <HtmlAbbr />. This may seem daunting at first if you&#8217;ve never worked this way before, but follow the listed links to learn more, and use the sample files as a guide.</p>
-                        <p>Download the sample <HtmlSource label="HTML" /> and <Link href={theme.theme}><a title="This page's sample CSS, the file you may modify." download="example.css">CSS</a></Link> to work on a copy locally. Once you have completed your masterpiece (and please, don&#8217;t submit half-finished work) upload your <CssAbbr /> file to a web server under your control. <Link href="/submit"><a title="Use the contact form to send us your CSS file">Send us a link</a></Link> to an archive of that file and all associated assets, and if we choose to use it we will download it and place it on our server.</p>
+                        <p>Download the sample <HtmlSource label="HTML" /> and <CssSource id={theme.id} label="CSS" /> to work on a copy locally. Once you have completed your masterpiece (and please, don&#8217;t submit half-finished work) upload your <CssAbbr /> file to a web server under your control. <Link href="/submit" title="Use the contact form to send us your CSS file">Send us a link</Link> to an archive of that file and all associated assets, and if we choose to use it we will download it and place it on our server.</p>
                     </div>
 
                     <div className="benefits" id="zen-benefits" role="article">
@@ -84,53 +90,23 @@ export default function Garden ({theme, themeChoices = []}: IGardenProps) {
                         <p>Where possible, we would like to see mostly <abbr title="Cascading Style Sheets, levels 1 and 2">CSS 1 &amp; 2</abbr> usage. <abbr title="Cascading Style Sheets, levels 3 and 4">CSS 3 &amp; 4</abbr> should be limited to widely-supported elements only, or strong fallbacks should be provided. The CSS Zen Garden is about functional, practical <CssAbbr /> and not the latest bleeding-edge tricks viewable by 2% of the browsing public. The only real requirement we have is that your <CssAbbr /> validates.</p>
                         <p>Luckily, designing this way shows how well various browsers have implemented <CssAbbr /> by now. When sticking to the guidelines you should see fairly consistent results across most modern browsers. Due to the sheer number of user agents on the web these days &#8212; especially when you factor in mobile &#8212; pixel-perfect layouts may not be possible across every platform. That&#8217;s okay, but do test in as many as you can. Your design should work in at least IE9+ and the latest Chrome, Firefox, iOS and Android browsers (run by over 90% of the population).</p>
                         <p>We ask that you submit original artwork. Please respect copyright laws. Please keep objectionable material to a minimum, and try to incorporate unique and interesting visual themes to your work. We&#8217;re well past the point of needing another garden-related design.</p>
-                        <p>This is a learning exercise as well as a demonstration. You retain full copyright on your graphics (with limited exceptions, see <Link href="/about#submission-guidelines">submission guidelines</Link>), but we ask you release your <CssAbbr /> under a Creative Commons license identical to the <Link href="https://raw.githubusercontent.com/csszen/garden/master/LICENSE"><a title="View the Zen Garden's license information.">one on this site</a></Link> so that others may learn from your work.</p>
+                        <p>This is a learning exercise as well as a demonstration. You retain full copyright on your graphics (with limited exceptions, see <Link href="/about#submission-guidelines">submission guidelines</Link>), but we ask you release your <CssAbbr /> under a Creative Commons license identical to the <Link href="https://raw.githubusercontent.com/csszen/garden/master/LICENSE" title="View the Zen Garden's license information.">one on this site</Link> so that others may learn from your work.</p>
                         <p role="contentinfo">By <Link href="http://www.mezzoblue.com/">Dave Shea</Link>. Graciously hosted by <Link href="https://vercel.com/">Vercel</Link>. Now available: <Link href="http://www.amazon.com/exec/obidos/ASIN/0321303474/mezzoblue-20/">Zen Garden, the book</Link>.</p>
                     </div>
 
                     <footer>
-                        <Link href="http://validator.w3.org/check/referer"><a title="Check the validity of this site&#8217;s HTML" className="zen-validate-html">HTML</a></Link>
-                        <Link href="http://jigsaw.w3.org/css-validator/check/referer"><a title="Check the validity of this site&#8217;s CSS" className="zen-validate-css">CSS</a></Link>
-                        <Link href="https://raw.githubusercontent.com/csszen/garden/master/LICENSE"><a title="View the Creative Commons license of this site: Attribution-NonCommercial-ShareAlike." className="zen-license">CC</a></Link>
-                        <Link href="https://github.com/csszen/garden/issues"><a title="Read about the accessibility of this site" className="zen-accessibility">A11y</a></Link>
-                        <Link href="https://github.com/csszen/garden"><a title="Fork this site on Github" className="zen-github">GH</a></Link>
+                        <Link href="http://validator.w3.org/check/referer" title="Check the validity of this site&#8217;s HTML" className="zen-validate-html">HTML</Link>
+                        <Link href="http://jigsaw.w3.org/css-validator/check/referer" title="Check the validity of this site&#8217;s CSS" className="zen-validate-css">CSS</Link>
+                        <Link href="https://raw.githubusercontent.com/csszen/garden/master/LICENSE" title="View the Creative Commons license of this site: Attribution-NonCommercial-ShareAlike." className="zen-license">CC</Link>
+                        <Link href="https://github.com/csszen/garden/issues" title="Read about the accessibility of this site" className="zen-accessibility">A11y</Link>
+                        <Link href="https://github.com/csszen/garden" title="Fork this site on Github" className="zen-github">GH</Link>
                     </footer>
 
                 </div>
 
-                <aside className="sidebar">
-                    <div className="wrapper">
-                        <div className="design-selection" id="design-selection">
-                            <h3 className="select">Select a Design:</h3>
-                            <nav>
-                                <ul>
-                                    {themeChoices.map(themeChoice => <ThemeChoice theme={themeChoice} key={themeChoice.id} />)}
-                                </ul>
-                            </nav>
-                        </div>
-                        <div className="design-archives" id="design-archives">
-                            <h3 className="archives">Archives:</h3>
-                            <nav>
-                                <ul>
-                                    <li className="next"><Link href="/lucky"><a>I'm feeling Lucky <span className="indicator">&rsaquo;</span></a></Link></li>
-                                    <li className="viewall"><Link href="/all"><a title="View every submission to the Zen Garden.">View All Designs</a></Link></li>
-                                </ul>
-                            </nav>
-                        </div>
-
-                        <div className="zen-resources" id="zen-resources">
-                            <h3 className="resources">Resources:</h3>
-                            <ul>
-                                <li className="view-css"><Link href={theme.theme}><a title="View the source CSS file of the currently-viewed design.">View This Design&#8217;s <CssAbbr /></a></Link></li>
-                                <li className="css-resources"><Link href="https://developer.mozilla.org/en-US/docs/Web/CSS"><a title="Links to great sites with information on using CSS."><CssAbbr /> Resources </a></Link></li>
-                                <li className="zen-about"><Link href="/about"><a title="A list of Frequently Asked Questions about the Zen Garden."><abbr title="Frequently Asked Questions">About</abbr></a></Link></li>
-                                <li className="zen-submit"><Link href="/submit"><a title="Send in your own CSS file.">Submit a Design</a></Link></li>
-                                {/* <!-- TODO: locale --> <li className="zen-translations"><a href="#" title="View translated versions of this page.">Translations</a></li> */}
-                            </ul>
-                        </div>
-                    </div>
-                </aside>
+                <Aside theme={theme} themeChoices={themeChoices} />
             </div>
+
             <div className="extra1" role="presentation"></div>
             <div className="extra2" role="presentation"></div>
             <div className="extra3" role="presentation"></div>
@@ -142,8 +118,65 @@ export default function Garden ({theme, themeChoices = []}: IGardenProps) {
 }
 
 
+function Aside ({theme, themeChoices}: IGardenProps) {
+    const [loading, setLoading] = useState(false)
+    const [themeInfo, setThemes] = useState(themeChoices)
+
+    const handleNextThemes = async event => {
+        const {pageInfo} = themeInfo
+
+        setLoading(true)
+        try {
+            const r = await fetch(`/api/themes?after=${pageInfo.hasNextPage ? pageInfo.endCursor : ''}`)
+            const r2 = await r.json()
+            setThemes(r2)
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return (
+        <aside className="sidebar">
+            <div className="wrapper">
+                <div className="design-selection" id="design-selection">
+                    <h3 className="select">Select a Design:</h3>
+                    <nav>
+                        <ul>
+                            {themeInfo.themes.map(themeChoice => <ThemeChoice theme={themeChoice} key={themeChoice.id} />)}
+                        </ul>
+                    </nav>
+                </div>
+                <div className="design-archives" id="design-archives">
+                    <h3 className="archives">Archives:</h3>
+                    <nav>
+                        <ul>
+                            <li className="next"><a href="#" onClick={handleNextThemes}>Next Designs <span className="indicator">&rsaquo;</span></a></li>
+                            {/* <li className="lucky"><Link href="/lucky">I'm feeling Lucky <span className="indicator">&rsaquo;</span></Link></li> */}
+                            <li className="viewall"><Link href="/all" title="View every submission to the Zen Garden.">View All Designs</Link></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div className="zen-resources" id="zen-resources">
+                    <h3 className="resources">Resources:</h3>
+                    <ul>
+                        <li className="view-css"><Link href={`/api/theme/${theme.id}`} title="View the source CSS file of the currently-viewed design.">View This Design&#8217;s <CssAbbr /></Link></li>
+                        <li className="css-resources"><Link href="https://developer.mozilla.org/en-US/docs/Web/CSS" title="Links to great sites with information on using CSS."><CssAbbr /> Resources</Link></li>
+                        <li className="zen-about"><Link href="/about" title="A list of Frequently Asked Questions about the Zen Garden."><abbr title="Frequently Asked Questions">About</abbr></Link></li>
+                        <li className="zen-submit"><Link href="/submit" title="Send in your own CSS file.">Submit a Design</Link></li>
+                        {/* <!-- TODO: locale --> <li className="zen-translations"><a href="#" title="View translated versions of this page.">Translations</a></li> */}
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    )
+}
+
+
 const ThemeChoice = ({theme: {id, manifest}}: {theme: ITheme}) => (
-    <li><Link href={`/theme/${id}`}><a className="design-name">{manifest.name}</a></Link> by <Link href={manifest.contact}><a className="designer-name">{manifest.author}</a></Link></li>
+    <li><Link href={`/theme/${id}`} className="design-name">{manifest.name}</Link> by <Link href={manifest.contact} className="designer-name">{manifest.author}</Link></li>
 )
 
 const HtmlSource = ({label}: {label: string}) => {
@@ -155,6 +188,10 @@ const HtmlSource = ({label}: {label: string}) => {
     }
     return <a ref={$a} onClick={onClick} href="#" title="This page's source HTML code, not to be modified." download="example.html">{label}</a>
 }
+
+const CssSource = ({id, label}: {id: string, label: string}) => (
+    <Link href={`/api/theme/${id}`} title="This page's source CSS code, the file you may modify." download="example.css">{label}</Link>
+)
 
 const CssAbbr = () => <abbr title="Cascading Style Sheets">CSS</abbr>
 

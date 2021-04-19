@@ -49,7 +49,7 @@ $BAR_ANIMATION_DURATION_SINGLE: -($BAR_ANIMATION_DURATION / $BAR_COUNT);
 
       &:nth-child(1) {
         transform: translateX(0) rotate(0deg);
-        opacity: .2;
+        opacity: 0.2;
       }
       &:nth-child(2) {
         transform: translateX(-15px) rotate(0deg);
@@ -78,7 +78,6 @@ $BAR_ANIMATION_DURATION_SINGLE: -($BAR_ANIMATION_DURATION / $BAR_COUNT);
     }
   }
 }
-
 
 @keyframes domino {
   0% {

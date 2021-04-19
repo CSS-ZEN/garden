@@ -12,8 +12,12 @@ export const DEFAULT_BUILD_THEMES = [
 
 /**
  * @description Theme of index are always revalidated instantly.
- *     Themes in /theme/[id] revalidation time here.
+ *     This is for themes in /theme/[id].
  */
-export const THEME_REVALIDATION_INTERVAL = 60 // seconds
+export const THEME_REVALIDATION_INTERVAL = 600 // seconds
 
 export const LANDING_THRESHOLD = 3500 // milliseconds
+
+export const FETCH_GIST_CACHE_LIFETIME = 60 // seconds
+
+export const FETCH_GISTS_CACHE_LIFETIME = 60 // seconds

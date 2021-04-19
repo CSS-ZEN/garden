@@ -8,30 +8,25 @@ Deployed with [Vercel](https://vercel.com/) at [https://czg.vercel.app](https://
 
 ## How does it work?
 
-It uses gists as themes and [builds static pages incremently](https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration) with [Next.js](https://nextjs.org/) hosted on [Vercel](https://vercel.com/). Url like `https://czg.vercel.app/theme/[gistid]` will be built with the corresponding gist's content when viewed. Thank to this stack, you can share your own theme freely. Any gist can be viewed as a theme in this way, as long as it confronts to specifications of a theme gist.
+It uses gists as themes and [builds static pages incremently](https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration) with [Next.js](https://nextjs.org/). Url like `https://czg.vercel.app/theme/[gistid]` will be built with the corresponding gist's content when viewed. Thank to this stack, you can share your own theme freely. Any gist can be viewed as a theme in this way, as long as it confronts to specifications of a theme gist.
 
-## Started here, heading...?
+## Submission Guidelines
 
-I just implemented the original csszengarden.com functions. But as it was started years ago, time flies, and the web tech flies. Even this project is javascript-only instead of the PHP mixtuned like the original project. Other than stick to the traditional ancient Zen of CSS like a guru, do we need to support modern patterns like [Tailwind CSS](https://tailwindcss.com/)?
+The theme gist is supposed to have these things at least:
 
-Recent years, we finally find that we are living on the earth that has days and nights. So, is light/dark theme shift necessay?
+```bash
+gist
+├── theme.css
+└── manifest.json
+```
 
-Open to new thoughts. Let me know what you think about it at [csszen/garden#3](https://github.com/csszen/garden/issues/3).
+All contents of the gist can be accessed with `https://czg.vercel.app/api/theme/[gistid]/[filename]` like [https://czg.vercel.app/api/theme/f4b657c4e3b99c63281b079f66d4dc34/theme.css](https://czg.vercel.app/api/theme/f4b657c4e3b99c63281b079f66d4dc34/theme.css).
 
-## Contributions & Things confirmed to be done
+You can take [the default theme we use](https://gist.github.com/csszen/f4b657c4e3b99c63281b079f66d4dc34) as an example.
 
-Thanks to `Next.js`, it's easy to get envolved with only basic knowledge of react framework required. If you know how to use react, I believe taht you are supposed to know how to clone a project and install requirements with `npm` or `yarn`.
+All private gists of [csszen](https://gist.github.com/csszen) will be included as an offical themes. You may [submit an issue](https://github.com/csszen/garden/issues/new) labeled `theme request` for theme fork request if you want to make your theme one of our page's theme choices like [csszen/garden#4](https://github.com/csszen/garden/issues/4).
 
-To run it on your machine, just run `npm run dev` and the prompt will guide you to page served on localhost.
-
-If you would like to contribute to the project or you are just interesed in what is confirmed to be done, here are them:
-
-- Collect private gists of csszen and display them on garden page.
-- Render this markdown to [https://czg.vercel.app/about](https://czg.vercel.app/about).
-- Modify the garden page text to make it make sense.
-- Locale/translation support, and maybe locale themes support.
-
-This list might not be up-to-date, you can access more acurrate informations at [issues labeled `todo`](https://github.com/csszen/garden/issues?q=is%3Aopen+is%3Aissue+label%3Atodo).
+Note that keep a track of forkings for upcoming updates, we may delete the forked theme and refork the lastest version.
 
 ## FAQ
 
@@ -74,21 +69,29 @@ The whole project is provided with [Vercel](https://vercel.com/)/[Github](https:
 
 Contributions welcomed. Thoughts welcomed.
 
-## Submission Guidelines
+## Started here, heading...?
 
-The theme gist is supposed to have these things at least:
+I just implemented the original csszengarden.com functions. But as it was started years ago, time flies, and the web tech flies. Even this project is javascript-only instead of the PHP mixtuned like the original project. Other than stick to the traditional ancient Zen of CSS like a guru, do we need to support modern patterns like [Tailwind CSS](https://tailwindcss.com/)?
+
+Recent years, we finally find that we are living on the earth that has days and nights. So, is light/dark theme shift necessay?
+
+Open to new thoughts. Let me know what you think about it at [csszen/garden#3](https://github.com/csszen/garden/issues/3).
+
+## Contributions & Things confirmed to be done
+
+If you would like to contribute to the project or just interesed in what is confirmed to be done, you can access those informations at [issues labeled `todo`](https://github.com/csszen/garden/issues?q=is%3Aopen+is%3Aissue+label%3Atodo) or the [CZG project dashboard](https://github.com/CSS-ZEN/garden/projects/1).
+
+Thanks to `Next.js`, it's easy to get envolved with only a basic knowledge of react framework required. If you know how to use react, I believe that you are supposed to know how to clone a repository and install requirements with `npm` or `yarn`.
+
+To run it on your machine, just run `npm run dev` and the prompt will guide you to page served on localhost.
+
+To load theme choices from gists, you are supposed to have a `/.env.local` with:
 
 ```bash
-gist
-├── theme.css
-└── manifest.json
+GIST_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-All contents of the gist can be accessed with `https://czg.vercel.app/api/theme/[gistid]/[filename]` like [https://czg.vercel.app/api/theme/f4b657c4e3b99c63281b079f66d4dc34/theme.css](https://czg.vercel.app/api/theme/f4b657c4e3b99c63281b079f66d4dc34/theme.css).
-
-You can take [the default theme we use](https://gist.github.com/csszen/f4b657c4e3b99c63281b079f66d4dc34) as an example.
-
-All private gists of [csszen](https://gist.github.com/csszen) will be included as an offical themes. You may [submit an issue](https://github.com/csszen/garden/issues/new) labeled `theme request` for theme fork request if you want to make your theme one of our page's theme choices like [csszen/garden#4](https://github.com/csszen/garden/issues/4).
+You may follow github's official lead to [create a personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). Its absence will display no choices silently, no errors will be raised.
 
 ## LICENSE
 

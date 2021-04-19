@@ -2,16 +2,19 @@
 import {GetStaticProps, InferGetStaticPropsType} from 'next'
 
 import Garden, {IGardenProps} from 'src/garden'
-import {getThemePropsById, isValidTheme} from 'src/helpers'
+import {getThemePropsById, safeWaitPromise, getThemesByCursor} from 'src/helpers'
 import {DEFAULT_THEME_ID} from 'src/config'
 
 
-export default function Home ({theme}: InferGetStaticPropsType<typeof getStaticProps>) {
-    return <Garden theme={theme} themeChoices={[theme as any]} />
+export default function Home ({theme, themeChoices}: InferGetStaticPropsType<typeof getStaticProps>) {
+    return <Garden theme={theme} themeChoices={themeChoices} />
 }
 
 export const getStaticProps: GetStaticProps<IGardenProps, {}> = async () => {
-    const theme = await getThemePropsById(DEFAULT_THEME_ID)
+    const [theme, themeChoices] = await Promise.all([
+        getThemePropsById(DEFAULT_THEME_ID),
+        safeWaitPromise(getThemesByCursor(), {themes: [], pageInfo: {hasNextPage: false, endCursor: null}}),
+    ])
 
     if (!theme) return {
         notFound: true
@@ -19,9 +22,8 @@ export const getStaticProps: GetStaticProps<IGardenProps, {}> = async () => {
     return {
         props: {
             theme,
-            themeChoices: [theme].filter(isValidTheme)
+            themeChoices,
         },
         revalidate: true, // incremental static regeneration everytime
     }
-
 }

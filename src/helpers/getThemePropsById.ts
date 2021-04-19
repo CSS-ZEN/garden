@@ -9,7 +9,7 @@ export default async function getThemePropsById (id: string): Promise<ITrialThem
     const {ok, body} = await fetchGist(id)
     if (!ok || !body.files || !body.files[DEFAULT_THEME_FILE]) return
 
-    const theme = `/api/theme/${id}/${DEFAULT_THEME_FILE}`
+    const theme = body.files[DEFAULT_THEME_FILE].content
     const manifest = body.files['manifest.json'] ? safeReadJson(body.files['manifest.json'].content) : {}
     const {author, contact, name} = manifest as unknown as ITrialTheme['manifest']
 

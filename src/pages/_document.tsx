@@ -7,7 +7,7 @@ import {AMP_RENDER_TARGET} from 'next/dist/next-server/lib/constants'
 export default class MyDocument extends Document {
     render () {
         return (
-            <Html>
+            <Html lang="en">
                 <Head />
                 <body>
                     <Main />

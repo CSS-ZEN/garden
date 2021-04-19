@@ -4,7 +4,7 @@ import {useRouter} from 'next/router'
 import type {ParsedUrlQuery} from 'querystring'
 
 import {DEFAULT_BUILD_THEMES, THEME_REVALIDATION_INTERVAL} from 'src/config'
-import {getThemePropsById, isValidTheme} from 'src/helpers'
+import {getThemePropsById, safeWaitPromise, getThemesByCursor} from 'src/helpers'
 import Landing from 'src/components/landing'
 import Garden, {IGardenProps} from 'src/garden'
 
@@ -13,16 +13,15 @@ interface IStaticProps extends ParsedUrlQuery {
     id: string
 }
 
-export default function ThemePage ({theme}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function ThemePage ({theme, themeChoices}: InferGetStaticPropsType<typeof getStaticProps>) {
     const router = useRouter()
 
     if (router.isFallback) return <Landing />
 
-    return <Garden theme={theme} />
+    return <Garden theme={theme} themeChoices={themeChoices} />
 }
 
 export const getStaticPaths: GetStaticPaths<IStaticProps> = async ctx => {
-    // TODO: @sy generate with github graphql api
     return {
         paths: DEFAULT_BUILD_THEMES.map(id => ({
             params: {
@@ -34,7 +33,10 @@ export const getStaticPaths: GetStaticPaths<IStaticProps> = async ctx => {
 }
 
 export const getStaticProps: GetStaticProps<IGardenProps, IStaticProps> = async ({params: {id}}) => {
-    const theme = await getThemePropsById(id)
+    const [theme, themeChoices] = await Promise.all([
+        getThemePropsById(id),
+        safeWaitPromise(getThemesByCursor(), {themes: [], pageInfo: {hasNextPage: false, endCursor: null}}),
+    ])
 
     if (!theme) return {
         notFound: true
@@ -42,7 +44,7 @@ export const getStaticProps: GetStaticProps<IGardenProps, IStaticProps> = async 
     return {
         props: {
             theme,
-            themeChoices: [theme].filter(isValidTheme),
+            themeChoices,
         },
         revalidate: THEME_REVALIDATION_INTERVAL,
     }

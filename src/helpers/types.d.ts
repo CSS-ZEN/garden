@@ -1,4 +1,4 @@
-type F<R = any> = (...args: any[]) => R
-type R<T> = T extends F<infer RR> ? RR : never
+
+type PromiseContent<P> = P extends Promise<infer PC> ? PC : any
 
 declare module '*.md'
