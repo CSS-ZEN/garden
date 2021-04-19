@@ -191,6 +191,11 @@
   dependencies:
     "@types/unist" "*"
 
+"@types/memory-cache@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@types/memory-cache/-/memory-cache-0.2.1.tgz#00caf5d737e4acc100f5b98152c635edabdb00d7"
+  integrity sha512-6rmz3bMqJNkj0HIN3AMhOfRN+JhnxxTULeBkwgilfnspjABtKG6ig8mbIzkOjtmiRw+WG1B56z+BO6htGz3IBw==
+
 "@types/node@*":
   version "14.14.37"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.37.tgz#a3dd8da4eb84a996c36e331df98d82abd76b516e"
@@ -1395,6 +1400,11 @@ mdurl@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/mdurl/-/mdurl-1.0.1.tgz#fe85b2ec75a59037f2adfec100fd6c601761152e"
   integrity sha1-/oWy7HWlkDfyrf7BAP1sYBdhFS4=
+
+memory-cache@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/memory-cache/-/memory-cache-0.2.0.tgz#7890b01d52c00c8ebc9d533e1f8eb17e3034871a"
+  integrity sha1-eJCwHVLADI68nVM+H46xfjA0hxo=
 
 merge-stream@^2.0.0:
   version "2.0.0"
