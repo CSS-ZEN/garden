@@ -67,6 +67,7 @@ export default async function fetchGists (fromCursor?: string) {
         const {pageInfo} = viewer.gists
 
         return {
+            ok: true,
             gists,
             pageInfo
         }
