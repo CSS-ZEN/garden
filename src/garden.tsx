@@ -43,7 +43,8 @@ export default function Garden ({theme, themeChoices}: IGardenProps) {
                     author="Dave Shea"
                     description="A demonstration of what can be accomplished visually through CSS-based design."
                 >
-                    <link rel="stylesheet" type="text/css" href={theme.theme}></link>
+                    {/* <link rel="stylesheet" type="text/css" href={theme.theme}></link> */}
+                    <style>{theme.theme}</style>
                 </Head>
 
                 <section className="intro" id="zen-intro">
