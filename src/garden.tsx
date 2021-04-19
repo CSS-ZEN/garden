@@ -1,5 +1,5 @@
 
-import {useRef} from 'react'
+import {useRef, useState} from 'react'
 
 import Head from 'src/components/head'
 import Link from 'src/components/link'
@@ -104,39 +104,9 @@ export default function Garden ({theme, themeChoices}: IGardenProps) {
 
                 </div>
 
-                <aside className="sidebar">
-                    <div className="wrapper">
-                        <div className="design-selection" id="design-selection">
-                            <h3 className="select">Select a Design:</h3>
-                            <nav>
-                                <ul>
-                                    {themeChoices.themes.map(themeChoice => <ThemeChoice theme={themeChoice} key={themeChoice.id} />)}
-                                </ul>
-                            </nav>
-                        </div>
-                        <div className="design-archives" id="design-archives">
-                            <h3 className="archives">Archives:</h3>
-                            <nav>
-                                <ul>
-                                    <li className="next"><Link href="/lucky">I'm feeling Lucky <span className="indicator">&rsaquo;</span></Link></li>
-                                    <li className="viewall"><Link href="/all" title="View every submission to the Zen Garden.">View All Designs</Link></li>
-                                </ul>
-                            </nav>
-                        </div>
-
-                        <div className="zen-resources" id="zen-resources">
-                            <h3 className="resources">Resources:</h3>
-                            <ul>
-                                <li className="view-css"><Link href={`/api/theme/${theme.id}`} title="View the source CSS file of the currently-viewed design.">View This Design&#8217;s <CssAbbr /></Link></li>
-                                <li className="css-resources"><Link href="https://developer.mozilla.org/en-US/docs/Web/CSS" title="Links to great sites with information on using CSS."><CssAbbr /> Resources</Link></li>
-                                <li className="zen-about"><Link href="/about" title="A list of Frequently Asked Questions about the Zen Garden."><abbr title="Frequently Asked Questions">About</abbr></Link></li>
-                                <li className="zen-submit"><Link href="/submit" title="Send in your own CSS file.">Submit a Design</Link></li>
-                                {/* <!-- TODO: locale --> <li className="zen-translations"><a href="#" title="View translated versions of this page.">Translations</a></li> */}
-                            </ul>
-                        </div>
-                    </div>
-                </aside>
+                <Aside theme={theme} themeChoices={themeChoices} />
             </div>
+
             <div className="extra1" role="presentation"></div>
             <div className="extra2" role="presentation"></div>
             <div className="extra3" role="presentation"></div>
@@ -144,6 +114,63 @@ export default function Garden ({theme, themeChoices}: IGardenProps) {
             <div className="extra5" role="presentation"></div>
             <div className="extra6" role="presentation"></div>
         </>
+    )
+}
+
+
+function Aside ({theme, themeChoices}: IGardenProps) {
+    const [loading, setLoading] = useState(false)
+    const [themeInfo, setThemes] = useState(themeChoices)
+
+    const handleNextThemes = async event => {
+        const {pageInfo} = themeInfo
+
+        setLoading(true)
+        try {
+            const r = await fetch(`/api/themes?after=${pageInfo.hasNextPage ? pageInfo.endCursor : ''}`)
+            const r2 = await r.json()
+            setThemes(r2)
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return (
+        <aside className="sidebar">
+            <div className="wrapper">
+                <div className="design-selection" id="design-selection">
+                    <h3 className="select">Select a Design:</h3>
+                    <nav>
+                        <ul>
+                            {themeInfo.themes.map(themeChoice => <ThemeChoice theme={themeChoice} key={themeChoice.id} />)}
+                        </ul>
+                    </nav>
+                </div>
+                <div className="design-archives" id="design-archives">
+                    <h3 className="archives">Archives:</h3>
+                    <nav>
+                        <ul>
+                            <li className="next"><a href="#" onClick={handleNextThemes}>Next Designs <span className="indicator">&rsaquo;</span></a></li>
+                            {/* <li className="lucky"><Link href="/lucky">I'm feeling Lucky <span className="indicator">&rsaquo;</span></Link></li> */}
+                            <li className="viewall"><Link href="/all" title="View every submission to the Zen Garden.">View All Designs</Link></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div className="zen-resources" id="zen-resources">
+                    <h3 className="resources">Resources:</h3>
+                    <ul>
+                        <li className="view-css"><Link href={`/api/theme/${theme.id}`} title="View the source CSS file of the currently-viewed design.">View This Design&#8217;s <CssAbbr /></Link></li>
+                        <li className="css-resources"><Link href="https://developer.mozilla.org/en-US/docs/Web/CSS" title="Links to great sites with information on using CSS."><CssAbbr /> Resources</Link></li>
+                        <li className="zen-about"><Link href="/about" title="A list of Frequently Asked Questions about the Zen Garden."><abbr title="Frequently Asked Questions">About</abbr></Link></li>
+                        <li className="zen-submit"><Link href="/submit" title="Send in your own CSS file.">Submit a Design</Link></li>
+                        {/* <!-- TODO: locale --> <li className="zen-translations"><a href="#" title="View translated versions of this page.">Translations</a></li> */}
+                    </ul>
+                </div>
+            </div>
+        </aside>
     )
 }
 
