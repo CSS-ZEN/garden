@@ -3,7 +3,7 @@ import {graphql} from '@octokit/graphql'
 
 
 export interface IGraphqlPageInfo {
-    endCursor: string,
+    endCursor: string | null,
     hasNextPage: boolean,
 }
 
@@ -52,7 +52,7 @@ export default async function fetchGists (fromCursor?: string) {
             }
         }`,
         {
-            after: fromCursor,
+            after: fromCursor || undefined,
             headers: {
                 authorization: `token ${process.env.GIST_TOKEN}`
             }

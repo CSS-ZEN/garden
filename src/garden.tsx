@@ -1,7 +1,9 @@
 
 import {useRef} from 'react'
+
 import Head from 'src/components/head'
 import Link from 'src/components/link'
+import type {IGraphqlPageInfo} from 'src/helpers/fetchGists'
 
 
 interface IThemeManifest {
@@ -26,10 +28,13 @@ export interface ITheme extends ITrialTheme {
 
 export interface IGardenProps {
     theme: ITrialTheme,
-    themeChoices?: ITheme[],
+    themeChoices: {
+        themes: ITheme[],
+        pageInfo: IGraphqlPageInfo
+    },
 }
 
-export default function Garden ({theme, themeChoices = []}: IGardenProps) {
+export default function Garden ({theme, themeChoices}: IGardenProps) {
     return (
         <>
             <div className="page-wrapper">
@@ -104,7 +109,7 @@ export default function Garden ({theme, themeChoices = []}: IGardenProps) {
                             <h3 className="select">Select a Design:</h3>
                             <nav>
                                 <ul>
-                                    {themeChoices.map(themeChoice => <ThemeChoice theme={themeChoice} key={themeChoice.id} />)}
+                                    {themeChoices.themes.map(themeChoice => <ThemeChoice theme={themeChoice} key={themeChoice.id} />)}
                                 </ul>
                             </nav>
                         </div>
