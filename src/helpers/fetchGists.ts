@@ -2,6 +2,11 @@
 import {graphql} from '@octokit/graphql'
 
 
+export interface IGraphqlPageInfo {
+    endCursor: string,
+    hasNextPage: boolean,
+}
+
 export default async function fetchGists (fromCursor?: string) {
     const {viewer} = await graphql<{
         viewer: {
@@ -19,10 +24,7 @@ export default async function fetchGists (fromCursor?: string) {
                         }>,
                     },
                 }>,
-                pageInfo: {
-                    endCursor: string,
-                    hasNextPage: boolean,
-                },
+                pageInfo: IGraphqlPageInfo,
             },
         },
     }>(
@@ -48,8 +50,7 @@ export default async function fetchGists (fromCursor?: string) {
                     }
                 }
             }
-        }
-        `,
+        }`,
         {
             after: fromCursor,
             headers: {

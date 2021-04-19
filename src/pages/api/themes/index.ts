@@ -1,18 +1,14 @@
 
 import type {NextApiRequest, NextApiResponse} from 'next'
 
-import {fetchGists, isValidTheme, safeReadJson} from 'src/helpers'
-import type {ITheme} from 'src/garden'
+import {getThemesByCursor} from 'src/helpers'
 
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    return fetchGists().then(r => {
-        const {gists, pageInfo} = r
-        const themes: ITheme[] = gists.map(({id, files}) => ({
-            id,
-            theme: `/api/theme/${id}`,
-            manifest: safeReadJson(files.find(file => file.name === 'manifest.json').text)
-        })).filter(isValidTheme)
-        res.status(200).json({themes, pageInfo})
-    }).catch(err => res.status(500).send(err))
+    const {after} = req.query
+    const afterCourse = Array.isArray(after) ? after[0] : after
+
+    return getThemesByCursor(afterCourse)
+        .then(r => res.status(200).json(r))
+        .catch(err => res.status(500).send(err))
 }
