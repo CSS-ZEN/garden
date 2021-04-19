@@ -13,7 +13,7 @@ interface IThemeManifest {
 export interface ITrialTheme {
     id: string
     theme: string
-    manifest?: IThemeManifest
+    manifest?: IThemeManifest | {}
 }
 
 /**
