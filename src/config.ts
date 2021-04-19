@@ -17,3 +17,7 @@ export const DEFAULT_BUILD_THEMES = [
 export const THEME_REVALIDATION_INTERVAL = 60 // seconds
 
 export const LANDING_THRESHOLD = 3500 // milliseconds
+
+export const FETCH_GIST_CACHE_LIFETIME = 60 // seconds
+
+export const FETCH_GISTS_CACHE_LIFETIME = 60 // seconds
