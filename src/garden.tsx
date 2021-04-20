@@ -6,7 +6,7 @@ import Link from 'src/components/link'
 import type {IGraphqlPageInfo} from 'src/helpers/fetchGists'
 
 
-interface IThemeManifest {
+export interface IThemeManifest {
     author: string
     contact: string
     name: string
@@ -119,10 +119,10 @@ export default function Garden ({theme, themeChoices}: IGardenProps) {
 
 
 function Aside ({theme, themeChoices}: IGardenProps) {
-    const [loading, setLoading] = useState(false)
+    const [, setLoading] = useState(false)
     const [themeInfo, setThemes] = useState(themeChoices)
 
-    const handleNextThemes = async event => {
+    const handleNextThemes = async () => {
         const {pageInfo} = themeInfo
 
         setLoading(true)
@@ -180,7 +180,7 @@ const ThemeChoice = ({theme: {id, manifest}}: {theme: ITheme}) => (
 )
 
 const HtmlSource = ({label}: {label: string}) => {
-    const $a = useRef<HTMLAnchorElement>()
+    const $a = useRef<HTMLAnchorElement>(null)
     const onClick = () => {
         if ($a.current) {
             $a.current.href = `data:text/html;charset=UTF-8,${encodeURIComponent(document.body.outerHTML)}`
