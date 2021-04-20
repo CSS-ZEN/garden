@@ -21,7 +21,7 @@ export interface ITrialTheme {
 /**
  * @description theme forked by csszen are supposed to have all right manifest informations
  * @todo maybe we can add a bot to apply automatic checks of gist contents in issues
- * */
+ */
 export interface ITheme extends ITrialTheme {
     manifest: IThemeManifest
 }
@@ -107,12 +107,12 @@ export default function Garden ({theme, themeChoices}: IGardenProps) {
                 <Aside theme={theme} themeChoices={themeChoices} />
             </div>
 
-            <div className="extra1" role="presentation"></div>
-            <div className="extra2" role="presentation"></div>
-            <div className="extra3" role="presentation"></div>
-            <div className="extra4" role="presentation"></div>
-            <div className="extra5" role="presentation"></div>
-            <div className="extra6" role="presentation"></div>
+            <div className="extra1" role="presentation" />
+            <div className="extra2" role="presentation" />
+            <div className="extra3" role="presentation" />
+            <div className="extra4" role="presentation" />
+            <div className="extra5" role="presentation" />
+            <div className="extra6" role="presentation" />
         </>
     )
 }

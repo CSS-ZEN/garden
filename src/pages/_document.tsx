@@ -5,7 +5,7 @@ import {AMP_RENDER_TARGET} from 'next/dist/next-server/lib/constants'
 
 
 export default class MyDocument extends Document {
-    render () {
+    public render () {
         return (
             <Html lang="en">
                 <Head />
@@ -25,5 +25,5 @@ const Main = () => {
 
     docComponentsRendered.Main = true
     if (inAmpMode) return <>{AMP_RENDER_TARGET}</>
-    return <main id="__next" dangerouslySetInnerHTML={{__html: html}}></main>
+    return  <main id="__next" dangerouslySetInnerHTML={{__html: html}} />
 }

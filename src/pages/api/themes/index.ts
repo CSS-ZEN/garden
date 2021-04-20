@@ -1,7 +1,7 @@
 
 import type {NextApiRequest, NextApiResponse} from 'next'
 
-import {getThemesByCursor} from 'src/helpers'
+import {getThemesByCursor, HTTPStatusCodes} from 'src/helpers'
 
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,6 +9,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const afterCourse = Array.isArray(after) ? after[0] : after
 
     return getThemesByCursor(afterCourse)
-        .then(r => res.status(200).json(r))
-        .catch(err => res.status(500).send(err))
+        .then(r => res.status(HTTPStatusCodes.OK).json(r))
+        .catch(err => res.status(HTTPStatusCodes.INTERNAL_SERVER_ERROR).send(err))
 }

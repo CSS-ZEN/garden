@@ -1,7 +1,9 @@
 
+import type {ReactNode} from 'react'
+
 interface IProps {
     className?: string
-    children: any
+    children: ReactNode
     full?: boolean
     clearfix?: boolean
 }

@@ -17,7 +17,7 @@ export const getStaticProps: GetStaticProps<IGardenProps, {}> = async () => {
     ])
 
     if (!theme) return {
-        notFound: true
+        notFound: true,
     }
     return {
         props: {

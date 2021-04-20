@@ -19,7 +19,7 @@ export default function About (markdown: InferGetStaticPropsType<typeof getStati
     )
 }
 
-export const getStaticProps: GetStaticProps<IMarkdown, any> = async () => {
+export const getStaticProps: GetStaticProps<IMarkdown, {}> = async () => {
     const m0dule = await import('README.md')
     return {
         props: {

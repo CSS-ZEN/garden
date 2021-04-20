@@ -58,8 +58,8 @@ export default async function fetchGists (fromCursor?: string) {
             {
                 after: fromCursor || undefined,
                 headers: {
-                    authorization: `token ${process.env.GIST_TOKEN}`
-                }
+                    authorization: `token ${process.env.GIST_TOKEN}`,
+                },
             }
         )
 
@@ -69,7 +69,7 @@ export default async function fetchGists (fromCursor?: string) {
         return {
             ok: true,
             gists,
-            pageInfo
+            pageInfo,
         }
     }, FETCH_GISTS_CACHE_LIFETIME)
 }

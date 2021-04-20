@@ -25,10 +25,10 @@ export const getStaticPaths: GetStaticPaths<IStaticProps> = async ctx => {
     return {
         paths: DEFAULT_BUILD_THEMES.map(id => ({
             params: {
-                id
-            }
+                id,
+            },
         })),
-        fallback: true
+        fallback: true,
     }
 }
 
@@ -39,7 +39,7 @@ export const getStaticProps: (context: {params: IStaticProps}) => Promise<GetSta
     ])
 
     if (!theme) return {
-        notFound: true
+        notFound: true,
     }
     return {
         props: {
