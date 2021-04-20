@@ -48,7 +48,7 @@ export default function Garden ({theme, themeChoices}: IGardenProps) {
                 </Head>
 
                 <section className="intro" id="zen-intro">
-                    <header>
+                    <header role="banner">
                         <h1>CSS Zen Garden</h1>
                         <h2>The Beauty of <CssAbbr /> Design</h2>
                     </header>
