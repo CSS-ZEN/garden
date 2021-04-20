@@ -4,7 +4,7 @@
  *     circumstances, a promise are supposed to raise error and end
  *     the process
  */
-export default async function safeWaitPromise<T extends Promise<any>> (promise: T, fallback?: PromiseContent<T>): Promise<PromiseContent<T>> {
+export default async function safeWaitPromise<T extends Promise<ANY>, T2 extends PromiseContent<T>> (promise: T, fallback: T2): Promise<T2> {
     try {
         return await promise
     } catch (err) {

@@ -1,5 +1,5 @@
 
-import {GetStaticProps, GetStaticPaths, InferGetStaticPropsType} from 'next'
+import {GetStaticPaths, InferGetStaticPropsType, GetStaticPropsResult} from 'next'
 import {useRouter} from 'next/router'
 import type {ParsedUrlQuery} from 'querystring'
 
@@ -25,21 +25,21 @@ export const getStaticPaths: GetStaticPaths<IStaticProps> = async ctx => {
     return {
         paths: DEFAULT_BUILD_THEMES.map(id => ({
             params: {
-                id
-            }
+                id,
+            },
         })),
-        fallback: true
+        fallback: true,
     }
 }
 
-export const getStaticProps: GetStaticProps<IGardenProps, IStaticProps> = async ({params: {id}}) => {
+export const getStaticProps: (context: {params: IStaticProps}) => Promise<GetStaticPropsResult<IGardenProps>> = async ({params: {id}}) => {
     const [theme, themeChoices] = await Promise.all([
         getThemePropsById(id),
         safeWaitPromise(getThemesByCursor(), {themes: [], pageInfo: {hasNextPage: false, endCursor: null}}),
     ])
 
     if (!theme) return {
-        notFound: true
+        notFound: true,
     }
     return {
         props: {

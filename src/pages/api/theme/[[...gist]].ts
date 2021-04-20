@@ -3,7 +3,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 
 import {DEFAULT_THEME_FILE, DEFAULT_THEME_ID} from 'src/config'
-import {fetchGist} from 'src/helpers'
+import {fetchGist, HTTPStatusCodes} from 'src/helpers'
 
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -19,9 +19,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
                 res.setHeader('Content-Type', file.type)
                 if (file.type.startsWith('image/') && file.language !== 'SVG') {
-                    fetch(file.raw_url).then(r => res.status(r.status).send(r.body))
-                } else res.status(200).send(file.content)
-            } else res.status(404).send('Content Not Found')
+                    fetch(file.raw_url).then(r2 => res.status(r2.status).send(r2.body))
+                } else res.status(HTTPStatusCodes.OK).send(file.content)
+            } else res.status(HTTPStatusCodes.NOT_FOUND).send('Content Not Found')
         } else res.status(status).send(body.message)
-    }).catch(err => res.status(500).send(err))
+    }).catch(err => res.status(HTTPStatusCodes.INTERNAL_SERVER_ERROR).send(err))
 }
