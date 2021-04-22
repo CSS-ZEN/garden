@@ -32,29 +32,29 @@ export default async function fetchGists (fromCursor?: string) {
                 },
             },
         }>(
-            `query secretGists($take: Int = 10, $after: String) {
-            viewer {
-                gists (first: $take, after: $after, privacy: SECRET, orderBy: {field: CREATED_AT, direction: DESC} ) {
-                    edges {
-                        node {
-                            name
-                            createdAt
-                            updatedAt
-                            description
-                            stargazerCount
-                            files {
+            `query secretGists($take: Int = 8, $after: String) {
+                viewer {
+                    gists (first: $take, after: $after, privacy: SECRET, orderBy: {field: CREATED_AT, direction: DESC} ) {
+                        edges {
+                            node {
                                 name
-                                text
+                                createdAt
+                                updatedAt
+                                description
+                                stargazerCount
+                                files {
+                                    name
+                                    text
+                                }
                             }
                         }
-                    }
-                    pageInfo {
-                        endCursor
-                        hasNextPage
+                        pageInfo {
+                            endCursor
+                            hasNextPage
+                        }
                     }
                 }
-            }
-        }`,
+            }`,
             {
                 after: fromCursor || undefined,
                 headers: {
