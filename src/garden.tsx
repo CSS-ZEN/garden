@@ -120,15 +120,14 @@ export default function Garden ({theme, themeChoices}: IGardenProps) {
 
 
 function Aside ({theme, themeChoices}: IGardenProps) {
-    const [, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [themeInfo, setThemes] = useState(themeChoices)
 
-    const handleNextThemes = async () => {
-        const {pageInfo} = themeInfo
-
+    const fetchThemes = async (api: string) => {
+        if (loading) return
         setLoading(true)
         try {
-            const r = await fetch(`/api/themes?after=${pageInfo.hasNextPage ? pageInfo.endCursor : ''}`, {
+            const r = await fetch(api, {
                 headers: {
                     'Cache-Control': `s-maxage=${FETCH_GISTS_CACHE_LIFETIME}, stale-while-revalidate`,
                 },
@@ -140,6 +139,18 @@ function Aside ({theme, themeChoices}: IGardenProps) {
         } finally {
             setLoading(false)
         }
+    }
+
+    const handleNextThemes = async () => {
+        const {pageInfo} = themeInfo
+
+        fetchThemes(`/api/themes?after=${pageInfo.endCursor}`)
+    }
+
+    const handlePreviousThemes = async () => {
+        const {pageInfo} = themeInfo
+
+        fetchThemes(`/api/themes?before=${pageInfo.startCursor}`)
     }
 
     return (
@@ -157,8 +168,9 @@ function Aside ({theme, themeChoices}: IGardenProps) {
                     <h3 className="archives">Archives:</h3>
                     <nav>
                         <ul>
-                            <li className="next"><a href="#" onClick={handleNextThemes}>Next Designs <span className="indicator">&rsaquo;</span></a></li>
-                            {/* <li className="lucky"><Link href="/lucky">I'm feeling Lucky <span className="indicator">&rsaquo;</span></Link></li> */}
+                            {themeInfo.pageInfo.hasNextPage && <li className="next"><a onClick={handleNextThemes}>Next Designs <span className="indicator">&rsaquo;</span></a></li>}
+                            {themeInfo.pageInfo.hasPreviousPage && <li className="previous"><a onClick={handlePreviousThemes}><span className="indicator">&lsaquo;</span> Previous Designs</a></li>}
+                            {/* <li className="lucky"><Link href="/lucky">I'm feeling Lucky</Link></li> */}
                             <li className="viewall"><Link href="/all" title="View every submission to the Zen Garden.">View All Designs</Link></li>
                         </ul>
                     </nav>
