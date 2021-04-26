@@ -10,10 +10,20 @@ module.exports = {
         })
         return config
     },
-    redirects: () => [
+    rewrites: async () => [
+        {
+            source: '/theme/:id/index.html',
+            destination: '/theme/:id/index.html',
+        },
         {
             source: '/theme/:id/:filename',
             destination: '/api/theme/:id/:filename',
+        },
+    ],
+    redirects: async () => [
+        {
+            source: '/theme/:id',
+            destination: '/theme/:id/index.html',
             permanent: true,
         },
     ]

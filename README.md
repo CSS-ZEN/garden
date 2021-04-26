@@ -34,18 +34,17 @@ Note that keep a track of forkings for upcoming updates, we may delete the forke
 
 The problem is actually how to save images to gist in our circumstances.
 
-If it's convinent for you to encode the images, I suggest hard-coded [Data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
+If it's convinent for you to encode the images, I suggest hard-coded [Data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs). Besides instructions in MDN, you can also consider [csszen/toDataURL.js](https://gist.github.com/csszen/0f7b07d59fdafdc4856213133e4d42fb)
 
-Or you can also choose to push images directly into a gist with git, take [how-to-add-image-to-gist.md](https://gist.github.com/csszen/158006258c922e2f2b8d6ee78014a33b) as a hint. You can fetch the image like [`/api/theme/10a7af172c2469f0b6481eedfb4ce63c/robot.png`](https://czg.vercel.app/api/theme/10a7af172c2469f0b6481eedfb4ce63c/robot.png)
+Or you may choose to push images directly into a gist with git, take [how-to-add-image-to-gist.md](https://gist.github.com/csszen/158006258c922e2f2b8d6ee78014a33b) as a hint. You can fetch the image like [`/api/theme/10a7af172c2469f0b6481eedfb4ce63c/robot.png`](https://czg.vercel.app/api/theme/10a7af172c2469f0b6481eedfb4ce63c/robot.png). And you can use them as relative path in themes like `background: url(robot.png)`.
 
-Both methods also work when it comes to fonts.
-
+These rules all work when it comes to fonts.
 
 ### How can I use fonts in my theme?
 
 You may add import css declartion in your theme like [the default theme](https://gist.github.com/csszen/f4b657c4e3b99c63281b079f66d4dc34#file-theme-css-L5). It looks like `@import url("https://use.typekit.net/xxxxxxx.css");`.
 
-Or you may mannully attach fonts to the gist like images and declare font faces.
+Or you may mannully attach fonts to the gist like images and declare font faces in your theme.
 
 ### Is postcss tools built in? Can I write Sass/Less?
 
@@ -77,23 +76,17 @@ Recent years, we finally find that we are living on the earth that has days and 
 
 Open to new thoughts. Let me know what you think about it at [csszen/garden#3](https://github.com/csszen/garden/issues/3).
 
-## Contributions & Things confirmed to be done
+## Contributions
 
 If you would like to contribute to the project or just interesed in what is confirmed to be done, you can access those informations at [issues labeled `todo`](https://github.com/csszen/garden/issues?q=is%3Aopen+is%3Aissue+label%3Atodo) or the [CZG project dashboard](https://github.com/CSS-ZEN/garden/projects/1).
 
-Or you can join [the slack workspace](https://join.slack.com/t/csszen/shared_invite/zt-pbrf0d2q-6dF9GueFNkKgU8QuvSEj1Q) where most of discussions on development take place.
+You may join [the slack workspace](https://join.slack.com/t/csszen/shared_invite/zt-pbrf0d2q-6dF9GueFNkKgU8QuvSEj1Q) where most of discussions on development take place.
 
-Thanks to `Next.js`, it's easy to get envolved with only a basic knowledge of react framework required. If you know how to use react, I believe that you are supposed to know how to clone a repository and install requirements with `npm` or `yarn`.
+Thanks to `Next.js`, it's easy to get envolved with only a basic knowledge of react.js framework required. If you know how to use react, I believe that you are supposed to know how to clone a repository and install requirements with `npm` or `yarn`.
 
 To run it on your machine, just run `npm run dev` and the prompt will guide you to page served on localhost.
 
-To load theme choices from gists, you are supposed to have a `/.env.local` with:
-
-```bash
-GIST_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-```
-
-You may follow github's official lead to [create a personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). Its absence will display no choices silently, no errors will be raised.
+To load theme choices from gists, you are supposed to declare your Github token at `/.env.local`. You may follow github's official lead to [create a personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). Its absence will display no choices silently, no errors will be raised.
 
 ## LICENSE
 
