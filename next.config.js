@@ -10,4 +10,11 @@ module.exports = {
         })
         return config
     },
+    redirects: () => [
+        {
+            source: '/theme/:id/:filename',
+            destination: '/api/theme/:id/:filename',
+            permanent: true,
+        },
+    ]
 }
