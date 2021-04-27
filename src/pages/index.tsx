@@ -13,7 +13,15 @@ export default function Home ({theme, themeChoices}: InferGetStaticPropsType<typ
 export const getStaticProps: GetStaticProps<IGardenProps, {}> = async () => {
     const [theme, themeChoices] = await Promise.all([
         getThemePropsById(DEFAULT_THEME_ID),
-        safeWaitPromise(getThemesByCursor(), {themes: [], pageInfo: {hasNextPage: false, endCursor: null}}),
+        safeWaitPromise(getThemesByCursor(), {
+            themes: [],
+            pageInfo: {
+                endCursor: null,
+                hasNextPage: false,
+                hasPreviousPage: false,
+                startCursor: null,
+            },
+        }),
     ])
 
     if (!theme) return {

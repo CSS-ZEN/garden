@@ -35,7 +35,15 @@ export const getStaticPaths: GetStaticPaths<IStaticProps> = async ctx => {
 export const getStaticProps: (context: {params: IStaticProps}) => Promise<GetStaticPropsResult<IGardenProps>> = async ({params: {id}}) => {
     const [theme, themeChoices] = await Promise.all([
         getThemePropsById(id),
-        safeWaitPromise(getThemesByCursor(), {themes: [], pageInfo: {hasNextPage: false, endCursor: null}}),
+        safeWaitPromise(getThemesByCursor(), {
+            themes: [],
+            pageInfo: {
+                endCursor: null,
+                hasNextPage: false,
+                hasPreviousPage: false,
+                startCursor: null,
+            },
+        }),
     ])
 
     if (!theme) return {

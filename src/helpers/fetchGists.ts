@@ -1,75 +1,81 @@
 
 import {graphql} from '@octokit/graphql'
 
-import {FETCH_GISTS_CACHE_LIFETIME} from 'src/config'
-import cached from './cached'
-
 
 export interface IGraphqlPageInfo {
-    endCursor: string | null,
-    hasNextPage: boolean,
+    endCursor: string | null
+    hasNextPage: boolean
+    hasPreviousPage: boolean
+    startCursor: string | null
 }
 
-export default async function fetchGists (fromCursor?: string) {
-    return cached(`fetch:viewer:gists:${fromCursor}`, async () => {
-        const {viewer} = await graphql<{
-            viewer: {
-                gists: {
-                    edges: Array<{
-                        node: {
+export interface IGraphqlPageQuery {
+    take?: number
+    after?: string
+    before?: string
+}
+
+export default async function fetchGists ({after, before}: IGraphqlPageQuery) {
+    const {viewer} = await graphql<{
+        viewer: {
+            gists: {
+                edges: Array<{
+                    node: {
+                        name: string,
+                        createdAt: string,
+                        updatedAt: string,
+                        description: string,
+                        stargazerCount: number,
+                        files: Array<{
                             name: string,
-                            createdAt: string,
-                            updatedAt: string,
-                            description: string,
-                            stargazerCount: number,
-                            files: Array<{
-                                name: string,
-                                text: string,
-                            }>,
-                        },
-                    }>,
-                    pageInfo: IGraphqlPageInfo,
-                },
+                            text: string,
+                        }>,
+                    },
+                }>,
+                pageInfo: IGraphqlPageInfo,
             },
-        }>(
-            `query secretGists($take: Int = 8, $after: String) {
-                viewer {
-                    gists (first: $take, after: $after, privacy: SECRET, orderBy: {field: CREATED_AT, direction: DESC} ) {
-                        edges {
-                            node {
+        },
+    }>(
+        `query secretGists($take: Int = 8, $after: String, $before: String) {
+            viewer {
+                gists (first: $take, after: $after, before: $before, privacy: SECRET, orderBy: {field: CREATED_AT, direction: ASC} ) {
+                    edges {
+                        node {
+                            name
+                            createdAt
+                            updatedAt
+                            description
+                            stargazerCount
+                            files {
                                 name
-                                createdAt
-                                updatedAt
-                                description
-                                stargazerCount
-                                files {
-                                    name
-                                    text
-                                }
+                                text
                             }
                         }
-                        pageInfo {
-                            endCursor
-                            hasNextPage
-                        }
+                    }
+                    pageInfo {
+                        endCursor
+                        hasNextPage
+                        hasPreviousPage
+                        startCursor
                     }
                 }
-            }`,
-            {
-                after: fromCursor || undefined,
-                headers: {
-                    authorization: `token ${process.env.GIST_TOKEN}`,
-                },
             }
-        )
-
-        const gists = viewer.gists.edges.map(edge => edge.node)
-        const {pageInfo} = viewer.gists
-
-        return {
-            ok: true,
-            gists,
-            pageInfo,
+        }`,
+        {
+            after,
+            before,
+            headers: {
+                authorization: `token ${process.env.GIST_TOKEN}`,
+            },
         }
-    }, FETCH_GISTS_CACHE_LIFETIME)
+    )
+
+    const gists = viewer.gists.edges.map(edge => edge.node)
+    const {pageInfo} = viewer.gists
+
+    return {
+        ok: true,
+        gists,
+        pageInfo,
+    }
 }
