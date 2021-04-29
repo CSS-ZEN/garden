@@ -27,12 +27,14 @@ export interface ITheme extends ITrialTheme {
     manifest: IThemeManifest
 }
 
+export interface IThemeChoices {
+    themes: ITheme[]
+    pageInfo: IGraphqlPageInfo
+}
+
 export interface IGardenProps {
-    theme: ITrialTheme,
-    themeChoices: {
-        themes: ITheme[],
-        pageInfo: IGraphqlPageInfo
-    },
+    theme: ITrialTheme
+    themeChoices: IThemeChoices
 }
 
 export default function Garden ({theme, themeChoices}: IGardenProps) {

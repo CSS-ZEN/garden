@@ -23,3 +23,5 @@ export const LANDING_THRESHOLD = 3500 // milliseconds
 export const FETCH_GIST_CACHE_LIFETIME = 60 // seconds
 
 export const FETCH_GISTS_CACHE_LIFETIME = 60 // seconds
+
+export const SUBMIT_CHANNEL = 'submit-channel'

@@ -1,6 +1,6 @@
 
 import {useEffect, useRef, useState, Dispatch, SetStateAction} from 'react'
-import isCallable from './isCallable'
+import isCallable from '../helpers/isCallable'
 
 
 interface IBroadcastChannelEvent<T> {

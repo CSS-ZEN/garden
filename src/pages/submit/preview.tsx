@@ -1,18 +1,19 @@
 
 import {Head, Fabric} from 'src/components'
-import {useBroadcastChannel} from 'src/helpers'
+import {useBroadcastChannel} from 'src/hooks'
+import {defaultTheme, defaultThemes} from 'src/helpers/values'
+import {SUBMIT_CHANNEL} from 'src/config'
+import Garden from 'src/garden'
 
 
 export default function Preview () {
-    const [n] = useBroadcastChannel('test-channel', {n: 1})
+    const [state] = useBroadcastChannel(SUBMIT_CHANNEL, defaultTheme)
 
     return (
         <Fabric>
             <Head title="Preview | CSS Zen Garden" />
 
-            <Fabric clearfix>
-                Preview - {n.n}
-            </Fabric>
+            <Garden theme={state} themeChoices={defaultThemes} />
         </Fabric>
     )
 }

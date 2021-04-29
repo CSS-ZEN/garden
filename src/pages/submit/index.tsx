@@ -1,25 +1,33 @@
 
-import {useEffect} from 'react'
-import {Head, Fabric, Button, Link} from 'src/components'
-import {useBroadcastChannel} from 'src/helpers'
+import {Head, Fabric, Button, Link, Landing} from 'src/components'
+import {useBroadcastChannel, useMonaco} from 'src/hooks'
+import {defaultTheme} from 'src/helpers/values'
+import {SUBMIT_CHANNEL} from 'src/config'
+import style from './submit.module.scss'
 
 
 export default function Edit () {
-    const [n, setN] = useBroadcastChannel('test-channel', {n: 1, code: ''})
+    const [state, setState] = useBroadcastChannel(SUBMIT_CHANNEL, defaultTheme)
 
-    const handleClick = () => setN(p => ({n: p.n + 1, code: ''}))
+    const [loading, monaco] = useMonaco({
+        value: state.theme,
+        language: 'css',
+        onChange (value, e) {
+            // TODO: @sy debounce
+            setState(prev => ({
+                ...prev,
+                theme: value,
+            }))
+        },
+    })
 
-    useEffect(() => {
-        const {require} = window as ANY
-        require.config({paths: {vs: '/monaco-editor/min/vs'}})
-        require(['vs/editor/editor.main'], () => {
-            const container = document.getElementById('container')
-            if (container) monaco.editor.create(container, {
-                value: ['* {', '    box-sizing: border-box;', '}'].join('\n'),
-                language: 'css',
-            })
-        })
-    }, [])
+    const handleSubmit = () => {
+        const {editor} = monaco
+        if (editor) {
+            // TODO: @sy submit to gist
+            console.info('value', editor.getValue())
+        }
+    }
 
     return (
         <Fabric>
@@ -27,17 +35,15 @@ export default function Edit () {
                 <script src="/monaco-editor/min/vs/loader.js" />
             </Head>
 
-            <Fabric clearfix>
-                Edit - {n.n}
+            {loading && <Landing />}
+
+            <Fabric>
+                <div className={style.editor} ref={monaco.container} />
             </Fabric>
 
             <Fabric>
-                <Button onClick={handleClick} label="+" />
-                <div id="container" style={{width: '800px', height: '600px'}} />
-            </Fabric>
-
-            <Fabric>
-                <Link href="/submit/preview" target="_blank">preview</Link>
+                <Button onClick={handleSubmit} label="Submit" />
+                <Link href="/submit/preview" target="_blank"><Button label="Preview" /></Link>
             </Fabric>
         </Fabric>
     )
