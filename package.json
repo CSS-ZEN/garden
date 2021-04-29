@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run monaco && next build",
     "start": "next start",
-    "lint": "tslint --fix -p tsconfig.json"
+    "lint": "tslint --fix -p tsconfig.json",
+    "monaco": "sh scripts/monaco.sh"
   },
   "dependencies": {
     "@primer/css": "^16.2.0",
@@ -20,6 +21,7 @@
     "@somarlyonks/tslint": "^1.0.1",
     "@types/memory-cache": "^0.2.1",
     "@types/react": "^17.0.3",
+    "monaco-editor": "^0.23.0",
     "raw-loader": "^4.0.2",
     "remark": "^13.0.0",
     "remark-html": "^13.0.1",
