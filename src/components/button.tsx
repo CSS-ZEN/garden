@@ -13,7 +13,7 @@ interface IButtonProps {
     labelClassName?: string
     primary?: boolean
     borderless?: boolean
-    onClick?: React.MouseEventHandler<HTMLButtonElement>
+    onClick?: JSX.IntrinsicElements['button']['onClick']
 }
 
 
