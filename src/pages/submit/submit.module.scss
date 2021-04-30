@@ -1,5 +1,17 @@
+$chromeBlue: #61afef;
+
 .toolbar {
   width: 100%;
+  & &__file {
+    &--active {
+      border-bottom: 2px solid $chromeBlue;
+      &,
+      &:hover {
+        color: $chromeBlue;
+      }
+    }
+  }
+
   &__submit {
     margin-right: 5px;
   }

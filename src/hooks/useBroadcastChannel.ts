@@ -1,6 +1,6 @@
 
 import {useEffect, useRef, useState, Dispatch, SetStateAction} from 'react'
-import isCallable from '../helpers/isCallable'
+import isCallable from 'src/helpers/isCallable'
 
 
 interface IBroadcastChannelEvent<T> {
@@ -59,13 +59,14 @@ export default function useBroadcastChannel<T> (name: string, data: T): [T, Disp
         }
     }, [])
 
-    const emitState: typeof setState = s => {
-        setState(s)
+    const emitState: typeof setState = s => setState(prev => {
+        const next = isCallable(s) ? s(prev) : s
         bc.current.postMessage({
             type: 'setState',
-            payload: isCallable(s) ? s(state) : s,
+            payload: next,
         })
-    }
+        return next
+    })
 
     return [state, emitState]
 }

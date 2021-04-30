@@ -1,6 +1,16 @@
 
-import type {IGardenProps} from 'src/garden'
+import type {IGardenProps, ITheme} from 'src/garden'
 
+
+interface IThemeFile {
+    filename: string
+    language: string
+    content: string
+}
+
+interface IEditTheme extends ITheme {
+    files: IThemeFile[]
+}
 
 export const resetStyle = `
 * {
@@ -64,9 +74,28 @@ form {
 
 export const defaultThemeStyle = resetStyle
 
-export const defaultTheme: IGardenProps['theme'] = {
+const defualtManifest = {
+    name: '',
+    author: '',
+    contact: '',
+}
+
+export const defaultTheme: IEditTheme = {
     id: '',
     theme: defaultThemeStyle,
+    manifest: defualtManifest,
+    files: [
+        {
+            filename: 'theme.css',
+            language: 'css',
+            content: defaultThemeStyle,
+        },
+        {
+            filename: 'manifest.json',
+            language: 'JSON',
+            content: JSON.stringify(defualtManifest, null, 4),
+        },
+    ],
 }
 
 export const defaultThemes: IGardenProps['themeChoices'] = {
