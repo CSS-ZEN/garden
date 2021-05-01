@@ -2,9 +2,10 @@
 import {useCallback, useState} from 'react'
 
 import {Head, Fabric, Button, Link, Landing} from 'src/components'
-import {useBroadcastChannel, useMonaco, useDebounce} from 'src/hooks'
+import {useBroadcastChannel, useMonaco, useDebounce, useRefState} from 'src/hooks'
 import {defaultTheme, resetStyle} from 'src/helpers/values'
-import {SUBMIT_CHANNEL} from 'src/config'
+import {SUBMIT_CHANNEL, DEFAULT_THEME_FILE} from 'src/config'
+
 import style from './submit.module.scss'
 
 
@@ -12,15 +13,18 @@ const BLOCK_INTERVAL = 500 // ms
 
 export default function Edit () {
     const [state, setState] = useBroadcastChannel(SUBMIT_CHANNEL, defaultTheme)
-    const [currentFile, setCurrentFile] = useState('theme.css')
+    const [currentFile, currentFileRef, setCurrentFile] = useRefState(...useState(DEFAULT_THEME_FILE))
     const [debouncing, updateFile] = useDebounce((value, e) => setState(prev => ({
         ...prev,
-        theme: value,
-        files: prev.files.map(file => file.filename === currentFile ? {
-            ...file,
-            content: value,
-        } : file),
-    })), BLOCK_INTERVAL, [currentFile])
+        theme: currentFileRef.current === DEFAULT_THEME_FILE ? value : prev.theme,
+        files: {
+            ...prev.files,
+            [currentFileRef.current]: {
+                ...prev.files[currentFileRef.current],
+                content: value,
+            },
+        },
+    })), BLOCK_INTERVAL, [])
 
     const [loading, monaco] = useMonaco({
         value: state.theme,
@@ -28,19 +32,30 @@ export default function Edit () {
         onChange: updateFile,
     })
 
-    const handleSubmit = () => {
-        const {editor} = monaco
-        if (editor) {
-            // TODO: @sy submit to gist
-            console.info('value', editor.getValue())
+    const [submitting, setSubmitting] = useState(false)
+
+    const handleSubmit = useCallback(async () => {
+        if (submitting) return
+        setSubmitting(true)
+        try {
+            const r = await fetch('/api/submit', {
+                method: 'POST',
+                body: JSON.stringify(state),
+            })
+            const r2 = await r.json()
+            console.info(r2)
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setSubmitting(false)
         }
-    }
+    }, [submitting, state])
 
     const selectFile = useCallback((filename: string) => {
         const {editor} = monaco
         if (!editor) return
 
-        const file = state.files.find(f => f.filename === filename)
+        const file = state.files[filename]
         if (!file) return
         const model = window.monaco.editor.createModel(file.content, file.language.toLowerCase())
         editor.setModel(model)
@@ -58,13 +73,13 @@ export default function Edit () {
 
             <Fabric clearfix shrink className={style.toolbar}>
                 <Fabric clearfix>
-                    {state.files.map(file =>
+                    {Object.values(state.files).map(file =>
                         <FileTab key={file.filename} filename={file.filename} active={file.filename === currentFile} onClick={selectFile} />
                     )}
                 </Fabric>
                 <Fabric grow />
                 <Fabric clearfix>
-                    <Button className={style.toolbar__submit} loading={debouncing} onClick={handleSubmit} label="Submit" />
+                    <Button className={style.toolbar__submit} disabled={debouncing} loading={submitting} onClick={handleSubmit} label="Submit" />
                     <Link href="/submit/preview" target="_blank"><Button label="Preview" /></Link>
                 </Fabric>
             </Fabric>
