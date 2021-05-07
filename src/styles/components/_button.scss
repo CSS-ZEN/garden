@@ -8,7 +8,7 @@
     background-color: #fff;
     border: 1px solid $fabricGrey;
     color: $fabricBlack;
-    border-radius: 0;
+    border-radius: 0px;
     text-decoration: none;
     text-align: center;
     vertical-align: top;
@@ -67,6 +67,7 @@
       background-color: $fabricDeepWhite;
       border-color: $fabricDeepWhite;
       color: $fabricLightGrey;
+      cursor: not-allowed;
     }
 
     &--borderless {

@@ -96,3 +96,5 @@ typings/
 
 # vercel
 .vercel
+
+public/monaco-editor

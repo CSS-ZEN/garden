@@ -1,5 +1,5 @@
 
-import {Head, Fabric, Quote, Button} from 'src/components'
+import {Head, Fabric, Quote, Button, Link} from 'src/components'
 
 import styles from './404.module.scss'
 
@@ -14,7 +14,7 @@ export default function CountentNotFound () {
             <Fabric clearfix>
                 <Button borderless label="Back" onClick={navigateBack} />
                 <span>/</span>
-                <a href="/"><Button borderless label="Home" /></a>
+                <Link href="/"><Button borderless label="Home" /></Link>
             </Fabric>
         </Fabric>
     )

@@ -7,6 +7,7 @@ import {DEFAULT_BUILD_THEMES, THEME_REVALIDATION_INTERVAL} from 'src/config'
 import {getThemePropsById, safeWaitPromise, getThemesByCursor} from 'src/helpers'
 import Landing from 'src/components/landing'
 import Garden, {IGardenProps} from 'src/garden'
+import {defaultThemes} from 'src/helpers/values'
 
 
 interface IStaticProps extends ParsedUrlQuery {
@@ -35,15 +36,7 @@ export const getStaticPaths: GetStaticPaths<IStaticProps> = async ctx => {
 export const getStaticProps: (context: {params: IStaticProps}) => Promise<GetStaticPropsResult<IGardenProps>> = async ({params: {id}}) => {
     const [theme, themeChoices] = await Promise.all([
         getThemePropsById(id),
-        safeWaitPromise(getThemesByCursor(), {
-            themes: [],
-            pageInfo: {
-                endCursor: null,
-                hasNextPage: false,
-                hasPreviousPage: false,
-                startCursor: null,
-            },
-        }),
+        safeWaitPromise(getThemesByCursor(), defaultThemes),
     ])
 
     if (!theme) return {

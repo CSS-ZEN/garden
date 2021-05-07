@@ -4,6 +4,7 @@ import {GetStaticProps, InferGetStaticPropsType} from 'next'
 import Garden, {IGardenProps} from 'src/garden'
 import {getThemePropsById, safeWaitPromise, getThemesByCursor} from 'src/helpers'
 import {DEFAULT_THEME_ID} from 'src/config'
+import {defaultThemes} from 'src/helpers/values'
 
 
 export default function Home ({theme, themeChoices}: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -13,15 +14,7 @@ export default function Home ({theme, themeChoices}: InferGetStaticPropsType<typ
 export const getStaticProps: GetStaticProps<IGardenProps, {}> = async () => {
     const [theme, themeChoices] = await Promise.all([
         getThemePropsById(DEFAULT_THEME_ID),
-        safeWaitPromise(getThemesByCursor(), {
-            themes: [],
-            pageInfo: {
-                endCursor: null,
-                hasNextPage: false,
-                hasPreviousPage: false,
-                startCursor: null,
-            },
-        }),
+        safeWaitPromise(getThemesByCursor(), defaultThemes),
     ])
 
     if (!theme) return {

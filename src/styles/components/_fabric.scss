@@ -11,6 +11,16 @@
     bottom: 0;
     left: 0;
   }
+  &--verticle {
+    flex-direction: column;
+  }
+  &--grow {
+    flex: 1;
+  }
+  &--shrink {
+    flex: 0;
+  }
+
   .fabric-container {
     margin: 0;
     padding: 0;

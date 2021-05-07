@@ -13,7 +13,7 @@ interface IButtonProps {
     labelClassName?: string
     primary?: boolean
     borderless?: boolean
-    onClick?: React.MouseEventHandler<HTMLButtonElement>
+    onClick?: JSX.IntrinsicElements['button']['onClick']
 }
 
 
@@ -33,7 +33,7 @@ export default function Button ({
         <button
             type={type}
             name={name}
-            className={`fabric-button ${className} ` + useBem('fabric-button', '', {primary, borderless})}
+            className={useBem('fabric-button', '', {primary, borderless}) + ` ${className}`}
             disabled={disabled || loading}
             onClick={onClick}
         >

@@ -13,7 +13,7 @@ export default function useBem (
     inputs: React.DependencyList = []
 ) {
     if (arguments.length === 3) {
-        inputs = Array.isArray(modifiers) ? modifiers : Object.values(modifiers)
+        inputs = Array.isArray(modifiers) ? [] : Object.values(modifiers)
     }
 
     return useMemo(() => bem(block, element, modifiers), inputs)

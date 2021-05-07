@@ -13,16 +13,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     return fetchGist(gistid).then(r => {
         const {ok, status, body} = r
-        if (ok) {
-            if (body.files && body.files[filename]) {
-                const file = body.files[filename]
+        if (!ok) return res.status(status).send(body.message)
+        if (!body.files || !body.files[filename]) return res.status(HTTPStatusCodes.NOT_FOUND).send('Content Not Found')
 
-                res.setHeader('Content-Type', file.type)
-                if (isImage(file) || isFont(file)) {
-                    fetch(file.raw_url).then(r2 => res.status(r2.status).send(r2.body))
-                } else res.status(HTTPStatusCodes.OK).send(file.content)
-            } else res.status(HTTPStatusCodes.NOT_FOUND).send('Content Not Found')
-        } else res.status(status).send(body.message)
+        const file = body.files[filename]
+
+        res.setHeader('Content-Type', file.type)
+        if (isImage(file) || isFont(file)) {
+            fetch(file.raw_url).then(r2 => res.status(r2.status).send(r2.body))
+        } else {
+            res.status(HTTPStatusCodes.OK).send(file.content)
+        }
     }).catch(err => res.status(HTTPStatusCodes.INTERNAL_SERVER_ERROR).send(err))
 }
 
