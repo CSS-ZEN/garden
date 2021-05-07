@@ -2,7 +2,8 @@
 import {useCallback, useState} from 'react'
 
 import {Head, Fabric, Button, Link, Landing} from 'src/components'
-import {useBroadcastChannel, useMonaco, useDebounce} from 'src/hooks'
+import {useBroadcastChannel, useMonaco, useDebounce, useSearchParam} from 'src/hooks'
+import {safeReadJson} from 'src/helpers'
 import {defaultTheme, resetStyle} from 'src/helpers/values'
 import {SUBMIT_CHANNEL, DEFAULT_THEME_FILE} from 'src/config'
 
@@ -26,24 +27,55 @@ export default function Edit () {
         },
     })), BLOCK_INTERVAL)
 
-    const [loading, monaco] = useMonaco({
+    const [editorLoading, monaco] = useMonaco({
         value: state.theme,
         language: 'css',
         onChange: updateFile,
     })
 
-    const [submitting, setSubmitting] = useState(false)
+    const [gistLoading, setGistLoading] = useState(true)
+    useSearchParam(['theme'], async id => {
+        if (!id) return setGistLoading(false)
 
+        try {
+            const r = await fetch(`/api/gists/${id}`)
+            const gist = await r.json()
+            setState({
+                id: gist.id,
+                theme: gist.files[DEFAULT_THEME_FILE].content,
+                manifest: safeReadJson(gist.files['manifest.json'].content, defaultTheme.manifest),
+                files: gist.files,
+            })
+
+            await new Promise(resolve => function detect () {
+                if (monaco.editor) resolve(undefined)
+                else setTimeout(detect, 100)
+            }())
+
+            if (gist.files[currentFile]) monaco.editor?.setValue(gist.files[currentFile].content)
+            else {
+                const file = gist.files[DEFAULT_THEME_FILE]
+                setMonacoModel(monaco.editor, file.content, file.language.toLowerCase())
+                setCurrentFile(DEFAULT_THEME_FILE)
+            }
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setGistLoading(false)
+        }
+    })
+
+    const [submitting, setSubmitting] = useState(false)
     const handleSubmit = useCallback(async () => {
         if (submitting) return
         setSubmitting(true)
         try {
-            const r = await fetch('/api/submit', {
+            const r = await fetch('/api/gists', {
                 method: 'POST',
                 body: JSON.stringify(state),
             })
             const r2 = await r.json()
-            console.info(r2)
+            window.history.pushState({}, '', `?theme=${r2.id}`)
         } catch (err) {
             console.error(err)
         } finally {
@@ -52,14 +84,10 @@ export default function Edit () {
     }, [submitting, state])
 
     const selectFile = useCallback((filename: string) => {
-        const {editor} = monaco
-        if (!editor) return
-
         const file = state.files[filename]
         if (!file) return
-        const model = window.monaco.editor.createModel(file.content, file.language.toLowerCase())
-        editor.getModel()?.dispose()
-        editor.setModel(model)
+
+        setMonacoModel(monaco.editor, file.content, file.language.toLowerCase())
         setCurrentFile(filename)
     }, [state])
 
@@ -70,7 +98,7 @@ export default function Edit () {
                 <style>{resetStyle}</style>
             </Head>
 
-            {loading && <Landing />}
+            {(editorLoading || gistLoading) && <Landing />}
 
             <Fabric clearfix shrink className={style.toolbar}>
                 <Fabric clearfix>
@@ -100,4 +128,12 @@ function FileTab ({filename, active, onClick}: {
     const clickHandler = useCallback(() => onClick(filename), [onClick, filename])
 
     return <Button borderless className={active ? style['toolbar__file--active'] : ''} label={filename} onClick={clickHandler} />
+}
+
+function setMonacoModel (editor: monaco.editor.IStandaloneCodeEditor | null, content: string, language?: string) {
+    if (!editor) return
+
+    const model = window.monaco.editor.createModel(content, language)
+    editor.getModel()?.dispose()
+    editor.setModel(model)
 }
