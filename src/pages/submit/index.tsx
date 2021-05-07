@@ -2,7 +2,7 @@
 import {useCallback, useState} from 'react'
 
 import {Head, Fabric, Button, Link, Landing} from 'src/components'
-import {useBroadcastChannel, useMonaco, useDebounce, useRefState} from 'src/hooks'
+import {useBroadcastChannel, useMonaco, useDebounce} from 'src/hooks'
 import {defaultTheme, resetStyle} from 'src/helpers/values'
 import {SUBMIT_CHANNEL, DEFAULT_THEME_FILE} from 'src/config'
 
@@ -13,18 +13,18 @@ const BLOCK_INTERVAL = 500 // ms
 
 export default function Edit () {
     const [state, setState] = useBroadcastChannel(SUBMIT_CHANNEL, defaultTheme)
-    const [currentFile, currentFileRef, setCurrentFile] = useRefState(...useState(DEFAULT_THEME_FILE))
+    const [currentFile, setCurrentFile] = useState(DEFAULT_THEME_FILE)
     const [debouncing, updateFile] = useDebounce((value, e) => setState(prev => ({
         ...prev,
-        theme: currentFileRef.current === DEFAULT_THEME_FILE ? value : prev.theme,
+        theme: currentFile === DEFAULT_THEME_FILE ? value : prev.theme,
         files: {
             ...prev.files,
-            [currentFileRef.current]: {
-                ...prev.files[currentFileRef.current],
+            [currentFile]: {
+                ...prev.files[currentFile],
                 content: value,
             },
         },
-    })), BLOCK_INTERVAL, [])
+    })), BLOCK_INTERVAL)
 
     const [loading, monaco] = useMonaco({
         value: state.theme,
@@ -58,6 +58,7 @@ export default function Edit () {
         const file = state.files[filename]
         if (!file) return
         const model = window.monaco.editor.createModel(file.content, file.language.toLowerCase())
+        editor.getModel()?.dispose()
         editor.setModel(model)
         setCurrentFile(filename)
     }, [state])
