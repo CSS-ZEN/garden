@@ -5,6 +5,7 @@ import Head from 'src/components/head'
 import Link from 'src/components/link'
 import type {IGraphqlPageInfo} from 'src/helpers/fetchGists'
 import {FETCH_GISTS_CACHE_LIFETIME} from 'src/config'
+import useBlocked from 'src/hooks/useBlocked'
 
 
 export interface IThemeManifest {
@@ -122,26 +123,17 @@ export default function Garden ({theme, themeChoices}: IGardenProps) {
 
 
 function Aside ({theme, themeChoices}: IGardenProps) {
-    const [loading, setLoading] = useState(false)
     const [themeInfo, setThemes] = useState(themeChoices)
 
-    const fetchThemes = async (api: string) => {
-        if (loading) return
-        setLoading(true)
-        try {
-            const r = await fetch(api, {
-                headers: {
-                    'Cache-Control': `s-maxage=${FETCH_GISTS_CACHE_LIFETIME}, stale-while-revalidate`,
-                },
-            })
-            const r2 = await r.json()
-            setThemes(r2)
-        } catch (err) {
-            console.error(err)
-        } finally {
-            setLoading(false)
-        }
-    }
+    const [, fetchThemes] = useBlocked(async (api: string) => {
+        const r = await fetch(api, {
+            headers: {
+                'Cache-Control': `s-maxage=${FETCH_GISTS_CACHE_LIFETIME}, stale-while-revalidate`,
+            },
+        })
+        const r2 = await r.json()
+        setThemes(r2)
+    })
 
     const handleNextThemes = async () => {
         const {pageInfo} = themeInfo

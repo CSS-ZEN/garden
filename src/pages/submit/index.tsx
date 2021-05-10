@@ -2,7 +2,7 @@
 import {useCallback, useState} from 'react'
 
 import {Head, Fabric, Button, Link, Landing} from 'src/components'
-import {useBroadcastChannel, useMonaco, useDebounce, useSearchParam} from 'src/hooks'
+import {useBroadcastChannel, useMonaco, useDebounce, useSearchParam, useBlocked} from 'src/hooks'
 import {safeReadJson} from 'src/helpers'
 import {defaultTheme, resetStyle} from 'src/helpers/values'
 import {SUBMIT_CHANNEL, DEFAULT_THEME_FILE} from 'src/config'
@@ -65,23 +65,14 @@ export default function Edit () {
         }
     })
 
-    const [submitting, setSubmitting] = useState(false)
-    const handleSubmit = useCallback(async () => {
-        if (submitting) return
-        setSubmitting(true)
-        try {
-            const r = await fetch('/api/gists', {
-                method: 'POST',
-                body: JSON.stringify(state),
-            })
-            const r2 = await r.json()
-            window.history.pushState({}, '', `?theme=${r2.id}`)
-        } catch (err) {
-            console.error(err)
-        } finally {
-            setSubmitting(false)
-        }
-    }, [submitting, state])
+    const [submitting, submit] = useBlocked(async () => {
+        const r = await fetch('/api/gists', {
+            method: 'POST',
+            body: JSON.stringify(state),
+        })
+        const r2 = await r.json()
+        window.history.pushState({}, '', `?theme=${r2.id}`)
+    }, [state])
 
     const selectFile = useCallback((filename: string) => {
         const file = state.files[filename]
@@ -108,7 +99,7 @@ export default function Edit () {
                 </Fabric>
                 <Fabric grow />
                 <Fabric clearfix>
-                    <Button className={style.toolbar__submit} disabled={debouncing} loading={submitting} onClick={handleSubmit} label="Submit" />
+                    <Button className={style.toolbar__submit} disabled={debouncing} loading={submitting} onClick={submit} label="Submit" />
                     <Link href="/submit/preview" target="_blank"><Button label="Preview" /></Link>
                 </Fabric>
             </Fabric>
@@ -131,7 +122,7 @@ function FileTab ({filename, active, onClick}: {
 }
 
 function setMonacoModel (editor: monaco.editor.IStandaloneCodeEditor | null, content: string, language?: string) {
-    if (!editor) return
+    if (!editor || !window.monaco) return
 
     const model = window.monaco.editor.createModel(content, language)
     editor.getModel()?.dispose()
