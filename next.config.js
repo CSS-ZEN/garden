@@ -1,7 +1,13 @@
 
 module.exports = {
+	images: {
+		domains: [process.env['NEXT_AWSHOST'], '127.0.0.1', 'screenshot-omega.vercel.app']
+	},
     future: {
         webpack5: true,
+    },
+    env: {
+        NEXT_AWSHOST: process.env['NEXT_AWSHOST']
     },
     webpack: config => {
         config.module.rules.push({

@@ -1,0 +1,73 @@
+.all-mian {
+    width: 98%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: auto;
+    align-items:flex-start;
+}
+
+@media (min-width: 800px) {
+    .preview-item {
+        flex: 1;
+        width: 50%;
+        min-width: 50%;
+        max-width: 50%;
+    }
+}
+
+@media (min-width: 1261px) {
+    .preview-item {
+        flex: 1;
+        width: 33.3%;
+        min-width: 33.3%;
+        max-width: 33.3%;
+    }
+}
+
+
+
+.preview-item:last-child {
+    margin-right: auto;
+}
+
+.h1 {
+    margin: 0;
+    text-align: center;
+}
+
+
+.left{
+    width: inherit;
+    position: fixed;
+    right: 0;
+    background:white url('/img/arrow1R.png') center center no-repeat;
+    top: 50%;
+    background-size: 40px;
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    border: solid 1px aliceblue;
+    &:hover{
+        background-color: aliceblue;
+    }
+
+}
+
+
+.right{
+    left: 0;
+    background:white url('/img/arrow1L.png') center center no-repeat;
+    width: inherit;
+    position: fixed;
+    top: 50%;
+    background-size: 40px;
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    border: solid 1px aliceblue;
+    &:hover{
+        background-color: aliceblue;
+    }
+
+}
