@@ -1,4 +1,5 @@
 import styles from './preview.module.scss'
+import {AWSHOST} from 'src/config'
 interface IPreviewProps {
     className?: string
     description: string,
@@ -7,7 +8,7 @@ interface IPreviewProps {
 
 
 export default function ThemePreview ({description, gistsid, className = ''}: IPreviewProps) {
-    const src = `https://${process.env.NEXT_AWSHOST}/desktop/czg.vercel.app/theme/${gistsid}.jpg`
+    const src = `https://${AWSHOST}/desktop/czg.vercel.app/theme/${gistsid}.jpg`
     return <div className={className}>
         <ul className={`${styles['gallery']} ${styles['gallery-margin']}`}>
             <li className={`${styles['thumb']} ${styles['browser-frame']}`} id={`/theme/${gistsid}`}>
