@@ -3,9 +3,11 @@ import {useState} from 'react'
 import {InferGetStaticPropsType} from 'next'
 import {Head, Fabric, ThemePreview} from 'src/components'
 import {safeWaitPromise, createSnapshot, getThemesByCursor} from 'src/helpers'
-import {THEME_REVALIDATION_INTERVAL, FETCH_GISTS_CACHE_LIFETIME, COUNT_PER_PAGE} from 'src/config'
+import {THEME_REVALIDATION_INTERVAL, FETCH_GISTS_CACHE_LIFETIME} from 'src/config'
 import {defaultThemes} from 'src/helpers/values'
 import styles from './index.module.scss'
+
+const COUNT_PER_PAGE = 6
 
 export default function All ({themeChoices}: InferGetStaticPropsType<typeof getStaticProps>) {
     const [loading, setLoading] = useState(false)
