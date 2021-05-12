@@ -136,15 +136,11 @@ function Aside ({theme, themeChoices}: IGardenProps) {
     })
 
     const handleNextThemes = async () => {
-        const {pageInfo} = themeInfo
-
-        fetchThemes(`/api/themes?after=${pageInfo.endCursor}`)
+        fetchThemes(`/api/themes?after=${themeInfo.pageInfo.endCursor}`)
     }
 
     const handlePreviousThemes = async () => {
-        const {pageInfo} = themeInfo
-
-        fetchThemes(`/api/themes?before=${pageInfo.startCursor}`)
+        fetchThemes(`/api/themes?before=${themeInfo.pageInfo.startCursor}`)
     }
 
     return (
