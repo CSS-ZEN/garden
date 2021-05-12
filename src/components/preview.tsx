@@ -1,14 +1,15 @@
 import styles from './preview.module.scss'
 import {AWSHOST} from 'src/config'
+import {IThemeManifest} from 'src/garden'
 
 interface IPreviewProps {
     className?: string
-    description: string,
+    manifest: IThemeManifest,
     gistsid: string
 }
 
 
-export default function ThemePreview ({description, gistsid, className = ''}: IPreviewProps) {
+export default function ThemePreview ({manifest, gistsid, className = ''}: IPreviewProps) {
     const src = `https://${AWSHOST}/desktop/czg.vercel.app/theme/${gistsid}.jpg`
     return (
         <div className={className}>
@@ -19,7 +20,7 @@ export default function ThemePreview ({description, gistsid, className = ''}: IP
                             <img src={src} alt="" />
                         </div>
                     </a>
-                    <p className={styles['thumb-caption']}>{description}</p>
+                    <p className={styles['thumb-caption']}>{manifest.name} By {manifest.author}</p>
                 </li>
             </ul>
         </div>
