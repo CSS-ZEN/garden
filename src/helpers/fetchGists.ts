@@ -8,7 +8,6 @@ export interface IGraphqlPageInfo {
     hasPreviousPage: boolean
     startCursor: string | null
 }
-
 export interface IGraphqlPageQuery {
     take?: number
     after?: string
