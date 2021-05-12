@@ -1,7 +1,7 @@
 
 import {useState} from 'react'
 import {InferGetStaticPropsType} from 'next'
-import {Head, Fabric, Preview} from 'src/components'
+import {Head, Fabric, ThemePreview} from 'src/components'
 import {safeWaitPromise, createSnapshot, getThemesByCursor} from 'src/helpers'
 import {THEME_REVALIDATION_INTERVAL, FETCH_GISTS_CACHE_LIFETIME, COUNT_PER_PAGE} from 'src/config'
 import {defaultThemes} from 'src/helpers/values'
@@ -48,10 +48,10 @@ export default function All ({themeChoices}: InferGetStaticPropsType<typeof getS
             </h1>
             <Fabric clearfix className={styles['all-mian']}>
                 {themeInfo.themes.map(
-                    theme => <Preview className={styles['preview-item']} manifest={theme.manifest} gistsid={theme.id} key={theme.id} />
+                    theme => <ThemePreview className={styles['preview-item']} manifest={theme.manifest} gistsid={theme.id} key={theme.id} />
                 )}
             </Fabric>
-            {themeInfo.pageInfo.hasPreviousPage? <a onClick={handlePreviousThemes} className={styles.right} /> : ''}
+            {themeInfo.pageInfo.hasPreviousPage ? <a onClick={handlePreviousThemes} className={styles.right} /> : ''}
             {themeInfo.pageInfo.hasNextPage ? <a onClick={handleNextThemes} className={styles.left} /> : ''}
         </Fabric>
     )

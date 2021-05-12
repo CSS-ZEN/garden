@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import {AWSHOST} from 'src/config'
 import {IThemeManifest} from 'src/garden'
-import styles from './preview.module.scss'
+import styles from './themepreview.module.scss'
 
 interface IPreviewProps {
     className?: string
@@ -12,13 +12,7 @@ interface IPreviewProps {
 
 export default function ThemePreview ({manifest, gistsid, className = ''}: IPreviewProps) {
     const [src, setSrc] = useState(`https://${AWSHOST}/desktop/czg.vercel.app/theme/${gistsid}.jpg`)
-    let errored = true
-    const onError = () => {
-        if (errored) {
-            setSrc(`_next/image?url=/api/snapshot/${gistsid}&w=1920&q=75`)
-            errored = true
-        }
-    }
+    const onError = () => setSrc(`_next/image?url=/api/snapshot/${gistsid}&w=1920&q=75`)
 
     return (
         <div className={className}>
