@@ -29,3 +29,5 @@ export const SUBMIT_CHANNEL = 'submit-channel'
 export const AWSHOST = 'csszen-screenshot.s3.us-east-2.amazonaws.com'
 
 export const SNAPSHOT_SERVER = 'https://screenshot-omega.vercel.app'
+
+export const COUNT_PER_PAGE = 6

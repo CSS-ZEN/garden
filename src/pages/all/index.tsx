@@ -3,7 +3,7 @@ import {useState} from 'react'
 import {InferGetStaticPropsType} from 'next'
 import {Head, Fabric, Preview} from 'src/components'
 import {safeWaitPromise, createSnapshot, getThemesByCursor} from 'src/helpers'
-import {THEME_REVALIDATION_INTERVAL, FETCH_GISTS_CACHE_LIFETIME} from 'src/config'
+import {THEME_REVALIDATION_INTERVAL, FETCH_GISTS_CACHE_LIFETIME, COUNT_PER_PAGE} from 'src/config'
 import {defaultThemes} from 'src/helpers/values'
 import styles from './index.module.scss'
 
@@ -32,13 +32,12 @@ export default function All ({themeChoices}: InferGetStaticPropsType<typeof getS
     const handleNextThemes = async () => {
         const {pageInfo} = themeInfo
 
-        fetchThemes(`/api/themes?after=${pageInfo.endCursor}`)
+        fetchThemes(`/api/themes?after=${pageInfo.endCursor}&take=${COUNT_PER_PAGE}`)
     }
 
     const handlePreviousThemes = async () => {
         const {pageInfo} = themeInfo
-
-        fetchThemes(`/api/themes?before=${pageInfo.startCursor}`)
+        fetchThemes(`/api/themes?before=${pageInfo.startCursor}&take=${COUNT_PER_PAGE}`)
     }
 
     return (
@@ -58,7 +57,7 @@ export default function All ({themeChoices}: InferGetStaticPropsType<typeof getS
     )
 }
 export async function getStaticProps () {
-    const themeChoices = await safeWaitPromise(getThemesByCursor({take: 6}), defaultThemes)
+    const themeChoices = await safeWaitPromise(getThemesByCursor({take: COUNT_PER_PAGE}), defaultThemes)
     const {themes} = themeChoices
     themes.forEach(theme => {
         createSnapshot({gistid: theme.id})
