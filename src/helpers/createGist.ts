@@ -7,7 +7,7 @@ export default async function createGist (files: Record<string, {
         method: 'POST',
         headers: {
             Accept: 'application/vnd.github.v3+json',
-            Authorization: 'Basic ' + Buffer.from(`csszen-bot:${process.env.STASH_GIST_TOKEN}`).toString('base64'),
+            Authorization: 'token ' + process.env.STASH_GIST_TOKEN,
         },
         body: JSON.stringify({
             files,
