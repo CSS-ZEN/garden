@@ -1,7 +1,8 @@
 
 import {useState} from 'react'
 import {InferGetStaticPropsType} from 'next'
-import {Head, Fabric, ThemePreview} from 'src/components'
+import {Head, Fabric} from 'src/components'
+import ThemePreview from 'src/components/themepreview'
 import {safeWaitPromise, createSnapshot, getThemesByCursor} from 'src/helpers'
 import {THEME_REVALIDATION_INTERVAL, FETCH_GISTS_CACHE_LIFETIME} from 'src/config'
 import {defaultThemes} from 'src/helpers/values'
