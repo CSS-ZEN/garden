@@ -25,3 +25,7 @@ export const FETCH_GIST_CACHE_LIFETIME = 60 // seconds
 export const FETCH_GISTS_CACHE_LIFETIME = 60 // seconds
 
 export const SUBMIT_CHANNEL = 'submit-channel'
+
+export const AWSHOST = 'csszen-screenshot.s3.us-east-2.amazonaws.com'
+
+export const SNAPSHOT_SERVER = 'https://screenshot-omega.vercel.app'
