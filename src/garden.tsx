@@ -176,7 +176,7 @@ function Aside ({theme, themeChoices}: IGardenProps) {
                         <li className="view-css"><Link href={`/api/theme/${theme.id}`} title="View the source CSS file of the currently-viewed design.">View This Design&#8217;s <CssAbbr /></Link></li>
                         <li className="css-resources"><Link href="https://developer.mozilla.org/en-US/docs/Web/CSS" title="Links to great sites with information on using CSS."><CssAbbr /> Resources</Link></li>
                         <li className="zen-faq"><Link href="/about" title="A list of Frequently Asked Questions about the Zen Garden."><abbr title="Frequently Asked Questions">About</abbr></Link></li>
-                        <li className="zen-submit"><Link href="/submit" title="Send in your own CSS file.">Submit a Design</Link></li>
+                        <li className="zen-submit"><Link target="_blank" href="/submit" title="Send in your own CSS file.">Submit a Design</Link></li>
                         <li className="zen-translations"><a href="" title="View translated versions of this page.">Translations</a></li>
                     </ul>
                 </div>
