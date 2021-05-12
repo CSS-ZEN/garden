@@ -4,7 +4,7 @@ import {useMemo, useState, useRef, useEffect} from 'react'
 
 export default function useDebounce<T extends Lambda> (f: T, time: number): [boolean, T] {
     const [debouncing, setDebouncing] = useState(false)
-    const savedCallback = useRef<T>()
+    const savedCallback = useRef(f)
 
     useEffect(() => {
         savedCallback.current = f

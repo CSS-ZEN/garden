@@ -13,9 +13,19 @@ export interface IGraphqlPageQuery {
     take?: number
     after?: string
     before?: string
+    files?: boolean
 }
 
-export default async function fetchGists ({after, before}: IGraphqlPageQuery) {
+export default async function fetchGists ({
+    after,
+    before,
+    take = 8,
+    files = true,
+}: IGraphqlPageQuery) {
+    const filesField = files ? `files {
+        name
+        text
+    }` : ''
     const {viewer} = await graphql<{
         viewer: {
             gists: {
@@ -36,9 +46,9 @@ export default async function fetchGists ({after, before}: IGraphqlPageQuery) {
             },
         },
     }>(
-        `query secretGists($take: Int = 8, $after: String, $before: String) {
+        `query secretGists($first: Int, $last: Int, $after: String, $before: String) {
             viewer {
-                gists (first: $take, after: $after, before: $before, privacy: SECRET, orderBy: {field: CREATED_AT, direction: ASC} ) {
+                gists (first: $first, last: $last, after: $after, before: $before, privacy: SECRET, orderBy: {field: CREATED_AT, direction: ASC} ) {
                     edges {
                         node {
                             name
@@ -46,10 +56,7 @@ export default async function fetchGists ({after, before}: IGraphqlPageQuery) {
                             updatedAt
                             description
                             stargazerCount
-                            files {
-                                name
-                                text
-                            }
+                            ${filesField}
                         }
                     }
                     pageInfo {
@@ -62,6 +69,7 @@ export default async function fetchGists ({after, before}: IGraphqlPageQuery) {
             }
         }`,
         {
+            [before ? 'last' : 'first']: take,
             after,
             before,
             headers: {
