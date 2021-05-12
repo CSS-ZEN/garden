@@ -165,7 +165,7 @@ function Aside ({theme, themeChoices}: IGardenProps) {
                             {themeInfo.pageInfo.hasNextPage && <li className="next"><a onClick={handleNextThemes}>Next Designs <span className="indicator">&rsaquo;</span></a></li>}
                             {themeInfo.pageInfo.hasPreviousPage && <li className="previous"><a onClick={handlePreviousThemes}><span className="indicator">&lsaquo;</span> Previous Designs</a></li>}
                             {/* <li className="lucky"><Link href="/lucky">I'm feeling Lucky</Link></li> */}
-                            <li className="viewall"><Link href="/all/1" title="View every submission to the Zen Garden.">View All Designs</Link></li>
+                            <li className="viewall"><Link href="/all" title="View every submission to the Zen Garden.">View All Designs</Link></li>
                         </ul>
                     </nav>
                 </div>
