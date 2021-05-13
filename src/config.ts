@@ -18,14 +18,16 @@ export const DEFAULT_BUILD_THEMES = [
  */
 export const THEME_REVALIDATION_INTERVAL = 600 // seconds
 
+export const THEME_SNAPSHOT_REVALIDATION_INTERVAL = 3600 // seconds
+
 export const LANDING_THRESHOLD = 3500 // milliseconds
 
 export const FETCH_GIST_CACHE_LIFETIME = 60 // seconds
 
-export const FETCH_GISTS_CACHE_LIFETIME = 60 // seconds
+export const FETCH_GISTS_CACHE_LIFETIME = 3600 // seconds
 
 export const SUBMIT_CHANNEL = 'submit-channel'
 
-export const AWSHOST = 'csszen-screenshot.s3.us-east-2.amazonaws.com'
+export const AWS_HOST = 'csszen-screenshot.s3.us-east-2.amazonaws.com'
 
 export const SNAPSHOT_SERVER = 'https://screenshot-omega.vercel.app'

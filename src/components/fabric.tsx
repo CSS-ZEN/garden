@@ -10,6 +10,7 @@ interface IProps {
     verticle?: boolean
     grow?: boolean
     shrink?: boolean
+    wrap?: boolean
 }
 
 export default function Fabric ({
@@ -20,8 +21,9 @@ export default function Fabric ({
     verticle = false,
     grow = false,
     shrink = false,
+    wrap = false,
 }: IProps) {
-    const _className = `${className} ` + useBem('fabric', '', {full, verticle, grow, shrink})
+    const _className = useBem('fabric', '', {full, verticle, grow, shrink, wrap}) + ` ${className}`
 
     if (clearfix) return (
         <div className={_className}>

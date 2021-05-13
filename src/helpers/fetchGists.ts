@@ -13,19 +13,13 @@ export interface IGraphqlPageQuery {
     take?: number
     after?: string
     before?: string
-    files?: boolean
 }
 
 export default async function fetchGists ({
     after,
     before,
     take = 8,
-    files = true,
 }: IGraphqlPageQuery) {
-    const filesField = files ? `files {
-        name
-        text
-    }` : ''
     const {viewer} = await graphql<{
         viewer: {
             gists: {
@@ -56,7 +50,10 @@ export default async function fetchGists ({
                             updatedAt
                             description
                             stargazerCount
-                            ${filesField}
+                            files {
+                                name
+                                text
+                            }
                         }
                     }
                     pageInfo {

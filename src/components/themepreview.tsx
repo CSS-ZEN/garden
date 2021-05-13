@@ -1,32 +1,28 @@
+
 import {useState} from 'react'
-import {AWSHOST} from 'src/config'
-import {IThemeManifest} from 'src/garden'
+
+import {AWS_HOST} from 'src/config'
+import {Fabric, Quote} from 'src/components'
+import type {ITheme} from 'src/garden'
+import Link from './link'
+
 import styles from './themepreview.module.scss'
 
-interface IPreviewProps {
-    className?: string
-    manifest: IThemeManifest,
-    gistsid: string
-}
 
+export default function ThemePreview ({theme}: {theme: ITheme}) {
+    const {id, manifest} = theme
 
-export default function ThemePreview ({manifest, gistsid, className = ''}: IPreviewProps) {
-    const [src, setSrc] = useState(`https://${AWSHOST}/desktop/czg.vercel.app/theme/${gistsid}.jpg`)
-    const onError = () => setSrc(`_next/image?url=/api/snapshot/${gistsid}&w=1920&q=75`)
+    const [src, setSrc] = useState(`https://${AWS_HOST}/desktop/czg.vercel.app/theme/${id}.jpg`)
+    const onError = () => setSrc(`_next/image?url=/api/snapshot/${id}&w=1920&q=75`)
 
     return (
-        <div className={className}>
-            <ul className={`${styles.gallery} ${styles['gallery-margin']}`}>
-                <li className={`${styles.thumb} ${styles['browser-frame']}`} id={`/theme/${gistsid}`}>
-                    <a href={`/theme/${gistsid}`}>
-                        <div className={styles['project-frame']}>
-                            {/* <Image layout="fill" src={src} alt={src} /> */}
-                            <img onError={onError} src={src} alt={src} />
-                        </div>
-                    </a>
-                    <p className={styles['thumb-caption']}>{manifest.name} By {manifest.author}</p>
-                </li>
-            </ul>
-        </div>
+        <Fabric className={`${styles.preview}`} clearfix verticle grow>
+            <Link className={`${styles['preview__frame-wrapper']}`} href={`/theme/${id}`} target="_blank">
+                <Fabric className={styles.preview__frame}>
+                    <img onError={onError} src={src} alt={src} />
+                </Fabric>
+            </Link>
+            <Fabric><Quote inline quote={manifest.name} author={manifest.author} /></Fabric>
+        </Fabric>
     )
 }

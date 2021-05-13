@@ -20,6 +20,9 @@
   &--shrink {
     flex: 0;
   }
+  &--wrap {
+    flex-wrap: wrap;
+  }
 
   .fabric-container {
     margin: 0;
