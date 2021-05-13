@@ -15,7 +15,7 @@ const BLOCK_INTERVAL = 500 // ms
 export default function Edit () {
     const [state, setState] = useBroadcastChannel(SUBMIT_CHANNEL, defaultTheme)
     const [currentFile, setCurrentFile] = useState(DEFAULT_THEME_FILE)
-    const [debouncing, updateFile] = useDebounce((value, e) => setState(prev => ({
+    const [debouncing, updateFile] = useDebounce(useCallback((value, e) => setState(prev => ({
         ...prev,
         theme: currentFile === DEFAULT_THEME_FILE ? value : prev.theme,
         files: {
@@ -25,7 +25,7 @@ export default function Edit () {
                 content: value,
             },
         },
-    })), BLOCK_INTERVAL)
+    })), [currentFile]), BLOCK_INTERVAL)
 
     const [editorLoading, monaco] = useMonaco({
         value: state.theme,
