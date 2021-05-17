@@ -126,12 +126,11 @@ function Aside ({theme, themeChoices}: IGardenProps) {
     const [themeInfo, setThemes] = useState(themeChoices)
 
     const [, fetchThemes] = useBlocked(async (api: string) => {
-        const r = await fetch(api, {
+        const r2 = await fetch(api, {
             headers: {
                 'Cache-Control': `s-maxage=${FETCH_GISTS_CACHE_LIFETIME}, stale-while-revalidate`,
             },
-        })
-        const r2 = await r.json()
+        }).then(r => r.json())
         setThemes(r2)
     })
 

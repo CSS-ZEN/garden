@@ -38,8 +38,7 @@ export default function Edit () {
         if (!id) return setGistLoading(false)
 
         try {
-            const r = await fetch(`/api/gists/${id}`)
-            const gist = await r.json()
+            const gist = await fetch(`/api/gists/${id}`).then(r => r.json())
             setState({
                 id: gist.id,
                 theme: gist.files[DEFAULT_THEME_FILE].content,
@@ -66,11 +65,10 @@ export default function Edit () {
     })
 
     const [submitting, submit] = useBlocked(async () => {
-        const r = await fetch('/api/gists', {
+        const r2 = await fetch('/api/gists', {
             method: 'POST',
             body: JSON.stringify(state),
-        })
-        const r2 = await r.json()
+        }).then(r => r.json())
         window.history.pushState({}, '', `?theme=${r2.id}`)
     }, [state])
 
