@@ -6,12 +6,18 @@ import Link from 'src/components/link'
 import type {IGraphqlPageInfo} from 'src/helpers/fetchGists'
 import {FETCH_GISTS_CACHE_LIFETIME} from 'src/config'
 import useBlocked from 'src/hooks/useBlocked'
+import type {ISassOptions} from 'src/helpers/compileSass'
 
 
 export interface IThemeManifest {
     author: string
     contact: string
     name: string
+    config?: {
+        language: 'css' | 'scss'
+        editorOptions?: {} // TODO: @sy
+        sassOptions?: Partial<ISassOptions>
+    }
 }
 
 export interface ITrialTheme {
@@ -126,12 +132,11 @@ function Aside ({theme, themeChoices}: IGardenProps) {
     const [themeInfo, setThemes] = useState(themeChoices)
 
     const [, fetchThemes] = useBlocked(async (api: string) => {
-        const r = await fetch(api, {
+        const r2 = await fetch(api, {
             headers: {
                 'Cache-Control': `s-maxage=${FETCH_GISTS_CACHE_LIFETIME}, stale-while-revalidate`,
             },
-        })
-        const r2 = await r.json()
+        }).then(r => r.json())
         setThemes(r2)
     })
 

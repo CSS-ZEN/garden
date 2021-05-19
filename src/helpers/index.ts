@@ -1,4 +1,5 @@
 
+export {default as compileSass} from './compileSass'
 export {default as createGist} from './createGist'
 export {default as fetchGist} from './fetchGist'
 export {default as fetchGists} from './fetchGists'
