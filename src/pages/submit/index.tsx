@@ -1,31 +1,27 @@
 
-import {useCallback, useState} from 'react'
+import {useCallback, useState, Dispatch, SetStateAction} from 'react'
 
 import {Head, Fabric, Button, Link, Landing} from 'src/components'
 import {useBroadcastChannel, useMonaco, useDebounce, useSearchParam, useBlocked} from 'src/hooks'
-import {safeReadJson} from 'src/helpers'
-import {defaultTheme, resetStyle} from 'src/helpers/values'
+import {safeReadJson, compileSass} from 'src/helpers'
+import {defaultTheme, defaultScssThemeFile, resetStyle, IThemeFile} from 'src/helpers/values'
 import {SUBMIT_CHANNEL, DEFAULT_THEME_FILE} from 'src/config'
+import manifestSchema from 'public/manifest-schema.json'
 
 import style from './submit.module.scss'
+import type {IThemeManifest} from 'src/garden'
 
 
 const BLOCK_INTERVAL = 500 // ms
+const DEFAULT_THEME_SCSS_FILE = 'theme.scss'
 
 export default function Edit () {
     const [state, setState] = useBroadcastChannel(SUBMIT_CHANNEL, defaultTheme)
     const [currentFile, setCurrentFile] = useState(DEFAULT_THEME_FILE)
-    const [debouncing, updateFile] = useDebounce(useCallback((value, e) => setState(prev => ({
-        ...prev,
-        theme: currentFile === DEFAULT_THEME_FILE ? value : prev.theme,
-        files: {
-            ...prev.files,
-            [currentFile]: {
-                ...prev.files[currentFile],
-                content: value,
-            },
-        },
-    })), [currentFile]), BLOCK_INTERVAL)
+    const [debouncing, updateFile] = useDebounce(
+        useCallback(value => handleMonacoValueChange(currentFile, value, setState), [currentFile]),
+        BLOCK_INTERVAL
+    )
 
     const [editorLoading, monaco] = useMonaco({
         value: state.theme,
@@ -39,10 +35,11 @@ export default function Edit () {
 
         try {
             const gist = await fetch(`/api/gists/${id}`).then(r => r.json())
+            const manifest = safeReadJson(gist.files['manifest.json'].content, defaultTheme.manifest)
             setState({
                 id: gist.id,
                 theme: gist.files[DEFAULT_THEME_FILE].content,
-                manifest: safeReadJson(gist.files['manifest.json'].content, defaultTheme.manifest),
+                manifest,
                 files: gist.files,
             })
 
@@ -51,12 +48,10 @@ export default function Edit () {
                 else setTimeout(detect, 100)
             }())
 
-            if (gist.files[currentFile]) monaco.editor?.setValue(gist.files[currentFile].content)
-            else {
-                const file = gist.files[DEFAULT_THEME_FILE]
-                setMonacoModel(monaco.editor, file.content, file.language.toLowerCase())
-                setCurrentFile(DEFAULT_THEME_FILE)
-            }
+            const filename = manifest.config?.language === 'scss' ? DEFAULT_THEME_SCSS_FILE : DEFAULT_THEME_FILE
+            const file = gist.files[filename]
+            setMonacoFile(monaco.editor, file)
+            setCurrentFile(filename)
         } catch (err) {
             console.error(err)
         } finally {
@@ -76,13 +71,14 @@ export default function Edit () {
         const file = state.files[filename]
         if (!file) return
 
-        setMonacoModel(monaco.editor, file.content, file.language.toLowerCase())
+        setMonacoFile(monaco.editor, file)
         setCurrentFile(filename)
     }, [state])
 
     return (
         <Fabric full clearfix verticle>
             <Head title="Edit | CSS Zen Garden">
+                <script src="/sass.js/sass.js" />
                 <script src="/monaco-editor/min/vs/loader.js" />
                 <style>{resetStyle}</style>
             </Head>
@@ -116,13 +112,73 @@ function FileTab ({filename, active, onClick}: {
 }) {
     const clickHandler = useCallback(() => onClick(filename), [onClick, filename])
 
-    return <Button borderless className={active ? style['toolbar__file--active'] : ''} label={filename} onClick={clickHandler} />
+    return (
+        <Button
+            borderless
+            className={active ? style['toolbar__file--active'] : ''}
+            label={filename}
+            onClick={clickHandler}
+        />
+    )
 }
 
-function setMonacoModel (editor: monaco.editor.IStandaloneCodeEditor | null, content: string, language?: string) {
+function setMonacoFile (editor: monaco.editor.IStandaloneCodeEditor | null, file: IThemeFile) {
     if (!editor || !window.monaco) return
 
-    const model = window.monaco.editor.createModel(content, language)
+    const language = file.language.toLowerCase()
+    const uri = monaco.Uri.parse(file.filename)
+    const model = window.monaco.editor.createModel(file.content, language, uri)
+    if (file.filename === 'manifest.json') {
+        window.monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+            validate: true,
+            schemas: [{
+                uri: 'https://czg.vercel.app/manifest-schema.json',
+                fileMatch: [uri.toString()],
+                schema: manifestSchema,
+            }],
+        })
+    }
+
     editor.getModel()?.dispose()
     editor.setModel(model)
+}
+
+async function handleMonacoValueChange (
+    filename: string,
+    value: string,
+    setState: Dispatch<SetStateAction<typeof defaultTheme>>
+) {
+    const scssResult = filename === DEFAULT_THEME_SCSS_FILE ? await compileSass(value) : null
+    if (scssResult && scssResult.status) return console.error(scssResult.formatted)
+
+    setState(prev => {
+        const theme = filename === DEFAULT_THEME_SCSS_FILE
+            ? scssResult!.text
+            : filename === DEFAULT_THEME_FILE ? value : prev.theme
+        const files = {
+            ...prev.files,
+            [filename]: {
+                ...prev.files[filename],
+                content: value,
+            },
+        }
+
+        if (filename === DEFAULT_THEME_SCSS_FILE) {
+            files[DEFAULT_THEME_FILE] = {
+                ...prev.files[DEFAULT_THEME_FILE],
+                content: theme,
+            }
+        } else if (filename === 'manifest.json') {
+            const manifest = safeReadJson<IThemeManifest>(value, defaultTheme.manifest)
+            if (manifest.config?.language === 'scss' && !prev.files[DEFAULT_THEME_SCSS_FILE]) {
+                files[DEFAULT_THEME_SCSS_FILE] = defaultScssThemeFile
+            }
+        }
+
+        return {
+            ...prev,
+            theme,
+            files,
+        }
+    })
 }

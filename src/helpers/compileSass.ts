@@ -37,7 +37,7 @@ enum ISassStyle {
     compressed = 3,
 }
 
-interface ISassOptions {
+export interface ISassOptions {
     style: ISassStyle
     // Decimal point precision for outputting fractional numbers
     // (-1 will use the libsass default, which currently is 5)

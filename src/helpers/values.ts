@@ -1,5 +1,5 @@
 
-import type {IGardenProps, ITheme} from 'src/garden'
+import type {IGardenProps, ITheme, IThemeManifest} from 'src/garden'
 
 
 export interface IThemeFile {
@@ -74,10 +74,24 @@ form {
 
 export const defaultThemeStyle = resetStyle
 
-const defualtManifest = {
+const defualtManifest: IThemeManifest = {
     name: '',
     author: '',
     contact: '',
+}
+
+const defaultScssStyle = `
+$RED: green;
+
+* {
+    color: $RED;
+}
+`
+
+export const defaultScssThemeFile = {
+    filename: 'theme.scss',
+    language: 'scss',
+    content: defaultScssStyle,
 }
 
 export const defaultTheme: IEditTheme = {

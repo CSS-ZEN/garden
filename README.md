@@ -46,9 +46,9 @@ You may add import css declartion in your theme like [the default theme](https:/
 
 Or you may mannully attach fonts to the gist like images and declare font faces in your theme.
 
-### Is postcss tools built in? Can I write Sass/Less?
+### Is postcss tools built in? Can I write Sass?
 
-No. You may keep the source file in the gist to track changelogs and process them on your own to `theme.css`, online processors like [Sass.js](http://sass.js.org/) or [Autoprefixer CSS online](https://autoprefixer.github.io/?) might be helpful.
+Yes. You can enable Sass by editing the `manifest.json` and set `option.language` to `scss`, the editor will add `theme.scss` and compile it to `theme.css` automatically when you edit it. Take [http://czg.vercel.app/submit?theme=cadbc727a641595682916bea906346d0](http://czg.vercel.app/submit?theme=cadbc727a641595682916bea906346d0) as an example.
 
 ### What's the point of this project since we can use codepen/jsfiddle .etc to customize themes and see what they look like?
 
