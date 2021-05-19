@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://czg.vercel.app/manifest-schema.json",
+  "title": "Manifest",
+  "description": "Meta informations of the theme for czg.vercel.app",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "contact": {
+      "type": "string"
+    },
+    "config": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string"
+        },
+        "sassOptions": {
+          "type": "object",
+          "properties": {
+            "style": {
+              "type": "integer",
+              "description": "Format output: nested, expanded, compact, compressed"
+            },
+            "precision": {
+              "type": "integer",
+              "description": "Decimal point precision for outputting fractional numbers(-1 will use the libsass default, which currently is 5)"
+            },
+            "comments": {
+              "type": "boolean"
+            },
+            "indent": {
+              "type": "string"
+            },
+            "linefeed": {
+              "type": "string"
+            },
+            "indentedSyntax": {
+              "type": "boolean",
+              "description": "Treat source_string as SASS (as opposed to SCSS) when false"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "name",
+    "author",
+    "contact"
+  ]
+}
