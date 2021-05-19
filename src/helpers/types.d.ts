@@ -1,5 +1,6 @@
 
 type Lambda<T = any> = (...args: any[]) => T
+type Lambda1<T, R = void> = (arg: T) => R
 type PromiseContent<P> = P extends Promise<infer PC> ? PC : any
 
 /**

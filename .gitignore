@@ -98,3 +98,4 @@ typings/
 .vercel
 
 public/monaco-editor
+public/sass.js
