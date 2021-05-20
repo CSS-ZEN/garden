@@ -35,16 +35,18 @@ export default function All ({themeChoices}: InferGetStaticPropsType<typeof getS
     }
 
     return (
-        <Fabric>
+        <Fabric className={bem('all')} clearfix>
             <Head title="All Designs | CSS Zen Garden">
                 <style>{resetStyle}</style>
             </Head>
-
-            <h1 className={bem('all', 'title')}>All Designs</h1>
+            <Fabric className={bem('all', 'header')} clearfix>
+                <img className={bem('all-header', 'logo')} src="./Enso.svg" alt="" />
+                <h1 className={bem('all-header', 'title')}>All Designs</h1>
+            </Fabric>
             <Fabric className={bem('all', 'main')} clearfix wrap>
                 {themeInfo.themes.map(theme => (
                     <Fabric key={theme.id} className={bem('all', 'preview-item')} clearfix>
-                        <ThemePreview theme={theme} />
+                        <ThemePreview theme={theme} key={theme.id} />
                     </Fabric>
                 ))}
             </Fabric>
