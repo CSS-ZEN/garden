@@ -1,8 +1,8 @@
 
-import {useMemo, useState, useRef, useEffect} from 'react'
+import {useCallback, useState, useRef, useEffect} from 'react'
 
 
-export default function useDebounce<T extends Lambda> (f: T, time: number): [boolean, T] {
+export default function useDebounce<T extends Lambda> (f: T, ms: number): [boolean, T] {
     const [debouncing, setDebouncing] = useState(false)
     const savedCallback = useRef(f)
     const tomb = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -23,22 +23,20 @@ export default function useDebounce<T extends Lambda> (f: T, time: number): [boo
         savedCallback.current = f
     }, [f])
 
-    const debouncedCallback = useMemo<T>(() => {
-        return ((...args: ANY[]) => {
-            setDebouncing(true)
-            const fc = savedCallback.current
-            killDebounced()
-            setAction(() => {
-                const nextAction = () => {
-                    setDebouncing(false)
-                    killDebounced()
-                    fc(...args)
-                }
-                tomb.current = setTimeout(nextAction, time)
-                return nextAction
-            })
-        }) as T
-    }, [f])
+    const debouncedCallback = useCallback<T>(((...args: ANY[]) => {
+        setDebouncing(true)
+        const fc = savedCallback.current
+        killDebounced()
+        setAction(() => {
+            const nextAction = () => {
+                setDebouncing(false)
+                killDebounced()
+                fc(...args)
+            }
+            tomb.current = setTimeout(nextAction, ms)
+            return nextAction
+        })
+    }) as T, [f])
 
     return [debouncing, debouncedCallback]
 }

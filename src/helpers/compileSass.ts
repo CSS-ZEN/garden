@@ -1,5 +1,5 @@
 
-import type {IThemeFile} from 'src/helpers/values'
+import type {IBasicFile} from 'src/helpers/values'
 
 
 interface ISass {
@@ -72,7 +72,7 @@ export interface ISassOptions {
     sourceMapOmitUrl: boolean,
 }
 
-export default async function compileSass (file: Pick<IThemeFile, 'content' | 'filename'>, options?: Partial<ISassOptions>) {
+export default async function compileSass (file: IBasicFile, options?: Partial<ISassOptions>) {
     const {Sass} = window as ANY
     if (!Sass) throw new Error('Sass library unavailable')
 
