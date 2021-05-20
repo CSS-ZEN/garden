@@ -1,4 +1,7 @@
 
+import type {IThemeFile} from 'src/helpers/values'
+
+
 interface ISass {
     compile (source: string, callback?: Lambda1<ISassResult>): void
     options (options: Partial<ISassOptions> | 'defaults', callback?: Lambda1<void | Error>): void
@@ -69,7 +72,7 @@ export interface ISassOptions {
     sourceMapOmitUrl: boolean,
 }
 
-export default async function compileSass (scss: string, options?: Partial<ISassOptions>) {
+export default async function compileSass (file: Pick<IThemeFile, 'content' | 'filename'>, options?: Partial<ISassOptions>) {
     const {Sass} = window as ANY
     if (!Sass) throw new Error('Sass library unavailable')
 
@@ -81,7 +84,8 @@ export default async function compileSass (scss: string, options?: Partial<ISass
     })
     if (options) sass.options(options)
 
-    sass.writeFile('theme.scss', scss)
+    const {filename, content} = file
+    sass.writeFile(filename, content)
 
-    return new Promise<ISassResult>(resolve => sass.compileFile('theme.scss', resolve))
+    return new Promise<ISassResult>(resolve => sass.compileFile(filename, resolve))
 }
