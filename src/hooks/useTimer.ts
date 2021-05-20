@@ -1,6 +1,8 @@
 
 import {useEffect} from 'react'
+import {nullary} from 'src/helpers/arity'
+
 
 export default function useTimer (timerFactory: Lambda, timeout: number) {
-    useEffect(() => (timer => () => clearTimeout(timer))(setTimeout(timerFactory, timeout)), [])
+    useEffect(() => nullary(clearTimeout)(setTimeout(timerFactory, timeout)), [])
 }
