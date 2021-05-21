@@ -1,0 +1,7 @@
+@mixin textHighlight($color) {
+  text-decoration: underline;
+  text-decoration-thickness: 2ex;
+  text-decoration-color: $color;
+  text-decoration-skip-ink: none;
+  text-underline-offset: -2.8ex;
+}
