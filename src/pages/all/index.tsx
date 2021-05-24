@@ -42,10 +42,11 @@ export default function All ({themeChoices}: InferGetStaticPropsType<typeof getS
             <Fabric className={bem('all', 'header')} clearfix>
                 <img className={bem('all-header', 'logo')} src="./Enso.svg" alt="" />
                 <h1 className={bem('all-header', 'title')}>All Designs</h1>
+                <Fabric grow />
             </Fabric>
             <Fabric className={bem('all', 'main')} clearfix wrap>
                 {themeInfo.themes.map(theme => (
-                    <Fabric key={theme.id} className={bem('all', 'preview-item')} clearfix>
+                    <Fabric key={theme.id} className={bem('all', 'preview-item')} grow clearfix>
                         <ThemePreview theme={theme} key={theme.id} />
                     </Fabric>
                 ))}
