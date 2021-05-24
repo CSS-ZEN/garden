@@ -2,15 +2,14 @@
 import {useState} from 'react'
 import {InferGetStaticPropsType} from 'next'
 
+import {useBlocked} from 'src/hooks'
 import {Head, Fabric} from 'src/components'
 import ThemePreview from 'src/components/themepreview'
-import {safeWaitPromise, createSnapshot, getThemesByCursor, mbem} from 'src/helpers'
-import {useBlocked} from 'src/hooks'
-import {THEME_SNAPSHOT_REVALIDATION_INTERVAL, FETCH_GISTS_CACHE_LIFETIME} from 'src/config'
 import {defaultThemes, resetStyle} from 'src/helpers/values'
-
+import {safeWaitPromise, createSnapshot, getThemesByCursor, mbem} from 'src/helpers'
+import {THEME_SNAPSHOT_REVALIDATION_INTERVAL, FETCH_GISTS_CACHE_LIFETIME} from 'src/config'
+import {ArrowL, ArrowR} from 'src/components/icons'
 import styles from './all.module.scss'
-
 
 const bem = mbem(styles)
 const COUNT_PER_PAGE = 6
@@ -36,21 +35,23 @@ export default function All ({themeChoices}: InferGetStaticPropsType<typeof getS
     }
 
     return (
-        <Fabric>
+        <Fabric className={bem('all')} clearfix>
             <Head title="All Designs | CSS Zen Garden">
                 <style>{resetStyle}</style>
             </Head>
-
-            <h1 className={bem('all', 'title')}>All Designs</h1>
+            <Fabric className={bem('all', 'header')} clearfix>
+                <img className={bem('all-header', 'logo')} src="./Enso.svg" alt="" />
+                <h1 className={bem('all-header', 'title')}>All Designs</h1>
+            </Fabric>
             <Fabric className={bem('all', 'main')} clearfix wrap>
                 {themeInfo.themes.map(theme => (
                     <Fabric key={theme.id} className={bem('all', 'preview-item')} clearfix>
-                        <ThemePreview theme={theme} />
+                        <ThemePreview theme={theme} key={theme.id} />
                     </Fabric>
                 ))}
             </Fabric>
-            {themeInfo.pageInfo.hasPreviousPage ? <a onClick={handlePreviousThemes} className={bem('all', 'chevron', ['right'])} /> : ''}
-            {themeInfo.pageInfo.hasNextPage ? <a onClick={handleNextThemes} className={bem('all', 'chevron', ['left'])} /> : ''}
+            {themeInfo.pageInfo.hasPreviousPage ? <a onClick={handlePreviousThemes} className={bem('all', 'chevron', ['right'])} ><ArrowL /></a> : ''}
+            {themeInfo.pageInfo.hasNextPage ? <a onClick={handleNextThemes} className={bem('all', 'chevron', ['left'])} ><ArrowR /></a> : ''}
         </Fabric>
     )
 }

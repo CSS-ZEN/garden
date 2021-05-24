@@ -1,48 +1,71 @@
 .all {
-  &__title {
-    margin: 10px 20px;
+  flex-wrap: wrap;
+
+  &__header {
+    width: 100%;
+    margin: 10px;
+    display: flex;
+    justify-content: flex-start;
   }
 
   &__main {
-    justify-content: space-between;
-    align-items: flex-start;
+    width: 100%;
     margin: 10px;
+    justify-content: center;
+    align-items: flex-start;
   }
 
   &__preview-item {
+    padding: 5px 5px 10px;
     flex: 1;
-    @media (min-width: 1261px) {
-      flex-basis: 33.3%;
+
+    @media (min-width: 300px) {
+      flex-basis: 100%;
     }
     @media (min-width: 800px) {
       flex-basis: 50%;
+    }
+    @media (min-width: 1261px) {
+      flex-basis: 33.33%
     }
   }
 
   &__chevron {
     position: fixed;
-    top: 50%;
-    width: 50px;
-    height: 50px;
+    top: calc(50% - 25px);
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
     border-radius: 100px;
-    border: solid 1px transparent;
-    z-index: 11;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    background-color: rgb(250, 251, 252, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+
     &--left {
-      right: 0;
-      background: transparent url("/img/arrow1R.png") center center no-repeat;
-      background-size: 40px;
-      &:hover {
-        background-color: aliceblue;
-      }
+      right: 2px;
+      padding-left: 2px;
     }
 
     &--right {
-      left: 0;
-      background: transparent url("/img/arrow1L.png") center center no-repeat;
-      background-size: 40px;
-      &:hover {
-        background-color: aliceblue;
-      }
+      left: 2px;
+      padding-right: 2px;
     }
+
+    &:hover {
+      background-color: #f3f4f6;
+    }
+  }
+}
+
+.all-header {
+  &__title {
+    margin: 10px 20px;
+  }
+
+  &__logo {
+    width: 2.5em;
   }
 }

@@ -3,6 +3,9 @@ module.exports = {
     future: {
         webpack5: true,
     },
+    images:{
+        domains:['csszen-screenshot.s3.us-east-2.amazonaws.com']
+    },
     webpack: config => {
         config.module.rules.push({
             test: /\.md$/,
