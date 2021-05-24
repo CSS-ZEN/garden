@@ -27,14 +27,7 @@
     width: 100%;
     background-color: rgba(48, 105, 161, 0.3);
     position: relative;
-    padding-bottom: 56.42%;
-
-
-    & ul {
-      position: absolute !important;
-      top: calc(50% - 25px/2);
-      right: calc(50% - 50px);
-    }
+    padding-bottom: percentage(1440/2560);
 
     & img {
       position: absolute;
