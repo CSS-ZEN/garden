@@ -32,7 +32,7 @@ export default function ThemePreview ({theme}: {theme: ITheme}) {
     return (
         <Fabric className={`${bem('preview')}`} clearfix verticle grow>
             <Link className={`${bem('preview', 'frame-wrapper')}`} href={`/theme/${id}`} target="_blank">
-                <Loading isLoading={loading} className={bem('preview', 'frame')}>
+                <Loading loading={loading} className={bem('preview', 'frame')}>
                     {
                         callIframe
                             ? <iframe src={iframeUrl} className={bem('preview', 'iframe')} frameBorder="0" scrolling="no" />
