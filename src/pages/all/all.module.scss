@@ -5,6 +5,7 @@ $cardGap: max(15px, 1vw);
 
 .all {
   flex-wrap: wrap;
+  margin: $navHeight 0;
 
   &__header {
     padding: 10px 10vw;
@@ -18,9 +19,23 @@ $cardGap: max(15px, 1vw);
     right: 0;
   }
 
+  &__domino {
+    background-color: #fff !important;
+    opacity: 0 !important;
+    will-change: opacity;
+    pointer-events: none;
+    transition: opacity 0.25s ease-out;
+  }
+
   &__main {
-    margin: calc(#{$navHeight} + #{$cardGap}) calc(10vw - #{$cardGap});
+    margin: $cardGap calc(10vw - #{$cardGap});
+    position: relative;
     width: 100%;
+    &--fetching {
+      .all__domino {
+        opacity: 1 !important;
+      }
+    }
   }
 
   &__preview-item {

@@ -3,12 +3,11 @@ import {useState} from 'react'
 import {InferGetStaticPropsType} from 'next'
 
 import {useBlocked} from 'src/hooks'
-import {Head, Fabric} from 'src/components'
+import {Head, Fabric, Button, Domino} from 'src/components'
 import ThemePreview from 'src/components/themepreview'
 import {defaultThemes, resetStyle} from 'src/helpers/values'
 import {safeWaitPromise, createSnapshot, getThemesByCursor, mbem} from 'src/helpers'
 import {THEME_SNAPSHOT_REVALIDATION_INTERVAL, FETCH_GISTS_CACHE_LIFETIME} from 'src/config'
-import {ArrowL, ArrowR} from 'src/components/icons'
 import styles from './all.module.scss'
 
 const bem = mbem(styles)
@@ -17,7 +16,7 @@ const COUNT_PER_PAGE = 6
 export default function All ({themeChoices}: InferGetStaticPropsType<typeof getStaticProps>) {
     const [themeInfo, setThemes] = useState(themeChoices)
 
-    const [, fetchThemes] = useBlocked(async (api: string) => {
+    const [fetching, fetchThemes] = useBlocked(async (api: string) => {
         const r2 = await fetch(api, {
             headers: {
                 'Cache-Control': `s-maxage=${FETCH_GISTS_CACHE_LIFETIME}, stale-while-revalidate`,
@@ -44,15 +43,28 @@ export default function All ({themeChoices}: InferGetStaticPropsType<typeof getS
                 <h1 className={bem('all-header', 'title')}>All Designs</h1>
                 <Fabric grow />
             </Fabric>
-            <Fabric className={bem('all', 'main')} clearfix wrap>
+            <Fabric className={bem('all', 'main', {fetching})} clearfix wrap>
                 {themeInfo.themes.map(theme => (
                     <Fabric key={theme.id} className={bem('all', 'preview-item')} grow clearfix>
                         <ThemePreview theme={theme} key={theme.id} />
                     </Fabric>
                 ))}
+                <Domino className={bem('all', 'domino')} />
             </Fabric>
-            {themeInfo.pageInfo.hasPreviousPage ? <a onClick={handlePreviousThemes} className={bem('all', 'chevron', ['right'])} ><ArrowL /></a> : ''}
-            {themeInfo.pageInfo.hasNextPage ? <a onClick={handleNextThemes} className={bem('all', 'chevron', ['left'])} ><ArrowR /></a> : ''}
+            <Fabric>
+                <Button
+                    borderless
+                    label="prev"
+                    disabled={fetching || !themeInfo.pageInfo.hasPreviousPage}
+                    onClick={handlePreviousThemes}
+                />
+                <Button
+                    borderless
+                    label="next"
+                    disabled={fetching || !themeInfo.pageInfo.hasNextPage}
+                    onClick={handleNextThemes}
+                />
+            </Fabric>
         </Fabric>
     )
 }
