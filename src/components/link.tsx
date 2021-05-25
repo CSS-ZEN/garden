@@ -9,11 +9,12 @@ interface IProps {
     title?: string
     download?: string
     target?: string
+    tabIndex?: number
     children: ReactNode
 }
 
-export default function CustomLink ({children, href, className, title, download, target}: IProps) {
+export default function CustomLink ({children, href, className, title, download, target, tabIndex}: IProps) {
     return href.startsWith('/') || href === ''
-        ? <Link href={href}><a className={className} target={target} title={title} download={download}>{children}</a></Link>
-        : <a className={className} title={title} href={href} download={download} target="_blank" rel="noopener">{children}</a>
+        ? <Link href={href}><a tabIndex={tabIndex} className={className} target={target} title={title} download={download}>{children}</a></Link>
+        : <a tabIndex={tabIndex} className={className} title={title} href={href} download={download} target="_blank" rel="noopener">{children}</a>
 }

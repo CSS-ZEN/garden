@@ -43,16 +43,21 @@ export default function ThemePreview ({theme}: {theme: ITheme}) {
 
     return (
         <Fabric className={`${bem('preview')}`} clearfix verticle grow>
-            <Link className={`${bem('preview', 'frame-wrapper')}`} href={`/theme/${id}`} target="_blank">
+            <Link className={`${bem('preview', 'frame-wrapper')}`} href={`/theme/${id}`} target="_blank" tabIndex={1}>
                 <Fabric className={bem('preview', 'frame')}>
                     {loading && <Domino />}
                     {usingIframe
-                        ? <iframe src={themePath} className={bem('preview', 'iframe')} frameBorder="0" scrolling="no" />
+                        ? <iframe src={themePath} className={bem('preview', 'iframe')} frameBorder="0" scrolling="no" tabIndex={-1} />
                         : <Image layout="fill" onLoad={onLoad} onError={onError} src={snapshotSrc} alt={snapshotSrc} />
                     }
                 </Fabric>
             </Link>
-            <Fabric className={bem('preview', 'title')}><Quote inline quote={manifest.name} author={manifest.author} /></Fabric>
+            <Fabric clearfix className={bem('preview-caption')}>
+                <Quote inline quote={manifest.name} author={manifest.author} />
+                <Fabric grow clearfix className={bem('preview-caption', 'stats')}>
+                    view
+                </Fabric>
+            </Fabric>
         </Fabric>
     )
 }

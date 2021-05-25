@@ -1,11 +1,25 @@
+$cardShadow: rgba(#aaa, 0.16) 0px 1px 4px;
+$hoverTransition: 0.25s ease-in-out;
+
 .preview {
-  img {
-    max-width: 100%;
-    box-sizing: border-box;
+  transition: box-shadow $hoverTransition;
+  &:hover,
+  &:active,
+  &:focus-within {
+    box-shadow: $cardShadow, rgba(#aaa, 0.16) 0px 0px 0px 10px;
+    img {
+      box-shadow: none;
+    }
+    .preview-caption__stats {
+      flex: 1;
+      opacity: 1;
+    }
+  }
+
+  img,
+  iframe {
+    box-shadow: $cardShadow;
     border-radius: 2px;
-    transition: all 0.25s ease-out;
-    outline: 1px solid rgba(0, 0, 0, 0.05);
-    outline-offset: -1px;
   }
 
   &__frame-wrapper {
@@ -14,20 +28,20 @@
 
   &__iframe {
     position: absolute;
+    top: 0px;
+    left: 0px;
     transform: scale(0.25);
     transform-origin: top left;
     width: 400%;
     height: 400%;
-    top: 0px;
-    left: 0px;
     pointer-events: none;
   }
 
   &__frame {
     width: 100%;
-    background-color: rgba(48, 105, 161, 0.3);
+    background-color: rgba(#fff, 0.9);
     position: relative;
-    padding-bottom: percentage(1440/2560);
+    padding-bottom: percentage(1440 / 2560);
 
     & img {
       position: absolute;
@@ -35,8 +49,20 @@
       right: 0;
     }
   }
+}
 
-  &__title {
-    margin: 5px;
+.preview-caption {
+  padding: 5px;
+  width: 100%;
+
+  &__stats {
+    flex: 0;
+    opacity: 0;
+    will-change: opacity;
+    transition: all $hoverTransition;
+  }
+
+  &__stats {
+    justify-content: flex-end;
   }
 }

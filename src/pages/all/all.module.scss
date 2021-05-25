@@ -10,8 +10,7 @@ $cardGap: max(15px, 1vw);
     padding: 10px 10vw;
     position: fixed;
     height: $navHeight;
-    background-color: #fff;
-    opacity: 0.9;
+    background-color: rgba(#fff, 0.9);
     z-index: $zNav;
     border-bottom: 1px solid hsl(0, 0%, 95%);
     top: 0;
@@ -21,6 +20,7 @@ $cardGap: max(15px, 1vw);
 
   &__main {
     margin: calc(#{$navHeight} + #{$cardGap}) calc(10vw - #{$cardGap});
+    width: 100%;
   }
 
   &__preview-item {
