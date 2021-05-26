@@ -16,6 +16,7 @@ import styles from './all.module.scss'
 
 const bem = mbem(styles)
 const GRID_PAGE_SIZE = 6
+let slotId = 0
 
 const injectThemeSlots = (themeChoices: InferGetStaticPropsType<typeof getStaticProps>['themeChoices'], pageSize: number) => {
     const {themes} = themeChoices
@@ -25,6 +26,7 @@ const injectThemeSlots = (themeChoices: InferGetStaticPropsType<typeof getStatic
         ...themeChoices,
         themes: themes.concat(Array.from(Array(pageSize), _ => ({
             ...defaultTheme,
+            id: 'slot-' + ++slotId,
             stats: {
                 stargazerCount: 0,
                 pv: 0,

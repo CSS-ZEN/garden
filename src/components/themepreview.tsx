@@ -47,7 +47,7 @@ export default function ThemePreview ({theme, fetching = false}: IProps) {
     }
 
     if (theme.isSlot) return (
-        <Fabric className={`${bem('preview', '', ['fake'])}`} clearfix verticle grow>
+        <Fabric className={`${bem('preview', '', {fetching, fake: true})}`} clearfix verticle grow>
             <Fabric clearfix className={`${bem('preview', 'frame-wrapper')}`}>
                 <Fabric className={bem('preview', 'frame')}>
                     <Domino />

@@ -59,10 +59,17 @@ $hoverTransition: 0.25s ease-in-out;
     &:focus-within {
       box-shadow: none;
     }
+
+    &.preview--fake {
+      visibility: visible;
+    }
   }
 
   &--fake {
     visibility: hidden;
+    .preview-caption {
+      opacity: 0;
+    }
   }
 }
 
