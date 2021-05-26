@@ -11,10 +11,15 @@ import Domino from './domino'
 import styles from './themepreview.module.scss'
 
 
-const bem = mbem(styles)
-const IMAGE_TIMEOUT = 5000
+interface IProps {
+    theme: IVerboseTheme
+    fetching?: boolean
+}
 
-export default function ThemePreview ({theme}: {theme: IVerboseTheme}) {
+const bem = mbem(styles)
+const IMAGE_TIMEOUT = 6000
+
+export default function ThemePreview ({theme, fetching = false}: IProps) {
     const {id, manifest, stats} = theme
     const snapshotSrc = `https://${AWS_HOST}/desktop/czg.vercel.app/theme/${id}.jpg`
     const snapshotApiPath = `/api/snapshot/${id}`
@@ -42,14 +47,15 @@ export default function ThemePreview ({theme}: {theme: IVerboseTheme}) {
     }
 
     return (
-        <Fabric className={`${bem('preview')}`} clearfix verticle grow>
+        <Fabric className={`${bem('preview', '', {fetching})}`} clearfix verticle grow>
             <Link className={`${bem('preview', 'frame-wrapper')}`} href={`/theme/${id}`} target="_blank" tabIndex={1}>
                 <Fabric className={bem('preview', 'frame')}>
-                    {loading && <Domino />}
                     {usingIframe
-                        ? <iframe src={themePath} className={bem('preview', 'iframe')} frameBorder="0" scrolling="no" tabIndex={-1} />
+                        ? 'iframe'
+                        // ? <iframe src={themePath} className={bem('preview', 'iframe')} frameBorder="0" scrolling="no" tabIndex={-1} />
                         : <Image layout="fill" onLoad={onLoad} onError={onError} src={snapshotSrc} alt={snapshotSrc} />
                     }
+                    {(fetching || loading) && <Domino />}
                 </Fabric>
             </Link>
             <Fabric clearfix className={bem('preview-caption')}>

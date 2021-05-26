@@ -5,7 +5,8 @@ $cardGap: max(15px, 1vw);
 
 .all {
   flex-wrap: wrap;
-  margin: $navHeight 0;
+  padding: $navHeight 0;
+  min-height: 100vh;
 
   &__header {
     padding: 10px 10vw;
@@ -47,6 +48,20 @@ $cardGap: max(15px, 1vw);
     }
     @media (min-width: 1261px) {
       flex-basis: 33.33%;
+    }
+  }
+
+  &__pagination {
+    margin-top: 60px;
+  }
+
+  &__pagination-button {
+    border: none !important;
+    font-size: 16px !important;
+    &:disabled {
+      background-color: #fff !important;
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
     }
   }
 }

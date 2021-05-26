@@ -48,6 +48,18 @@ $hoverTransition: 0.25s ease-in-out;
       right: 0;
     }
   }
+
+  &--fetching {
+    .preview-caption {
+      opacity: 0;
+    }
+    &,
+    &:hover,
+    &:active,
+    &:focus-within {
+      box-shadow: none;
+    }
+  }
 }
 
 .preview-caption {
