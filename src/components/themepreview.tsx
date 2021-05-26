@@ -5,8 +5,8 @@ import Image from 'next/image'
 import {mbem} from 'src/helpers'
 import {useTimer} from 'src/hooks'
 import {AWS_HOST} from 'src/config'
-import type {ITheme} from 'src/garden'
-import {Fabric, Quote, Link} from 'src/components'
+import type {IVerboseTheme} from 'src/garden'
+import {Fabric, Quote, Link, Icons} from 'src/components'
 import Domino from './domino'
 import styles from './themepreview.module.scss'
 
@@ -14,8 +14,8 @@ import styles from './themepreview.module.scss'
 const bem = mbem(styles)
 const IMAGE_TIMEOUT = 5000
 
-export default function ThemePreview ({theme}: {theme: ITheme}) {
-    const {id, manifest} = theme
+export default function ThemePreview ({theme}: {theme: IVerboseTheme}) {
+    const {id, manifest, stats} = theme
     const snapshotSrc = `https://${AWS_HOST}/desktop/czg.vercel.app/theme/${id}.jpg`
     const snapshotApiPath = `/api/snapshot/${id}`
     const themePath = `/theme/${id}`
@@ -55,7 +55,15 @@ export default function ThemePreview ({theme}: {theme: ITheme}) {
             <Fabric clearfix className={bem('preview-caption')}>
                 <Quote inline quote={manifest.name} author={manifest.author} />
                 <Fabric grow clearfix className={bem('preview-caption', 'stats')}>
-                    view
+                    <Fabric grow clearfix />
+                    <Fabric clearfix className={bem('preview-caption', 'stat')}>
+                        <Icons.OcticonStar />
+                        <code>{stats.stargazerCount}</code>
+                    </Fabric>
+                    <Fabric clearfix className={bem('preview-caption', 'stat')}>
+                        <Icons.OcticonEye />
+                        <code>{stats.pv}</code>
+                    </Fabric>
                 </Fabric>
             </Fabric>
         </Fabric>

@@ -1,5 +1,6 @@
 
-import type {IGardenProps, ITheme, IThemeManifest} from 'src/garden'
+import type {ITheme, IThemeManifest, IVerboseTheme} from 'src/garden'
+import type {IGraphqlPageInfo} from 'src/helpers/fetchGists'
 
 
 export interface IBasicFile {
@@ -115,7 +116,10 @@ export const defaultTheme: IEditTheme = {
     },
 }
 
-export const defaultThemes: IGardenProps['themeChoices'] = {
+export const defaultThemes: {
+    themes: IVerboseTheme[]
+    pageInfo: IGraphqlPageInfo
+} = {
     themes: [],
     pageInfo: {
         endCursor: null,

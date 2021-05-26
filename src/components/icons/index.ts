@@ -1,2 +1,3 @@
-export {default as ArrowL} from './arrowL'
-export {default as ArrowR} from './arrowR'
+
+export {default as OcticonEye} from './OcticonEye'
+export {default as OcticonStar} from './OcticonStar'

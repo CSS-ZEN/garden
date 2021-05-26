@@ -1,4 +1,6 @@
 
+export * as Icons from './icons'
+
 export {default as Button} from './button'
 export {default as Domino} from './domino'
 export {default as Fabric} from './fabric'

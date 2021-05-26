@@ -34,6 +34,15 @@ export interface ITheme extends ITrialTheme {
     manifest: IThemeManifest
 }
 
+interface IThemeStats {
+    stargazerCount: number
+    pv: number
+}
+
+export interface IVerboseTheme extends ITheme {
+    stats: IThemeStats
+}
+
 export interface IThemeChoices {
     themes: ITheme[]
     pageInfo: IGraphqlPageInfo
