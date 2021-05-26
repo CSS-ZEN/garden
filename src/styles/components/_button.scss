@@ -19,6 +19,7 @@
     text-overflow: ellipsis;
     appearance: button;
     cursor: pointer;
+    font-family: $fontSansSerif;
 
     &:not(:disabled) {
       &:hover,
