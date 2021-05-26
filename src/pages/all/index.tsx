@@ -8,7 +8,7 @@ import ThemePreview from 'src/components/themepreview'
 import type {IVerboseTheme} from 'src/garden'
 import {useBlocked} from 'src/hooks'
 import {safeWaitPromise, createSnapshot, getThemesByCursor, mbem} from 'src/helpers'
-import {defaultThemes, resetStyle} from 'src/helpers/values'
+import {defaultThemes, resetStyle, defaultTheme} from 'src/helpers/values'
 import {THEME_SNAPSHOT_REVALIDATION_INTERVAL, FETCH_GISTS_CACHE_LIFETIME} from 'src/config'
 
 import styles from './all.module.scss'
@@ -17,8 +17,25 @@ import styles from './all.module.scss'
 const bem = mbem(styles)
 const GRID_PAGE_SIZE = 6
 
+const injectThemeSlots = (themeChoices: InferGetStaticPropsType<typeof getStaticProps>['themeChoices'], pageSize: number) => {
+    const {themes} = themeChoices
+    if (themes.length >= pageSize) return themeChoices
+
+    return {
+        ...themeChoices,
+        themes: themes.concat(Array.from(Array(pageSize), _ => ({
+            ...defaultTheme,
+            stats: {
+                stargazerCount: 0,
+                pv: 0,
+            },
+            isSlot: true,
+        }))).slice(0, pageSize),
+    }
+}
+
 export default function All ({themeChoices}: InferGetStaticPropsType<typeof getStaticProps>) {
-    const [themeInfo, setThemes] = useState(themeChoices)
+    const [themeInfo, setThemes] = useState(injectThemeSlots(themeChoices, GRID_PAGE_SIZE))
 
     const [fetching, fetchThemes] = useBlocked(async (api: string) => {
         const r2 = await fetch(api, {
@@ -26,8 +43,7 @@ export default function All ({themeChoices}: InferGetStaticPropsType<typeof getS
                 'Cache-Control': `s-maxage=${FETCH_GISTS_CACHE_LIFETIME}, stale-while-revalidate`,
             },
         }).then(r => r.json())
-        // TODO: @sy empty theme slots
-        setThemes(r2)
+        setThemes(injectThemeSlots(r2, GRID_PAGE_SIZE))
     })
 
     const handleNextThemes = async () => {

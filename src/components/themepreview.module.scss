@@ -60,6 +60,10 @@ $hoverTransition: 0.25s ease-in-out;
       box-shadow: none;
     }
   }
+
+  &--fake {
+    visibility: hidden;
+  }
 }
 
 .preview-caption {

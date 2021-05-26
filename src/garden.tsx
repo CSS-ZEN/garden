@@ -41,6 +41,7 @@ interface IThemeStats {
 
 export interface IVerboseTheme extends ITheme {
     stats: IThemeStats
+    isSlot?: boolean
 }
 
 export interface IThemeChoices {

@@ -46,13 +46,25 @@ export default function ThemePreview ({theme, fetching = false}: IProps) {
         onComplete()
     }
 
+    if (theme.isSlot) return (
+        <Fabric className={`${bem('preview', '', ['fake'])}`} clearfix verticle grow>
+            <Fabric clearfix className={`${bem('preview', 'frame-wrapper')}`}>
+                <Fabric className={bem('preview', 'frame')}>
+                    <Domino />
+                </Fabric>
+            </Fabric>
+            <Fabric clearfix className={bem('preview-caption')}>
+                <Quote inline quote="" author="" />
+            </Fabric>
+        </Fabric>
+    )
+
     return (
         <Fabric className={`${bem('preview', '', {fetching})}`} clearfix verticle grow>
             <Link className={`${bem('preview', 'frame-wrapper')}`} href={`/theme/${id}`} target="_blank" tabIndex={1}>
                 <Fabric className={bem('preview', 'frame')}>
                     {usingIframe
-                        ? 'iframe'
-                        // ? <iframe src={themePath} className={bem('preview', 'iframe')} frameBorder="0" scrolling="no" tabIndex={-1} />
+                        ? <iframe src={themePath} className={bem('preview', 'iframe')} frameBorder="0" scrolling="no" tabIndex={-1} />
                         : <Image layout="fill" onLoad={onLoad} onError={onError} src={snapshotSrc} alt={snapshotSrc} />
                     }
                     {(fetching || loading) && <Domino />}
