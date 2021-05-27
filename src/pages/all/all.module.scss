@@ -16,7 +16,8 @@ $cardGap: max(15px, 1vw);
   }
 
   &__main {
-    margin: $cardGap calc(10vw - #{$cardGap});
+    padding: $cardGap calc(10vw - #{$cardGap});
+    width: 100%;
     position: relative;
     &--fetching {
       .all__domino {
