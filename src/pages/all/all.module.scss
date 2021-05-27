@@ -5,6 +5,7 @@ $cardGap: max(15px, 1vw);
 .all {
   padding: $navHeight 0;
   min-height: 100vh;
+  overflow-x: hidden;
 
   &__domino {
     background-color: #fff !important;
