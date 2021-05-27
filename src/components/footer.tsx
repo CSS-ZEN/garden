@@ -33,9 +33,9 @@ export default function Footer () {
                 <Enso className="footer__logo" />
                 <Fabric clearfix className="footer__license">© 2021 CSS-ZEN</Fabric>
                 <Fabric clearfix className="footer-support">
-                    <span>Made with</span>
+                    <span>Hosted with</span>
                     <span className="footer-support__heart">&hearts;</span>
-                    <span>By</span>
+                    <span>by</span>
                     <Link href="https://vercel.com/"><Vercel className="footer-support__vercel" /></Link>
                 </Fabric>
             </Fabric>
