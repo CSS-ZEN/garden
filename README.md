@@ -80,7 +80,7 @@ Open to new thoughts. Let me know what you think about it at [csszen/garden#3](h
 
 If you would like to contribute to the project or just interesed in what is confirmed to be done, you can access those informations at [issues labeled `todo`](https://github.com/csszen/garden/issues?q=is%3Aopen+is%3Aissue+label%3Atodo) or the [CZG project dashboard](https://github.com/CSS-ZEN/garden/projects/1).
 
-You may join [the slack workspace](https://join.slack.com/t/csszen/shared_invite/zt-pbrf0d2q-6dF9GueFNkKgU8QuvSEj1Q) where most of discussions on development take place.
+You may join [the slack workspace](https://join.slack.com/t/csszen/shared_invite/zt-qzopmgzo-F15aU9C0sTYnO13_qc4ZRg) where most of discussions on development take place.
 
 Thanks to `Next.js`, it's easy to get envolved with only a basic knowledge of react.js framework required. If you know how to use react, I believe that you are supposed to know how to clone a repository and install requirements with `npm` or `yarn`.
 

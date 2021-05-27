@@ -1,2 +1,15 @@
 @import "variables";
+@import "mixins";
 @import "components";
+
+[id] {
+  scroll-margin-top: 2ex;
+}
+
+:target {
+  @include textHighlight(#c4e4fb);
+}
+
+body {
+  scroll-behavior: smooth;
+}

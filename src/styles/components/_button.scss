@@ -19,31 +19,34 @@
     text-overflow: ellipsis;
     appearance: button;
     cursor: pointer;
+    font-family: $fontSansSerif;
 
-    &:hover,
-    &:active {
-      &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+    &:not(:disabled) {
+      &:hover,
+      &:active {
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+        }
       }
-    }
 
-    &:hover {
-      background-color: $fabricWhite;
-      color: $fabricDeepBlack;
-      &::after {
-        background: rgba(#fff, 0.1);
+      &:hover {
+        background-color: $fabricWhite;
+        color: $fabricDeepBlack;
+        &::after {
+          background: rgba(#fff, 0.1);
+        }
       }
-    }
-    &:active {
-      background-color: $fabricLightWhite;
-      color: $fabricDeepBlack;
-      &::after {
-        background: rgba(#000, 0.05);
+      &:active {
+        background-color: $fabricLightWhite;
+        color: $fabricDeepBlack;
+        &::after {
+          background: rgba(#000, 0.05);
+        }
       }
     }
 
@@ -51,15 +54,17 @@
       background-color: $fabricBlue;
       border-color: $fabricBlue;
       color: #fff;
-      &:hover {
-        background-color: $fabricLightBlue;
-        border-color: $fabricLightBlue;
-        color: #fff;
-      }
-      &:active {
-        background-color: $fabricDeepBlue;
-        border-color: $fabricDeepBlue;
-        color: #fff;
+      &:not(:disabled) {
+        &:hover {
+          background-color: $fabricLightBlue;
+          border-color: $fabricLightBlue;
+          color: #fff;
+        }
+        &:active {
+          background-color: $fabricDeepBlue;
+          border-color: $fabricDeepBlue;
+          color: #fff;
+        }
       }
     }
 

@@ -6,7 +6,6 @@ $BAR_ANIMATION_DURATION: 2.8s;
 $BAR_ANIMATION_DURATION_SINGLE: -($BAR_ANIMATION_DURATION / $BAR_COUNT);
 
 .fabric.domino-container {
-  z-index: $zDomino;
   background-color: #f7f7f7;
   color: #333;
   opacity: 1;
@@ -21,10 +20,6 @@ $BAR_ANIMATION_DURATION_SINGLE: -($BAR_ANIMATION_DURATION / $BAR_COUNT);
     &--scrawcrow {
       visibility: hidden;
     }
-  }
-
-  .fabric-container {
-    margin-top: -60px;
   }
 
   .dominos {
@@ -75,6 +70,14 @@ $BAR_ANIMATION_DURATION_SINGLE: -($BAR_ANIMATION_DURATION / $BAR_COUNT);
         transform: translateX(-90px) rotate(72deg);
         animation-delay: ($BAR_ANIMATION_DURATION_SINGLE * 6);
       }
+    }
+  }
+
+  &.domino-container-landing {
+    z-index: $zLanding;
+
+    .fabric-container {
+      margin-top: -60px;
     }
   }
 }

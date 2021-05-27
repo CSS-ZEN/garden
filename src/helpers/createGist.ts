@@ -1,8 +1,8 @@
 
-export default async function createGist (files: Record<string, {
-    filename: string,
-    content: string,
-}>) {
+import type {IBasicFile} from 'src/helpers/values'
+
+
+export default async function createGist (files: Record<string, IBasicFile>) {
     const r = await fetch('https://api.github.com/gists', {
         method: 'POST',
         headers: {

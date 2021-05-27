@@ -34,6 +34,16 @@ export interface ITheme extends ITrialTheme {
     manifest: IThemeManifest
 }
 
+interface IThemeStats {
+    stargazerCount: number
+    pv: number
+}
+
+export interface IVerboseTheme extends ITheme {
+    stats: IThemeStats
+    isSlot?: boolean
+}
+
 export interface IThemeChoices {
     themes: ITheme[]
     pageInfo: IGraphqlPageInfo
@@ -106,10 +116,10 @@ export default function Garden ({theme, themeChoices}: IGardenProps) {
 
                     <footer>
                         <Link href="http://validator.w3.org/check/referer" title="Check the validity of this site&#8217;s HTML" className="zen-validate-html">HTML</Link>
-                        <Link href="http://jigsaw.w3.org/css-validator/check/referer" title="Check the validity of this site&#8217;s CSS" className="zen-validate-css">CSS</Link>
+                        <Link href={`http://gist.github.com/css-zen/${theme.id}`} title="Check the gist of this site&#8217;s CSS" className="zen-validate-css">CSS</Link>
                         <Link href="https://raw.githubusercontent.com/csszen/garden/master/LICENSE" title="View the Creative Commons license of this site: Attribution-NonCommercial-ShareAlike." className="zen-license">CC</Link>
-                        <Link href="https://github.com/csszen/garden/issues" title="Read about the accessibility of this site" className="zen-accessibility">A11y</Link>
-                        <Link href="https://github.com/csszen/garden" title="Fork this site on Github" className="zen-github">GH</Link>
+                        <Link href="https://github.com/css-zen/garden/issues" title="Read about the accessibility of this site" className="zen-accessibility">A11y</Link>
+                        <Link href="https://github.com/css-zen/garden" title="Fork this site on Github" className="zen-github">GH</Link>
                     </footer>
 
                 </div>

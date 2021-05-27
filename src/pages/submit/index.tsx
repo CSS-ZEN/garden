@@ -4,7 +4,7 @@ import {useCallback, useState, Dispatch, SetStateAction} from 'react'
 import {Head, Fabric, Button, Link, Landing} from 'src/components'
 import {useBroadcastChannel, useMonaco, useDebounce, useSearchParam, useBlocked} from 'src/hooks'
 import {safeReadJson, compileSass} from 'src/helpers'
-import {defaultTheme, defaultScssThemeFile, resetStyle, IThemeFile} from 'src/helpers/values'
+import {defaultTheme, defaultScssThemeFile, resetStyle, IGistFile} from 'src/helpers/values'
 import {SUBMIT_CHANNEL, DEFAULT_THEME_FILE} from 'src/config'
 import manifestSchema from 'public/manifest-schema.json'
 
@@ -77,7 +77,7 @@ export default function Edit () {
 
     return (
         <Fabric full clearfix verticle>
-            <Head title="Edit | CSS Zen Garden">
+            <Head title="Edit">
                 <script src="/sass.js/sass.js" />
                 <script src="/monaco-editor/min/vs/loader.js" />
                 <style>{resetStyle}</style>
@@ -122,7 +122,7 @@ function FileTab ({filename, active, onClick}: {
     )
 }
 
-function setMonacoFile (editor: monaco.editor.IStandaloneCodeEditor | null, file: IThemeFile) {
+function setMonacoFile (editor: monaco.editor.IStandaloneCodeEditor | null, file: IGistFile) {
     if (!editor || !window.monaco) return
 
     const language = file.language.toLowerCase()
@@ -148,7 +148,7 @@ async function handleMonacoValueChange (
     value: string,
     setState: Dispatch<SetStateAction<typeof defaultTheme>>
 ) {
-    const scssResult = filename === DEFAULT_THEME_SCSS_FILE ? await compileSass(value) : null
+    const scssResult = filename === DEFAULT_THEME_SCSS_FILE ? await compileSass({filename, content: value}) : null
     if (scssResult && scssResult.status) return console.error(scssResult.formatted)
 
     setState(prev => {

@@ -1,71 +1,54 @@
-.all {
-  flex-wrap: wrap;
+@import "../../styles/variables";
 
-  &__header {
-    width: 100%;
-    margin: 10px;
-    display: flex;
-    justify-content: flex-start;
+$cardGap: max(15px, 1vw);
+
+.all {
+  padding: $navHeight 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  &__domino {
+    background-color: #fff !important;
+    opacity: 0 !important;
+    will-change: opacity;
+    pointer-events: none;
+    transition: opacity 0.25s ease-out;
   }
 
   &__main {
+    padding: $cardGap calc(10vw - #{$cardGap});
     width: 100%;
-    margin: 10px;
-    justify-content: center;
-    align-items: flex-start;
+    position: relative;
+    &--fetching {
+      .all__domino {
+        opacity: 1 !important;
+      }
+    }
   }
 
   &__preview-item {
-    padding: 5px 5px 10px;
-    flex: 1;
+    padding: $cardGap;
+    min-width: 200px;
 
-    @media (min-width: 300px) {
-      flex-basis: 100%;
-    }
     @media (min-width: 800px) {
       flex-basis: 50%;
     }
     @media (min-width: 1261px) {
-      flex-basis: 33.33%
+      flex-basis: 33.33%;
     }
   }
 
-  &__chevron {
-    position: fixed;
-    top: calc(50% - 25px);
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    border-radius: 100px;
-    border: 1px solid rgba(27, 31, 35, 0.15);
-    background-color: rgb(250, 251, 252, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100000;
-
-    &--left {
-      right: 2px;
-      padding-left: 2px;
-    }
-
-    &--right {
-      left: 2px;
-      padding-right: 2px;
-    }
-
-    &:hover {
-      background-color: #f3f4f6;
-    }
-  }
-}
-
-.all-header {
-  &__title {
-    margin: 10px 20px;
+  &__pagination {
+    margin-top: 30px;
   }
 
-  &__logo {
-    width: 2.5em;
+  &__pagination-button {
+    border: none !important;
+    font-size: 16px !important;
+    &:disabled {
+      background-color: #fff !important;
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+    }
   }
 }

@@ -2,61 +2,107 @@
 import {useState} from 'react'
 import {InferGetStaticPropsType} from 'next'
 
-import {useBlocked} from 'src/hooks'
-import {Head, Fabric} from 'src/components'
+import {Head, Fabric, Button} from 'src/components'
+import Header from 'src/components/header'
+import Footer from 'src/components/footer'
 import ThemePreview from 'src/components/themepreview'
-import {defaultThemes, resetStyle} from 'src/helpers/values'
+import type {IVerboseTheme} from 'src/garden'
+import {useBlocked} from 'src/hooks'
 import {safeWaitPromise, createSnapshot, getThemesByCursor, mbem} from 'src/helpers'
+import {defaultThemes, resetStyle, defaultTheme} from 'src/helpers/values'
 import {THEME_SNAPSHOT_REVALIDATION_INTERVAL, FETCH_GISTS_CACHE_LIFETIME} from 'src/config'
-import {ArrowL, ArrowR} from 'src/components/icons'
+
 import styles from './all.module.scss'
 
+
 const bem = mbem(styles)
-const COUNT_PER_PAGE = 6
+const GRID_PAGE_SIZE = 6
+let slotId = 0
+
+const injectThemeSlots = (themeChoices: InferGetStaticPropsType<typeof getStaticProps>['themeChoices'], pageSize: number) => {
+    const {themes} = themeChoices
+    if (themes.length >= pageSize) return themeChoices
+
+    return {
+        ...themeChoices,
+        themes: themes.concat(Array.from(Array(pageSize), _ => ({
+            ...defaultTheme,
+            id: 'slot-' + ++slotId,
+            stats: {
+                stargazerCount: 0,
+                pv: 0,
+            },
+            isSlot: true,
+        }))).slice(0, pageSize),
+    }
+}
 
 export default function All ({themeChoices}: InferGetStaticPropsType<typeof getStaticProps>) {
-    const [themeInfo, setThemes] = useState(themeChoices)
+    const [themeInfo, setThemes] = useState(injectThemeSlots(themeChoices, GRID_PAGE_SIZE))
 
-    const [, fetchThemes] = useBlocked(async (api: string) => {
+    const [fetching, fetchThemes] = useBlocked(async (api: string) => {
         const r2 = await fetch(api, {
             headers: {
                 'Cache-Control': `s-maxage=${FETCH_GISTS_CACHE_LIFETIME}, stale-while-revalidate`,
             },
         }).then(r => r.json())
-        setThemes(r2)
+        setThemes(injectThemeSlots(r2, GRID_PAGE_SIZE))
     })
 
     const handleNextThemes = async () => {
-        fetchThemes(`/api/themes?after=${themeInfo.pageInfo.endCursor}&take=${COUNT_PER_PAGE}`)
+        fetchThemes(`/api/themes?after=${themeInfo.pageInfo.endCursor}&take=${GRID_PAGE_SIZE}`)
     }
 
     const handlePreviousThemes = async () => {
-        fetchThemes(`/api/themes?before=${themeInfo.pageInfo.startCursor}&take=${COUNT_PER_PAGE}`)
+        fetchThemes(`/api/themes?before=${themeInfo.pageInfo.startCursor}&take=${GRID_PAGE_SIZE}`)
     }
 
     return (
-        <Fabric className={bem('all')} clearfix>
-            <Head title="All Designs | CSS Zen Garden">
+        <Fabric className={bem('all')} clearfix verticle>
+            <Head title="All Designs">
                 <style>{resetStyle}</style>
             </Head>
-            <Fabric className={bem('all', 'header')} clearfix>
-                <img className={bem('all-header', 'logo')} src="./Enso.svg" alt="" />
-                <h1 className={bem('all-header', 'title')}>All Designs</h1>
+
+            <Header title="All Designs"><Fabric grow /></Header>
+
+            <ThemeGrid themes={themeInfo.themes} fetching={fetching} />
+
+            <Fabric className={bem('all', 'pagination')}>
+                <Button
+                    className={bem('all', 'pagination-button')}
+                    borderless
+                    label="prev"
+                    disabled={fetching || !themeInfo.pageInfo.hasPreviousPage}
+                    onClick={handlePreviousThemes}
+                />
+                <Button
+                    className={bem('all', 'pagination-button')}
+                    borderless
+                    label="next"
+                    disabled={fetching || !themeInfo.pageInfo.hasNextPage}
+                    onClick={handleNextThemes}
+                />
             </Fabric>
-            <Fabric className={bem('all', 'main')} clearfix wrap>
-                {themeInfo.themes.map(theme => (
-                    <Fabric key={theme.id} className={bem('all', 'preview-item')} clearfix>
-                        <ThemePreview theme={theme} key={theme.id} />
-                    </Fabric>
-                ))}
-            </Fabric>
-            {themeInfo.pageInfo.hasPreviousPage ? <a onClick={handlePreviousThemes} className={bem('all', 'chevron', ['right'])} ><ArrowL /></a> : ''}
-            {themeInfo.pageInfo.hasNextPage ? <a onClick={handleNextThemes} className={bem('all', 'chevron', ['left'])} ><ArrowR /></a> : ''}
+
+            <Footer />
         </Fabric>
     )
 }
+
+function ThemeGrid ({themes, fetching}: {themes: IVerboseTheme[], fetching: boolean}) {
+    return (
+        <Fabric className={bem('all', 'main', {fetching})} clearfix wrap>
+            {themes.map(theme => (
+                <Fabric key={theme.id} className={bem('all', 'preview-item')} grow clearfix>
+                    <ThemePreview theme={theme} key={theme.id} fetching={fetching} />
+                </Fabric>
+            ))}
+        </Fabric>
+    )
+}
+
 export async function getStaticProps () {
-    const themeChoices = await safeWaitPromise(getThemesByCursor({take: COUNT_PER_PAGE}), defaultThemes)
+    const themeChoices = await safeWaitPromise(getThemesByCursor({take: GRID_PAGE_SIZE}), defaultThemes)
     themeChoices.themes.forEach(theme => {
         createSnapshot({gistid: theme.id})
     })
