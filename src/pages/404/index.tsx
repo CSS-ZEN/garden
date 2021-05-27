@@ -8,7 +8,7 @@ export default function CountentNotFound () {
 
     return (
         <Fabric className={styles['f0f-container']} full>
-            <Head title="Content Not Found | CSS Zen Garden" />
+            <Head title="Content Not Found" />
 
             <Fabric clearfix className={styles['f0f-container__404']}>
                 <hgroup data-word="404">404<Fabric clearfix className={styles['f0f-container__noise']} /></hgroup>

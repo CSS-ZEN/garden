@@ -3,7 +3,8 @@ import {useState} from 'react'
 import {InferGetStaticPropsType} from 'next'
 
 import {Head, Fabric, Button} from 'src/components'
-import Enso from 'src/components/icons/Enso'
+import Header from 'src/components/header'
+import Footer from 'src/components/footer'
 import ThemePreview from 'src/components/themepreview'
 import type {IVerboseTheme} from 'src/garden'
 import {useBlocked} from 'src/hooks'
@@ -57,15 +58,12 @@ export default function All ({themeChoices}: InferGetStaticPropsType<typeof getS
     }
 
     return (
-        <Fabric className={bem('all')} clearfix>
-            <Head title="All Designs | CSS Zen Garden">
+        <Fabric className={bem('all')} clearfix verticle>
+            <Head title="All Designs">
                 <style>{resetStyle}</style>
             </Head>
-            <Fabric className={bem('all', 'header')} clearfix>
-                <Enso className={bem('all-header', 'logo')} />
-                <h1 className={bem('all-header', 'title')}>All Designs</h1>
-                <Fabric grow />
-            </Fabric>
+
+            <Header title="All Designs"><Fabric grow /></Header>
 
             <ThemeGrid themes={themeInfo.themes} fetching={fetching} />
 
@@ -85,6 +83,8 @@ export default function All ({themeChoices}: InferGetStaticPropsType<typeof getS
                     onClick={handleNextThemes}
                 />
             </Fabric>
+
+            <Footer />
         </Fabric>
     )
 }

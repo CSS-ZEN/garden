@@ -77,7 +77,7 @@ export default function Edit () {
 
     return (
         <Fabric full clearfix verticle>
-            <Head title="Edit | CSS Zen Garden">
+            <Head title="Edit">
                 <script src="/sass.js/sass.js" />
                 <script src="/monaco-editor/min/vs/loader.js" />
                 <style>{resetStyle}</style>

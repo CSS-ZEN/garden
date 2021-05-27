@@ -13,7 +13,7 @@ interface IProps {
 export default function CustomHead ({title, author = 'csszen', description, children}: IProps) {
     return (
         <Head>
-            <title>{title}</title>
+            <title>{title} | CSS Zen Garden</title>
             <link rel="icon" href="/favicon.ico" />
 
             <meta name="author" content={author} />

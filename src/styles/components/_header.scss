@@ -1,0 +1,26 @@
+.fabric.header {
+  position: fixed;
+  height: $navHeight;
+  border-bottom: 1px solid hsl(0, 0%, 95%);
+  top: 0;
+  left: 0;
+  right: 0;
+
+  .header {
+    &__title {
+      margin: 10px 20px;
+    }
+
+    &__logo {
+      width: 2.5rem;
+    }
+  }
+}
+
+.fabric.header,
+.fabric.footer {
+  padding: 10px 10vw;
+  background-color: rgba(#fff, 0.9);
+  z-index: $zNav;
+  font-family: $fontSansSerif;
+}

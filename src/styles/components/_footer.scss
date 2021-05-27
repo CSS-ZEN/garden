@@ -1,0 +1,83 @@
+$footerTextColor: #555;
+$footerTextHoverColor: #000;
+
+.fabric.footer {
+  position: relative;
+  top: $navHeight;
+  width: 100vw;
+  border-top: 1px solid hsl(0, 0%, 95%);
+  height: 200px;
+  &,
+  a {
+    color: $footerTextColor;
+    &:hover {
+      color: $footerTextHoverColor;
+    }
+  }
+  a {
+    line-height: 1;
+  }
+  .footer {
+    &__navigator {
+      margin-right: 50px;
+      &-link {
+        justify-content: flex-start;
+        margin: 10px 0;
+        &--anchor {
+          @include hoverUnderline($footerTextHoverColor);
+        }
+
+        &-icon {
+          margin-left: 10px;
+          svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+          }
+        }
+      }
+    }
+    &__copyright {
+      align-items: flex-end;
+      font-size: 12px;
+      span {
+        margin: 0 0.25ch;
+      }
+      .fabric {
+        height: unset;
+      }
+    }
+    &__logo {
+      width: 3.5rem;
+      margin: 10px 0;
+    }
+    &-support {
+      &__heart {
+        color: #e25555;
+      }
+      &__vercel {
+        height: 12px;
+        fill: $footerTextColor;
+        margin-right: 1px;
+        &:hover {
+          fill: $footerTextHoverColor;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 375px) {
+    flex-wrap: wrap;
+    .footer {
+      &__copyright {
+        align-items: center;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+      }
+      &__logo {
+        display: none;
+      }
+    }
+  }
+}

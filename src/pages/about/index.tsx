@@ -12,7 +12,7 @@ export default function About (markdown: InferGetStaticPropsType<typeof getStati
     return (
         <Fabric className={style['markdown-wrapper']} clearfix>
             <Fabric className={style.markdown} clearfix>
-                <Head title="About | CSS Zen Garden" description="Originates from mezzoblue/csszengarden.com" />
+                <Head title="About" description="Originates from mezzoblue/csszengarden.com" />
                 <Markdown {...markdown} />
             </Fabric>
         </Fabric>
