@@ -1,21 +1,23 @@
 
 import {GetStaticProps, InferGetStaticPropsType} from 'next'
 
-import Head from 'src/components/head'
 import Fabric from 'src/components/fabric'
+import Page from 'src/components/Page'
 import Markdown, {IMarkdown} from 'src/components/markdown'
 import markdownToHtml from 'src/helpers/markdownToHtml'
+
 import style from './about.module.scss'
 
 
 export default function About (markdown: InferGetStaticPropsType<typeof getStaticProps>) {
     return (
-        <Fabric className={style['markdown-wrapper']} clearfix>
-            <Fabric className={style.markdown} clearfix>
-                <Head title="About" description="Originates from mezzoblue/csszengarden.com" />
-                <Markdown {...markdown} />
+        <Page compact title="About" description="Originates from mezzoblue/csszengarden.com">
+            <Fabric className={style['markdown-wrapper']} clearfix>
+                <Fabric className={style.markdown} clearfix>
+                    <Markdown {...markdown} />
+                </Fabric>
             </Fabric>
-        </Fabric>
+        </Page>
     )
 }
 

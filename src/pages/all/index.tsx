@@ -2,14 +2,13 @@
 import {useState} from 'react'
 import {InferGetStaticPropsType} from 'next'
 
-import {Head, Fabric, Button} from 'src/components'
-import Header from 'src/components/header'
-import Footer from 'src/components/footer'
+import {Fabric, Button} from 'src/components'
+import Page from 'src/components/Page'
 import ThemePreview from 'src/components/themepreview'
 import type {IVerboseTheme} from 'src/garden'
 import {useBlocked} from 'src/hooks'
 import {safeWaitPromise, createSnapshot, getThemesByCursor, mbem} from 'src/helpers'
-import {defaultThemes, resetStyle, defaultTheme} from 'src/helpers/values'
+import {defaultThemes, defaultTheme} from 'src/helpers/values'
 import {THEME_SNAPSHOT_REVALIDATION_INTERVAL, FETCH_GISTS_CACHE_LIFETIME} from 'src/config'
 
 import styles from './all.module.scss'
@@ -58,34 +57,28 @@ export default function All ({themeChoices}: InferGetStaticPropsType<typeof getS
     }
 
     return (
-        <Fabric className={bem('all')} clearfix verticle>
-            <Head title="All Designs">
-                <style>{resetStyle}</style>
-            </Head>
+        <Page title="All">
+            <Fabric className={bem('all')} clearfix verticle>
+                <ThemeGrid themes={themeInfo.themes} fetching={fetching} />
 
-            <Header title="All Designs"><Fabric grow /></Header>
-
-            <ThemeGrid themes={themeInfo.themes} fetching={fetching} />
-
-            <Fabric className={bem('all', 'pagination')}>
-                <Button
-                    className={bem('all', 'pagination-button')}
-                    borderless
-                    label="prev"
-                    disabled={fetching || !themeInfo.pageInfo.hasPreviousPage}
-                    onClick={handlePreviousThemes}
-                />
-                <Button
-                    className={bem('all', 'pagination-button')}
-                    borderless
-                    label="next"
-                    disabled={fetching || !themeInfo.pageInfo.hasNextPage}
-                    onClick={handleNextThemes}
-                />
+                <Fabric className={bem('all', 'pagination')}>
+                    <Button
+                        className={bem('all', 'pagination-button')}
+                        borderless
+                        label="prev"
+                        disabled={fetching || !themeInfo.pageInfo.hasPreviousPage}
+                        onClick={handlePreviousThemes}
+                    />
+                    <Button
+                        className={bem('all', 'pagination-button')}
+                        borderless
+                        label="next"
+                        disabled={fetching || !themeInfo.pageInfo.hasNextPage}
+                        onClick={handleNextThemes}
+                    />
+                </Fabric>
             </Fabric>
-
-            <Footer />
-        </Fabric>
+        </Page>
     )
 }
 
