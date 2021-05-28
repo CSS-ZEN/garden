@@ -97,7 +97,7 @@ export default function Garden ({theme, themeChoices}: IGardenProps) {
                         <h3>Participation</h3>
                         <p>Strong visual design has always been our focus. You are modifying this page, so strong <CssAbbr /> skills are necessary too, but the example files are commented well enough that even <CssAbbr /> novices can use them as starting points. Please see the <Link href="https://developer.mozilla.org/en-US/docs/Web/CSS" title="A listing of CSS-related resources"><><CssAbbr /> Resource Guide</></Link> for advanced tutorials and tips on working with <CssAbbr />.</p>
                         <p>You may modify the style sheet in any way you wish, but not the <HtmlAbbr />. This may seem daunting at first if you&#8217;ve never worked this way before, but follow the listed links to learn more, and use the sample files as a guide.</p>
-                        <p>Download the sample <HtmlSource label="HTML" /> and <CssSource id={theme.id} label="CSS" /> to work on a copy locally. Once you have completed your masterpiece (and please, don&#8217;t submit half-finished work) upload your <CssAbbr /> file to a web server under your control. <Link href="/submit" title="Use the contact form to send us your CSS file">Send us a link</Link> to an archive of that file and all associated assets, and if we choose to use it we will download it and place it on our server.</p>
+                        <p>Edit a theme at <Link href={`/submit?theme=${theme.id}`}>submit page</Link> starting from this theme and perfect it with the help of the live preview. Once you have completed your masterpiece (and please, don&#8217;t submit half-finished work) request a theme merge and we will add it to the official themes after it's reviewed.</p>
                     </div>
 
                     <div className="benefits" id="zen-benefits" role="article">
@@ -187,7 +187,7 @@ function Aside ({theme, themeChoices}: IGardenProps) {
                         <li className="view-css"><Link href={`/api/theme/${theme.id}`} title="View the source CSS file of the currently-viewed design.">View This Design&#8217;s <CssAbbr /></Link></li>
                         <li className="css-resources"><Link href="https://developer.mozilla.org/en-US/docs/Web/CSS" title="Links to great sites with information on using CSS."><CssAbbr /> Resources</Link></li>
                         <li className="zen-faq"><Link href="/about" title="A list of Frequently Asked Questions about the Zen Garden."><abbr title="Frequently Asked Questions">About</abbr></Link></li>
-                        <li className="zen-submit"><Link target="_blank" href="/submit" title="Send in your own CSS file.">Submit a Design</Link></li>
+                        <li className="zen-submit"><Link target="_blank" href={`/submit?theme=${theme.id}`} title="Send in your own CSS file.">Submit a Design</Link></li>
                         <li className="zen-translations"><a href="" title="View translated versions of this page.">Translations</a></li>
                     </ul>
                 </div>
