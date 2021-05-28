@@ -4,9 +4,10 @@ $footerTextHoverColor: #000;
 .fabric.footer {
   position: relative;
   top: $navHeight;
-  width: 100vw;
+  width: 100%;
   border-top: 1px solid hsl(0, 0%, 95%);
   height: 200px;
+  z-index: calc($zNav - 1);
   &,
   a {
     color: $footerTextColor;
@@ -16,6 +17,7 @@ $footerTextHoverColor: #000;
   }
   a {
     line-height: 1;
+    display: flex;
   }
   .footer {
     &__navigator {
@@ -67,8 +69,10 @@ $footerTextHoverColor: #000;
   }
 
   @media (max-width: 375px) {
-    flex-wrap: wrap;
     .footer {
+      &__content {
+        flex-wrap: wrap;
+      }
       &__copyright {
         align-items: center;
         flex-direction: row;

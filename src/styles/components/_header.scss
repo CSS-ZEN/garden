@@ -5,9 +5,12 @@
   top: 0;
   left: 0;
   right: 0;
+  z-index: $zNav;
 
   .header {
     &__title {
+      font-size: 2em;
+      font-weight: bold;
       margin: 10px 20px;
     }
 
@@ -21,6 +24,16 @@
 .fabric.footer {
   padding: 10px 10vw;
   background-color: rgba(#fff, 0.9);
-  z-index: $zNav;
   font-family: $fontSansSerif;
+  &--compact {
+    .header__content,
+    .footer__content {
+      max-width: $compactPageWidth;
+      padding: 0 32px;
+      @media (max-width: 520px) {
+        padding: 0px 16px;
+      }
+    }
+    padding: 10px 0px;
+  }
 }

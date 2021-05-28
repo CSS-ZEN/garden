@@ -1,6 +1,9 @@
+@import "../../styles/variables";
+
 .markdown-wrapper {
+  padding-top: $navHeight;
   .markdown {
-    max-width: 700px;
+    max-width: $compactPageWidth;
   }
 }
 

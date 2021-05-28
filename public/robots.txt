@@ -1,0 +1,7 @@
+User-agent: Googlebot-Image
+Disallow: /
+
+User-agent: *
+Disallow: /all
+Disallow: /submit
+Disallow: /theme
