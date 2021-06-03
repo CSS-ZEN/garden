@@ -23,10 +23,13 @@ export default function Footer ({compact}: IProps) {
                             <Link target="_blank" href="/about" className="footer__navigator-link--anchor">About</Link>
                         </Fabric>
                         <Fabric clearfix className="footer__navigator-link">
-                            <Link href="https://developer.mozilla.org/en-US/docs/Web/CSS" className="footer__navigator-link--anchor">Learn CSS Development</Link>
+                            <Link target="_blank" href="/all" title="View every submission to the Zen Garden." className="footer__navigator-link--anchor">All Designs</Link>
                         </Fabric>
                         <Fabric clearfix className="footer__navigator-link">
                             <Link target="_blank" href="/submit" title="Send in your own CSS file." className="footer__navigator-link--anchor">Submit a Design</Link>
+                        </Fabric>
+                        <Fabric clearfix className="footer__navigator-link">
+                            <Link href="https://developer.mozilla.org/en-US/docs/Web/CSS" className="footer__navigator-link--anchor">Learn CSS Development</Link>
                         </Fabric>
                         <Fabric clearfix className="footer__navigator-link">
                             Contact Us
