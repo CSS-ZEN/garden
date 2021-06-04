@@ -27,7 +27,9 @@
   h1 {
     white-space: nowrap;
   }
-  code,
+  code {
+    word-break: break-word;
+  }
   a {
     word-break: break-all;
   }
