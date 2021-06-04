@@ -26,6 +26,10 @@ export default function Markdown (markdown: IMarkdown) {
             anchor.innerHTML = octiconLink
             header.prepend(anchor)
         })
+
+        return () => {
+            headers.forEach(header => header.parentNode?.removeChild(header))
+        }
     }, [])
     return <article ref={$article} className={style['markdown-body']} dangerouslySetInnerHTML={{__html: markdown.content}} />
 }
