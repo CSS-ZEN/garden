@@ -3,7 +3,7 @@
 @import "components";
 
 [id] {
-  scroll-margin-top: 2ex;
+  scroll-margin-top: calc(2ex + #{$navHeight});
 }
 
 :target {

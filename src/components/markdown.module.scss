@@ -31,4 +31,21 @@
   a {
     word-break: break-all;
   }
+
+  h2 {
+    position: relative;
+    &:hover {
+      .header-anchor {
+        opacity: 1;
+      }
+    }
+  }
+
+  .header-anchor {
+    position: absolute;
+    left: 0;
+    transform: translateX(-100%);
+    opacity: 0;
+    padding-right: 4px;
+  }
 }
