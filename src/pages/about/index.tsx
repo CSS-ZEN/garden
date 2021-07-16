@@ -3,8 +3,8 @@ import {GetStaticProps, InferGetStaticPropsType} from 'next'
 
 import Fabric from 'src/components/fabric'
 import Page from 'src/components/Page'
-import Markdown, {IMarkdown} from 'src/components/markdown'
-import markdownToHtml from 'src/helpers/markdownToHtml'
+import Markdown, {IMarkdownProps} from '@csszen/components.markdown'
+import markdownToHtml from '@somarlyonks/markdown'
 
 import style from './about.module.scss'
 
@@ -21,7 +21,7 @@ export default function About (markdown: InferGetStaticPropsType<typeof getStati
     )
 }
 
-export const getStaticProps: GetStaticProps<IMarkdown, {}> = async () => {
+export const getStaticProps: GetStaticProps<IMarkdownProps, {}> = async () => {
     const m0dule = await import('README.md')
     return {
         props: {

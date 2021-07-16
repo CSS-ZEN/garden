@@ -10,7 +10,7 @@
     "monaco": "sh scripts/monaco.sh"
   },
   "dependencies": {
-    "@primer/css": "^16.2.0",
+    "@csszen/components.markdown": "^0.1.4",
     "@somarlyonks/bem": "^1.0.1",
     "next": "10.2.0",
     "react": "17.0.2",
@@ -18,12 +18,12 @@
   },
   "devDependencies": {
     "@octokit/graphql": "^4.6.1",
+    "@somarlyonks/markdown": "^1.0.0",
     "@somarlyonks/tslint": "^1.0.1",
     "@types/react": "^17.0.3",
     "monaco-editor": "^0.23.0",
+    "next-transpile-modules": "^8.0.0",
     "raw-loader": "^4.0.2",
-    "remark": "^13.0.0",
-    "remark-html": "^13.0.1",
     "sass": "^1.32.8",
     "sass.js": "^0.11.1",
     "tslint": "^6.1.3",

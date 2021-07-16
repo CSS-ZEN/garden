@@ -5,8 +5,8 @@ type Arg1<L> = L extends Lambda1<infer T> ? T : any
 type PromiseContent<P> = P extends Promise<infer PC> ? PC : any
 
 /**
- * @deprecated avoid use it anyway
  * @description explicit type of any
+ * @deprecated avoid using it anyway
  */
 type ANY = any
 
