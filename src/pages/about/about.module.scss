@@ -2,12 +2,10 @@
 
 .markdown-wrapper {
   padding-top: $navHeight;
-  .markdown {
-    max-width: $compactPageWidth;
-  }
 }
 
 .markdown {
+  max-width: $compactPageWidth;
   font-size: 14px;
   padding: 16px 32px;
   @media (max-width: 520px) {

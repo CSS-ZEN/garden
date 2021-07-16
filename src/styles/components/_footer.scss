@@ -11,13 +11,13 @@ $footerTextHoverColor: #000;
   &,
   a {
     color: $footerTextColor;
-    &:hover {
-      color: $footerTextHoverColor;
-    }
   }
   a {
     line-height: 1;
     display: flex;
+    &:hover {
+      color: $footerTextHoverColor;
+    }
   }
   .footer {
     &__navigator {
