@@ -33,7 +33,7 @@ export default function Footer ({compact}: IProps) {
                         </Fabric>
                         <Fabric clearfix className="footer__navigator-link">
                             Contact Us
-                        <Link className="footer__navigator-link-icon" href="https://github.com/css-zen/garden"><OcticonGithub /></Link>
+                            <Link className="footer__navigator-link-icon" href="https://github.com/css-zen/garden"><OcticonGithub /></Link>
                             <Link className="footer__navigator-link-icon" href="https://join.slack.com/t/csszen/shared_invite/zt-qzopmgzo-F15aU9C0sTYnO13_qc4ZRg"><Slack /></Link>
                         </Fabric>
                     </Fabric>
