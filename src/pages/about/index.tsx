@@ -1,4 +1,5 @@
 
+import {readFile} from 'fs/promises'
 import {GetStaticProps, InferGetStaticPropsType} from 'next'
 
 import Fabric from 'src/components/fabric'
@@ -22,10 +23,10 @@ export default function About (markdown: InferGetStaticPropsType<typeof getStati
 }
 
 export const getStaticProps: GetStaticProps<IMarkdownProps, {}> = async () => {
-    const m0dule = await import('README.md')
+    const file = await readFile('README.md', 'utf8')
     return {
         props: {
-            content: await markdownToHtml(m0dule.default),
+            content: await markdownToHtml(file),
         },
     }
 }
