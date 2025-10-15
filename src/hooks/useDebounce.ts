@@ -5,7 +5,7 @@ import {useCallback, useState, useRef, useEffect} from 'react'
 export default function useDebounce<T extends Lambda> (f: T, ms: number): [boolean, T] {
     const [debouncing, setDebouncing] = useState(false)
     const savedCallback = useRef(f)
-    const tomb = useRef<ReturnType<typeof setTimeout>>()
+    const tomb = useRef<ReturnType<typeof setTimeout>>(undefined)
     const [action, setAction] = useState<() => void>(() => {})
 
     const killDebounced = (release = false) => {

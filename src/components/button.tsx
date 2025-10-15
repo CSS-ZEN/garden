@@ -1,4 +1,4 @@
-
+import type {JSX} from 'react'
 import Fabric from './fabric'
 import {useBem} from 'src/hooks'
 

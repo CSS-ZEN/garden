@@ -1,6 +1,5 @@
 
 import type {Options} from 'sass'
-import type {IBasicFile} from 'src/helpers/values'
 
 
 export default async function compileSass (content: string, options: Partial<Options<'async'>> = {}) {
