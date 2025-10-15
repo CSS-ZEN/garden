@@ -148,12 +148,11 @@ async function handleMonacoValueChange (
     value: string,
     setState: Dispatch<SetStateAction<typeof defaultTheme>>
 ) {
-    const scssResult = filename === DEFAULT_THEME_SCSS_FILE ? await compileSass({filename, content: value}) : null
-    if (scssResult && scssResult.status) return console.error(scssResult.formatted)
+    const scssResult = filename === DEFAULT_THEME_SCSS_FILE ? await compileSass(value) : ''
 
     setState(prev => {
         const theme = filename === DEFAULT_THEME_SCSS_FILE
-            ? scssResult!.text
+            ? scssResult
             : filename === DEFAULT_THEME_FILE ? value : prev.theme
         const files = {
             ...prev.files,
