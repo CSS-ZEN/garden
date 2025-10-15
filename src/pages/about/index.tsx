@@ -3,7 +3,7 @@ import {GetStaticProps, InferGetStaticPropsType} from 'next'
 
 import Fabric from 'src/components/fabric'
 import Page from 'src/components/Page'
-import Markdown, {IMarkdownProps} from '@csszen/components.markdown'
+import Markdown, {IMarkdownProps} from 'src/components/markdown'
 import markdownToHtml from '@somarlyonks/markdown'
 
 import style from './about.module.scss'

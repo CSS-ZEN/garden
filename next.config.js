@@ -1,9 +1,4 @@
-const withTM = require('next-transpile-modules')([
-    '@csszen/components.markdown',
-])
-
-
-module.exports = withTM({
+module.exports = {
     webpack5: true,
     images: {
         domains: ['csszen-screenshot.s3.us-east-2.amazonaws.com']
@@ -32,4 +27,4 @@ module.exports = withTM({
             permanent: true,
         },
     ]
-})
+}

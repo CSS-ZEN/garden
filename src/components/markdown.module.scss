@@ -1,0 +1,122 @@
+// light theme
+.markdown-body {
+  @import "@primer/css/base/index.scss";
+  --color-text-primary: #24292e;
+  --color-text-secondary: #586069;
+  --color-text-tertiary: #6a737d;
+  --color-text-link: #0366d6;
+  --color-text-danger: #cb2431;
+  --color-border-primary: #e1e4e8;
+  --color-border-secondary: #eaecef;
+  --color-border-tertiary: #d1d5da;
+  --color-border-overlay: #e1e4e8;
+  --color-border-inverse: #fff;
+  --color-bg-primary: #fff;
+  --color-bg-secondary: #fafbfc;
+  --color-bg-tertiary: #f6f8fa;
+  --color-markdown-code-bg: rgba(27, 31, 35, 0.05);
+  --color-markdown-frame-border: #dfe2e5;
+  --color-markdown-blockquote-border: #dfe2e5;
+  --color-markdown-table-border: #dfe2e5;
+  --color-markdown-table-tr-border: #c6cbd1;
+  --color-btn-bg: #fafbfc;
+  --color-btn-border: rgba(27, 31, 35, 0.15);
+  --color-btn-hover-bg: #f3f4f6;
+  --color-btn-hover-border: rgba(27, 31, 35, 0.15);
+  --color-btn-active-bg: #ebecf0;
+  --color-btn-active-border: rgba(27, 31, 35, 0.1);
+  --color-border-success: #34d058;
+  --color-text-success: #22863a;
+}
+
+@import "@primer/css/markdown/index.scss";
+
+.markdown-body {
+  h1 {
+    white-space: nowrap;
+  }
+  code {
+    word-break: break-word;
+  }
+  a {
+    word-break: break-all;
+  }
+  img {
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-anchor,
+  .pre-clippy {
+    position: absolute;
+    opacity: 0;
+    transition: all 0.1s ease-in;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    position: relative;
+    &:hover {
+      .header-anchor {
+        opacity: 1;
+      }
+    }
+  }
+
+  .header-anchor {
+    left: 0;
+    transform: translateX(-100%);
+    padding-right: 4px;
+  }
+
+  pre {
+    position: relative;
+    &:hover {
+      .pre-clippy {
+        opacity: 1;
+      }
+    }
+  }
+
+  .pre-clippy {
+    top: 0;
+    right: 0;
+    margin: 6px;
+    background-color: var(--color-btn-bg);
+    border: 1px solid var(--color-btn-border);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    &:hover {
+      background-color: var(--color-btn-hover-bg);
+      border-color: var(--color-btn-hover-border);
+    }
+    &:active {
+      background-color: var(--color-btn-hover-bg);
+      border-color: var(--color-btn-active-border);
+    }
+    svg {
+      margin: 8px;
+      color: var(--color-text-tertiary);
+      fill: currentColor;
+    }
+    .octicon-check {
+      display: none;
+      color: var(--color-text-success);
+    }
+    &--success {
+      border-color: var(--color-border-success);
+      box-shadow: 0 0 0 0.2em rgb(52 208 88 / 40%);
+      .octicon-check {
+        display: inline-block;
+      }
+      .octicon-clippy {
+        display: none;
+      }
+    }
+  }
+}
