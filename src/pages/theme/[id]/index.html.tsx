@@ -1,5 +1,5 @@
 
-import {GetStaticPaths, InferGetStaticPropsType, GetStaticPropsResult} from 'next'
+import {GetStaticPaths, InferGetStaticPropsType, GetStaticProps} from 'next'
 import {useRouter} from 'next/router'
 import type {ParsedUrlQuery} from 'querystring'
 
@@ -33,7 +33,7 @@ export const getStaticPaths: GetStaticPaths<IStaticProps> = async ctx => {
     }
 }
 
-export const getStaticProps: (context: {params: IStaticProps}) => Promise<GetStaticPropsResult<IGardenProps>> = async ({params: {id}}) => {
+export const getStaticProps: GetStaticProps<IGardenProps, IStaticProps> = async ({params: {id} = {id: ''}}) => {
     const [theme, themeChoices] = await Promise.all([
         getThemePropsById(id),
         safeWaitPromise(getThemesByCursor(), defaultThemes),

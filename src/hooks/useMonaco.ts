@@ -2,7 +2,7 @@
 import {RefObject, useEffect, useRef, useState} from 'react'
 
 interface IMonacoConsumer {
-    container: RefObject<HTMLDivElement>,
+    container: RefObject<HTMLDivElement | null>,
     editor: monaco.editor.IStandaloneCodeEditor | null
 }
 

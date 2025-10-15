@@ -1,19 +1,6 @@
-const withTM = require('next-transpile-modules')([
-    '@csszen/components.markdown',
-])
-
-
-module.exports = withTM({
-    webpack5: true,
+module.exports = {
     images: {
         domains: ['csszen-screenshot.s3.us-east-2.amazonaws.com']
-    },
-    webpack: config => {
-        config.module.rules.push({
-            test: /\.md$/,
-            use: 'raw-loader',
-        })
-        return config
     },
     rewrites: async () => [
         {
@@ -32,4 +19,4 @@ module.exports = withTM({
             permanent: true,
         },
     ]
-})
+}

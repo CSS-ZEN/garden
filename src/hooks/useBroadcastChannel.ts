@@ -11,7 +11,7 @@ interface IBroadcastChannelEvent<T> {
 /**
  * @description sync state between broadcast channels
  *
- * New comsumers get the latest state by firing a 'birth' event.
+ * New consumers get the latest state by firing a 'birth' event.
  */
 export default function useBroadcastChannel<T> (name: string, data: T): [T, Dispatch<SetStateAction<T>>] {
     const [state, setState] = useState<T>(data)

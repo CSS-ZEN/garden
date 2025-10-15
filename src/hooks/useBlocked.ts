@@ -14,7 +14,7 @@ export default function useBlocked<T extends Lambda<ANY>> (action: T, deps: Depe
         } finally {
             setBlocked(false)
         }
-    }) as T, [blocked].concat(deps))
+    }) as T, deps.concat([blocked]))
 
     return [blocked, fa]
 }

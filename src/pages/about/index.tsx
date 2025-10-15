@@ -1,9 +1,10 @@
 
+import {readFile} from 'fs/promises'
 import {GetStaticProps, InferGetStaticPropsType} from 'next'
 
 import Fabric from 'src/components/fabric'
 import Page from 'src/components/Page'
-import Markdown, {IMarkdownProps} from '@csszen/components.markdown'
+import Markdown, {IMarkdownProps} from 'src/components/markdown'
 import markdownToHtml from '@somarlyonks/markdown'
 
 import style from './about.module.scss'
@@ -22,10 +23,10 @@ export default function About (markdown: InferGetStaticPropsType<typeof getStati
 }
 
 export const getStaticProps: GetStaticProps<IMarkdownProps, {}> = async () => {
-    const m0dule = await import('README.md')
+    const file = await readFile('README.md', 'utf8')
     return {
         props: {
-            content: await markdownToHtml(m0dule.default),
+            content: await markdownToHtml(file),
         },
     }
 }

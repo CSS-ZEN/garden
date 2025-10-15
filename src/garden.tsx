@@ -1,12 +1,12 @@
 
 import {useRef, useState} from 'react'
+import type {Options} from 'sass'
 
 import Head from 'src/components/head'
 import Link from 'src/components/link'
 import type {IGraphqlPageInfo} from 'src/helpers/fetchGists'
 import {FETCH_GISTS_CACHE_LIFETIME} from 'src/config'
 import useBlocked from 'src/hooks/useBlocked'
-import type {ISassOptions} from 'src/helpers/compileSass'
 
 
 export interface IThemeManifest {
@@ -16,7 +16,7 @@ export interface IThemeManifest {
     config?: {
         language: 'css' | 'scss'
         editorOptions?: {} // TODO: @sy
-        sassOptions?: Partial<ISassOptions>
+        sassOptions?: Partial<Options<'async'>>
     }
 }
 

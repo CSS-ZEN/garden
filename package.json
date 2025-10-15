@@ -10,23 +10,21 @@
     "monaco": "sh scripts/monaco.sh"
   },
   "dependencies": {
-    "@csszen/components.markdown": "^0.1.4",
-    "@somarlyonks/bem": "^1.0.1",
-    "next": "11.0.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "@primer/css": "17.3.0",
+    "next": "^15.5.5",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@octokit/graphql": "^4.6.1",
     "@somarlyonks/markdown": "^1.0.0",
     "@somarlyonks/tslint": "^1.0.1",
-    "@types/react": "^17.0.3",
+    "@types/node": "24.7.2",
+    "@types/react": "^19.2.2",
     "monaco-editor": "^0.23.0",
-    "next-transpile-modules": "^8.0.0",
     "raw-loader": "^4.0.2",
-    "sass": "^1.32.8",
-    "sass.js": "^0.11.1",
+    "sass": "1.93.2",
     "tslint": "^6.1.3",
-    "typescript": "^4.2.4"
+    "typescript": "5.9.3"
   }
 }
