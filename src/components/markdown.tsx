@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react'
+import {useRef, useEffect} from 'react'
 import style from './markdown.module.scss'
 import {useClipboard} from 'src/hooks'
 
